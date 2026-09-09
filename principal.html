@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Principal - Final</title>
+    
+    <!-- ✅ Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- ✅ Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    
+    <!-- ✅ CSS Personalizado -->
+    <link rel="stylesheet" href="css/principal.css" />
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                -->
+    <!-- ============================================ -->
+    <main class="flex-grow">
+        <!-- ============================================ -->
+        <!-- BANNER SECTION                              -->
+        <!-- ============================================ -->
+        <section class="bg-banner-gradient rounded-b-[40px] pb-14 relative overflow-hidden pt-12">
+            <div class="relative z-10 px-gutter">
+                <h2 class="text-[42px] font-bold text-white leading-tight mb-2">Consulta</h2>
+                <p class="text-[16px] leading-relaxed text-white/90 font-medium w-full mb-6">
+                    Explora datos en tiempo real de lluvias, niveles de ríos, caudales, pronósticos y más.
+                </p>
+                
+                <a class="inline-flex items-center gap-3 bg-white text-primary font-bold text-[16px] px-8 py-4 rounded-2xl shadow-lg active:scale-95 transition-transform" href="consulta.html">
+                Ir a Consulta
+                <span class="material-symbols-outlined font-bold">arrow_forward</span>
+              </a>
+            </div>
+        </section>
+        
+        <!-- ============================================ -->
+        <!-- LIST SECTION                                -->
+        <!-- ============================================ -->
+        <section class="px-gutter mt-10 flex flex-col gap-5 max-w-screen-xl mx-auto">
+            
+            <!-- Card 1 - Informe Sobre Los Reportes -->
+            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
+                <img 
+                    src="assets/icon-reportes.png" 
+                    alt="Ícono de Reportes" 
+                    class="w-12 h-12 flex-shrink-0"
+                />
+                <div class="flex-grow">
+                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Informe Sobre Los Reportes</h3>
+                    <p class="text-[14px] text-on-surface-variant leading-snug">Reporta problemas o incidencias fácilmente.</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined text-primary">chevron_right</span>
+                </div>
+            </div>
+            
+            <!-- Card 2 - Acerca de nosotros -->
+            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
+                <img 
+                    src="assets/icon-acerca.png" 
+                    alt="Acerca de nosotros" 
+                    class="w-12 h-12 flex-shrink-0"
+                />
+                <div class="flex-grow">
+                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Acerca de nosotros</h3>
+                    <p class="text-[14px] text-on-surface-variant leading-snug">Conoce nuestra misión, equipo y compromiso.</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined text-primary">chevron_right</span>
+                </div>
+            </div>
+            
+            <!-- Card 3 - Fuentes de Datos -->
+            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
+                <img 
+                    src="assets/icon-fuentes.png" 
+                    alt="Fuentes de Datos" 
+                    class="w-12 h-12 flex-shrink-0"
+                />
+                <div class="flex-grow">
+                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Fuentes de Datos</h3>
+                    <p class="text-[14px] text-on-surface-variant leading-snug">Información sobre nuestras fuentes oficiales y metodología.</p>
+                </div>
+                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
+                    <span class="material-symbols-outlined text-primary">chevron_right</span>
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <!-- ✅ JavaScript -->
+    <script src="js/principal.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Reporte - Final</title>
+    
+    <!-- ✅ Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- ✅ Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- ✅ Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <!-- ✅ CSS Personalizado -->
+    <link rel="stylesheet" href="css/reportes.css" />
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- MAIN CONTAINER                              -->
+    <!-- ============================================ -->
+   <main class="w-full bg-white relative">
+        
+        <!-- ============================================ -->
+        <!-- HEADER                                      -->
+        <!-- ============================================ -->
+        <header class="pt-8 px-6 pb-4">
+            <div class="flex items-center justify-between mb-2">
+                <button class="p-3 bg-white rounded-2xl shadow-sm border border-slate-100" id="back-button">
+                    <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </button>
+                <div class="text-center flex-1 pr-10">
+                    <h1 class="text-2xl font-bold text-slate-900">Reportes</h1>
+                </div>
+            </div>
+        </header>
+        
+        <!-- ============================================ -->
+        <!-- HERO BANNER                                 -->
+        <!-- ============================================ -->
+        <section class="px-3 mb-6">
+            <div class="relative rounded-3xl overflow-hidden h-[200px] flex items-center">
+                <div class="absolute inset-0 z-0">
+                    <img 
+                        alt="Robot Assistant" 
+                        class="w-full h-full object-cover object-center" 
+                        src="assets/robot-assistant.png"
+                    />
+                    <div class="absolute inset-0 bg-white/40"></div>
+                </div>
+                <div class="relative z-10 p-6 max-w-[65%] space-y-2">
+                    <h2 class="text-xl font-bold text-slate-900 leading-tight">
+                        Tu reporte nos ayuda a mejorar
+                    </h2>
+                    <p class="text-xs text-slate-800 leading-relaxed font-medium">
+                        Informa de cualquier problema incidencia que tengas con el sistema. Nuestro equipo técnico lo revisará lo antes posible.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============================================ -->
+        <!-- REPORT FORM                                 -->
+        <!-- ============================================ -->
+        <form class="px-6 space-y-6" id="main-report-form">
+            
+            <!-- Report Type Selector -->
+            <section id="report-type-carousel-container">
+                <h2 class="text-sm font-bold text-slate-900 mb-3">Tipo de reporte</h2>
+                <div class="relative flex items-center justify-between rounded-2xl p-4 border border-slate-100 bg-white shadow-sm overflow-hidden">
+                    
+                    <!-- Left Arrow -->
+                    <button class="z-20 p-2 bg-white rounded-full shadow-sm border border-slate-100 text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center" id="prev-report" type="button">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    
+                    <!-- Carousel Container -->
+                    <div class="carousel-container flex-1 relative h-32 flex items-center justify-center">
+                        <div class="flex transition-transform duration-500 ease-in-out absolute inset-0" id="carousel-track"></div>
+                    </div>
+                    
+                    <!-- Right Arrow -->
+                    <button class="z-20 p-2 bg-white rounded-full shadow-sm border border-slate-100 text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center" id="next-report" type="button">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Location Selectors -->
+            <div class="flex flex-col gap-4" id="location-selectors-container">
+                
+                <!-- Departamento Selector -->
+                <div class="space-y-1.5 relative" id="dept-container">
+                    <label class="text-xs font-semibold text-slate-500 ml-1">Departamento</label>
+                    <div class="relative">
+                        <button class="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-10 text-left text-sm font-medium focus:ring-2 focus:ring-blue-500 outline-none transition-all flex items-center justify-between" id="dept-trigger" type="button">
+                            <span class="truncate" id="dept-selected-text">Seleccione un departamento</span>
+                        </button>
+                        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-blue-500 text-xl">location_on</span>
+                        </div>
+                        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-slate-400 text-xl">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Municipio Selector -->
+                <div class="space-y-1.5 relative" id="muni-container">
+                    <label class="text-xs font-semibold text-slate-500 ml-1">Municipio</label>
+                    <div class="relative">
+                        <button class="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl px-10 text-left text-sm font-medium opacity-50 cursor-not-allowed focus:ring-2 focus:ring-blue-500 outline-none transition-all flex items-center justify-between" disabled id="muni-trigger" type="button">
+                            <span class="truncate" id="muni-selected-text">Seleccione un municipio</span>
+                        </button>
+                        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-blue-500 text-xl">map</span>
+                        </div>
+                        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-slate-400 text-xl">expand_more</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Email Input -->
+            <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-500 ml-1">Correo electrónico</label>
+                <div class="relative">
+                    <input class="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400" id="email-input" placeholder="ejemplo@correo.com" type="email" />
+                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-blue-500 text-xl">mail</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Subject Input -->
+            <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-500 ml-1">Asunto</label>
+                <div class="relative">
+                    <input class="w-full h-12 bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400" id="subject-input" placeholder="Describe brevemente el problema" type="text" />
+                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Description Input -->
+            <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-500 ml-1">Descripción detallada</label>
+                <div class="relative">
+                    <textarea class="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400 leading-relaxed" id="desc-input" placeholder="Cuéntanos con más detalle qué sucedió, en qué parte del sistema ocurre y qué estabas haciendo." rows="4"></textarea>
+                    <div class="absolute top-3 left-3 flex items-start pointer-events-none">
+                        <svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-200 flex items-center justify-center space-x-2 transition-transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 transition-opacity" disabled id="submit-button" type="submit">
+                <svg class="h-5 w-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span>Enviar Reporte</span>
+            </button>
+            
+            <!-- Footer Security -->
+            <div class="flex items-center justify-center space-x-1.5 pb-4">
+                <svg class="h-3 w-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <p class="text-[10px] text-slate-400 font-medium">Tu información está segura. Solo nuestro equipo podrá verla.</p>
+            </div>
+            
+        </form>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- BOTTOM SHEET                                -->
+    <!-- ============================================ -->
+    <div class="fixed inset-0 z-50 pointer-events-none" id="bottom-sheet-container">
+        <!-- Overlay -->
+        <div class="bottom-sheet-overlay absolute inset-0 bg-slate-900/60 opacity-0 pointer-events-none transition-opacity duration-300" id="bs-overlay"></div>
+        
+        <!-- Content Area -->
+        <div class="bottom-sheet-content absolute inset-x-0 bottom-0 bg-white max-h-[80vh] overflow-hidden flex flex-col shadow-2xl pointer-events-auto" id="bs-content">
+            <div class="w-12 h-1 bg-slate-200 rounded-full mx-auto mt-3 mb-6"></div>
+              <div class="px-6 pb-4">
+                 <h3 class="text-[20px] font-semibold text-slate-900 text-center mb-4" id="bs-title">Seleccionar</h3>
+              </div>
+            <div class="flex-1 overflow-y-auto px-6 pb-10 space-y-2" id="bs-list"></div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODAL DE ENVÍO EXITOSO                      -->
+    <!-- ============================================ -->
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] hidden" id="success-modal">
+        <div class="modal-content bg-white rounded-2xl p-8 mx-4 max-w-sm w-full flex flex-col items-center text-center shadow-2xl">
+            <div class="w-24 h-24 rounded-full flex items-center justify-center mb-6" style="background-color: rgba(0, 102, 204, 0.1);">
+                <video class="w-24 h-24 object-contain" id="success-video" autoplay muted playsinline src="assets/video_icono_exito.mp4"></video>
+            </div>
+            <h2 class="text-[28px] font-bold mb-3" style="color: #131b2e;">¡Envío Exitoso!</h2>
+            <p class="text-[16px] mb-10 leading-relaxed" style="color: #45464d;">
+                Tu reporte ha sido enviado correctamente. Nuestro equipo lo revisará pronto y tomará las acciones necesarias.
+            </p>
+            <button class="w-full text-white py-4 px-6 rounded-lg font-semibold text-center transition-all duration-200 active:scale-95 hover:opacity-90" id="btn-volver-inicio" style="background-color: #0066cc;">
+                Volver al Inicio
+            </button>
+        </div>
+    </div>
+
+    <!-- ✅ JavaScript -->
+    <script src="js/reportes.js"></script>
+</body>
+</html>

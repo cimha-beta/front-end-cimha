@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Generando Pronóstico</title>
+
+    <!-- ✅ Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- ✅ CSS Personalizado -->
+    <link rel="stylesheet" href="css/carga-pronostico.css" />
+</head>
+
+<body>
+    <!-- ============================================ -->
+    <!-- STATUS BAR (VACÍO)                           -->
+    <!-- ============================================ -->
+    <header class="flex justify-between items-center px-8 py-4 w-full"></header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT (pantalla normal, sin card)     -->
+    <!-- ============================================ -->
+    <main class="flex-grow flex flex-col items-center justify-center px-10 text-center">
+        <div class="w-full max-w-[280px] flex flex-col items-center">
+
+            <!-- Titles and Description -->
+            <h1 class="text-headline-lg-mobile font-bold text-on-surface mb-stack-md">Generando Pronóstico</h1>
+            <p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed mb-8">
+                Este proceso puede tardar unos minutos.<br />
+            </p>
+
+            <!-- ============================================ -->
+            <!-- MAPA DE PROGRESO (odómetro + puntos)         -->
+            <!-- ============================================ -->
+            <div class="map-row" id="map-row">
+                <div class="odometer-wrap">
+                    <div class="odometer" id="odometer"></div>
+                    <div class="percent-sign">%</div>
+                </div>
+                <div class="map-wrapper" id="map-wrapper">
+                    <svg viewBox="0 0 330 320" preserveAspectRatio="none">
+                        <path id="path-bg" class="path-line" d=""></path>
+                        <path id="path-progress" class="path-progress" d=""></path>
+                    </svg>
+                    <!-- Los nodos y la etiqueta de paso se insertan dinámicamente por JS -->
+                </div>
+            </div>
+
+            <!-- Cancel Button -->
+            <button
+                class="w-full py-4 bg-red-600 rounded-xl flex items-center justify-center space-x-2 text-white font-bold active:bg-red-700 transition-colors mt-8"
+                id="cancel-button">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span>Cancelar</span>
+            </button>
+
+        </div>
+    </main>
+
+    <!-- Cancel Modal (única "card" de la pantalla) -->
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden" id="cancel-modal">
+        <div class="modal-content bg-white rounded-2xl p-8 mx-4 max-w-sm w-full flex flex-col items-center text-center shadow-2xl">
+            <video class="w-24 h-24 object-contain mb-4" id="cancel-video" autoplay muted playsinline src="assets/video_icono_cancelacion.mp4"></video>
+            <h2 class="text-xl font-bold text-gray-900 mb-2">Proceso Cancelado</h2>
+            <p class="text-gray-500 mb-6">El proceso fue cancelado.<br> Se redirigira a la pantalla Principal.</p>
+            <button class="bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-colors" id="modal-ok-btn">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- ✅ JavaScript -->
+    <script src="js/carga-pronostico.js"></script>
+</body>
+
+</html>

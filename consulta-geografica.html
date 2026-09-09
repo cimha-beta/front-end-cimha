@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Consulta Territorial</title>
+    
+    <!-- ✅ Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- ✅ Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    
+    <!-- ✅ CSS Personalizado -->
+    <link rel="stylesheet" href="css/consulta-geografica.css" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                -->
+    <!-- ============================================ -->
+    <main class="w-full max-w-md px-container-margin-mobile flex flex-col items-center py-stack-lg transition-opacity duration-500">
+        
+        <!-- Logo/Icon -->
+        <div class="mb-stack-lg animate-fade-in">
+            <img 
+                alt="Consulta Geografica Logo" 
+                class="object-contain mx-auto" 
+                src="assets/consulta-logo.png"
+                style="width: 117px; height: 117px;"
+            />
+        </div>
+        
+        <!-- Header -->
+        <header class="text-center mb-10">
+           <h1 class="text-[23px] font-bold text-primary mb-stack-sm">
+                Consulta Geográfica
+            </h1>
+            <p class="font-body-sm text-on-surface-variant max-w-[280px] mx-auto">
+                Seleccione el departamento y municipio para realizar la consulta.
+            </p>
+        </header>
+        
+        <!-- Form -->
+        <div class="w-full space-y-6">
+            
+            <!-- Departamento Field -->
+            <div class="space-y-2">
+                <label class="block font-body-sm font-bold text-on-background ml-1">
+                    Departamento
+                </label>
+                <button 
+                    class="w-full h-14 flex items-center justify-between px-4 bg-surface border border-outline-variant rounded-xl text-left hover:border-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-secondary/20" 
+                    id="dept-trigger"
+                >
+                    <span class="text-on-surface text-on-surface-variant" id="dept-label">
+                        Seleccione un departamento
+                    </span>
+                    <span class="material-symbols-outlined text-outline">expand_more</span>
+                </button>
+            </div>
+            
+            <!-- Municipio Field -->
+            <div class="space-y-2">
+                <label class="block font-body-sm font-bold text-on-background ml-1">
+                    Municipio
+                </label>
+                <button 
+                    class="w-full h-14 flex items-center justify-between px-4 border border-outline-variant/30 rounded-xl text-left transition-all bg-surface opacity-50 cursor-not-allowed" 
+                    id="muni-trigger"
+                    disabled
+                >
+                    <span class="text-on-surface text-on-surface-variant" id="muni-label">
+                        Seleccione un municipio
+                    </span>
+                    <span class="material-symbols-outlined text-outline">expand_more</span>
+                </button>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="pt-4">
+                <button 
+                    class="w-full h-14 font-bold rounded-xl transition-all duration-300 flex items-center justify-center active:scale-[0.98] active:opacity-80 text-on-primary shadow-lg bg-surface-dim" 
+                    id="submit-btn"
+                    disabled
+                >
+                    Ingresar
+                </button>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- BOTTOM SHEET COMPONENT                       -->
+    <!-- ============================================ -->
+    <div class="overlay fixed inset-0 bg-primary-container/40 z-[60]" id="modal-overlay"></div>
+    
+    <div class="bottom-sheet fixed bottom-0 left-0 right-0 bg-surface rounded-t-[1.5rem] z-[70] max-h-[80vh] flex flex-col shadow-2xl" id="bottom-sheet">
+        <div class="w-12 h-1 bg-outline-variant rounded-full mx-auto my-3"></div>
+        <div class="px-gutter pb-4">
+            <h3 class="font-headline-md text-headline-md text-primary mb-4 text-center" id="modal-title">
+                Seleccione Municipio
+            </h3>
+        </div>
+        <div class="overflow-y-auto flex-1 pb-8" id="options-list"></div>
+    </div>
+
+    <!-- ✅ JavaScript -->
+    <script src="js/consulta-geografica.js"></script>
+</body>
+</html>

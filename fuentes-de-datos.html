@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fuentes de datos</title>
+    
+    <!-- ✅ Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- ✅ Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <!-- ✅ Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- ✅ CSS Personalizado -->
+    <link rel="stylesheet" href="css/fuentes-de-datos.css" />
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- TOP APP BAR                                 -->
+    <!-- ============================================ -->
+   <header class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md px-6 py-4 flex items-center">
+    <button class="bg-white p-2 rounded-xl shadow-sm border border-slate-100" id="back-button">
+        <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+    </button>
+    <div class="flex-1 text-center pr-8">
+        <h1 class="text-2xl font-bold text-slate-900">Fuentes de datos</h1>
+    </div>
+</header>
+
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                -->
+    <!-- ============================================ -->
+    <main class=" mt-[20px] px-container-margin-mobile space-y-8 flex flex-col items-center max-w-4xl mx-auto pb-12">
+        
+        <!-- Card 1: Datos Climáticos -->
+        <section class="w-full bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm border border-outline-variant group transition-all duration-300 hover:shadow-md">
+            <div class="h-48 relative overflow-hidden">
+                <img 
+                    alt="Datos Climáticos" 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                    src="assets/fuente-climatica.png"
+                />
+            </div>
+            <div class="p-6 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold text-primary-container">Datos Climáticos</h2>
+                <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                    Utilizamos fuentes oficiales y confiables que nos brindan información meteorológica en tiempo real y pronósticos actualizados sobre las condiciones del clima.
+                </p>
+                <div class="pt-2">
+                    <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-on-primary rounded-full font-semibold transition-all duration-200 hover:opacity-90 active:scale-95 shadow-lg shadow-primary/10" id="btn-climaticas">
+                        <span class="material-symbols-outlined text-[20px]">link</span>
+                        <span class="text-body-sm font-bold tracking-wide">Ver Fuentes Climáticas</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Card 2: Datos Hidrológicos -->
+        <section class="w-full bg-surface-container-lowest rounded-3xl overflow-hidden shadow-sm border border-outline-variant group transition-all duration-300 hover:shadow-md">
+            <div class="h-48 relative overflow-hidden">
+                <img 
+                    alt="Datos Hidrológicos" 
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                    src="assets/fuente-hidrologica.png"
+                />
+            </div>
+            <div class="p-6 flex flex-col gap-4">
+                <h2 class="text-2xl font-bold text-primary-container">Datos Hidrológicos</h2>
+                <p class="text-on-surface-variant text-body-lg leading-relaxed">
+                    Consultamos fuentes oficiales que suministran datos hidrológicos en tiempo real sobre los niveles, caudales y comportamiento de los ríos y sus estaciones de monitoreo.
+                </p>
+                <div class="pt-2">
+                    <button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-on-primary rounded-full font-semibold transition-all duration-200 hover:opacity-90 active:scale-95 shadow-lg shadow-primary/10" id="btn-hidrologicas">
+                        <span class="material-symbols-outlined text-[20px]">link</span>
+                        <span class="text-body-sm font-bold tracking-wide">Ver fuentes hidrológicas</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+   
+    <!-- ✅ JavaScript -->
+    <script src="js/fuentes-de-datos.js"></script>
+</body>
+</html>

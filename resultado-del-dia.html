@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Resultado del Día - CIMHA</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS (solo para utilidades que no afectan tamaños) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/resultado-del-dia.css?v=20260907" />
+</head>
+
+<body>
+    <main class="main-container w-full flex flex-col p-6 space-y-6 relative h-full overflow-y-auto">
+
+        <div class="absolute inset-0 bg-gradient-to-b from-white to-white z-0 pointer-events-none opacity-90"></div>
+
+        <div class="relative z-10 space-y-6">
+
+            <!-- ============================================ -->
+            <!-- HEADER SECTION - Ubicación y fecha          -->
+            <!-- ============================================ -->
+            <header class="header-container">
+                <div class="header-top">
+                    <div class="header-icon">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path clip-rule="evenodd"
+                                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <h1 id="ubicacion" class="header-title">Cargando ubicación...</h1>
+                </div>
+
+                <div class="header-meta">
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                    <span id="fecha" class="text-slate-500 text-sm">--</span>
+                    <span class="header-meta-separator">&middot;</span>
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                    <span id="hora" class="text-slate-500 text-sm">--:--</span>
+                </div>
+            </header>
+
+            <!-- ============================================ -->
+            <!-- CATEGORY SELECTOR - Botones Clima/Río       -->
+            <!-- ============================================ -->
+            <section class="category-selector-wrapper w-full flex justify-center px-6 mt-4">
+                <div class="category-selector">
+                    <button class="toggle-btn toggle-btn-inactive" id="btn-clima" type="button">
+                        Clima
+                    </button>
+                    <button class="toggle-btn toggle-btn-active" id="btn-rio" type="button">
+                        Río
+                    </button>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- HERO WEATHER CARD - Banner azul grande      -->
+            <!-- ============================================ -->
+            <section class="weather-gradient">
+
+                <!-- Contenedor de la temperatura y estado -->
+                <div class="weather-top">
+                    <div class="weather-temp">
+                        <span id="temp-actual" class="temp-number">--</span>
+                        <span class="temp-degree">°</span>
+                        <!-- CONTENEDOR DEL VIDEO -->
+                        <div id="video-estado-cielo" class="weather-video-container">
+                            <video id="video-clima" muted autoplay loop playsinline>
+                                <source id="video-source" src="" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <p id="estado-cielo" class="weather-sky">Cargando información...</p>
+                </div>
+
+                <!-- Tarjeta blanca de estadísticas -->
+                <div class="weather-stats-card">
+                    <!-- Temperatura Máxima -->
+                    <div class="weather-stat">
+                        <div class="stat-icon bg-red">
+                            <img src="assets/icon-temp-max.png" alt="Temperatura Máxima" class="icon-temp-max" />
+                        </div>
+                        <span class="stat-label">Temperatura Maxima</span>
+                        <span id="temp-max" class="stat-value">--°</span>
+                    </div>
+
+                    <div class="weather-divider"></div>
+
+                    <!-- Temperatura Mínima -->
+                    <div class="weather-stat">
+                        <div class="stat-icon bg-blue">
+                            <img src="assets/icon-temp-min.png" alt="Temperatura Mínima" class="icon-temp-min" />
+                        </div>
+                        <span class="stat-label">Temperatura<br />Minima</span>
+                        <span id="temp-min" class="stat-value">--°</span>
+                    </div>
+
+                    <div class="weather-divider"></div>
+
+                    <!-- Sensación Térmica -->
+                    <div class="weather-stat">
+                        <div class="stat-icon bg-indigo">
+                            <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica"
+                                class="icon-sensacion-termica" />
+                        </div>
+                        <span class="stat-label">Sensación Térmica</span>
+                        <span id="sensacion-termica" class="stat-value">--°</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- DETAILED DATA ROW - Probabilidad y Viento   -->
+            <!-- ============================================ -->
+            <section class="detailed-data">
+                <!-- Probabilidad de Lluvia -->
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia"
+                            class="icon-prob-lluvia" />
+                    </div>
+                    <span class="detail-label">Probabilidad de Lluvia</span>
+                    <span id="prob-lluvia" class="detail-value">--%</span>
+                </div>
+
+                <div class="detail-divider"></div>
+
+                <!-- Viento -->
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <img src="assets/icon-viento.png" alt="Viento" class="icon-viento" />
+                    </div>
+                    <span class="detail-label">Viento</span>
+                    <span id="velocidad-viento" class="detail-value">-- Km/h</span>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- ALERT BANNER - Alerta Meteorológica         -->
+            <!-- ============================================ -->
+            <section class="alert-custom" id="alert-banner">
+                <div class="flex items-center space-x-4">
+                    <div class="alert-icon-container">
+                        <img src="assets/icon-temperatura-alta.png" alt="Temperaturas Altas" class="icon-temp-alta" />
+                    </div>
+                    <div>
+                        <h3 id="alerta-titulo" class="text-slate-800 font-bold text-sm">Temperaturas Altas</h3>
+                        <p id="alerta-descripcion" class="text-slate-500 text-xs mt-0.5">Alerta Meteorológica Actual</p>
+                    </div>
+                </div>
+                <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INTERPRETACIÓN CLIMA                        -->
+            <!-- ============================================ -->
+            <section class="interpretation-card">
+                <div class="interpretation-header">
+                    <div class="interpretation-icon">
+                        <div class="icon-circle">
+                            <img src="assets/icon-comentario.png" alt="Interpretación" class="icon-comentario" />
+                        </div>
+                    </div>
+                    <h3 class="interpretation-title">Interpretación Clima</h3>
+                </div>
+                <p id="interpretacion" class="interpretation-text">
+                    Cargando interpretación...
+                </p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- SECCIÓN: ESTACIONES DEL RÍO SINÚ           -->
+            <!-- ============================================ -->
+            <section class="river-stations-container">
+
+                <!-- Header de estaciones -->
+                <div class="river-stations-header">
+                    <h2 class="river-stations-title">Estaciones del Río Sinú</h2>
+                    <p class="river-stations-subtitle">Monitoreo en tiempo real</p>
+                </div>
+
+                <!-- Contenedor dinámico de tarjetas -->
+                <div id="contenedor-estaciones" class="river-stations-list">
+                    <p class="text-slate-400 text-sm italic px-2">Cargando estaciones...</p>
+                </div>
+
+                <!-- Interpretación Estaciones -->
+                <section class="interpretation-card">
+                    <div class="interpretation-header">
+                        <div class="interpretation-icon">
+                            <div class="icon-circle">
+                                <img src="assets/icon-comentario.png" alt="Interpretación" class="icon-comentario" />
+                            </div>
+                        </div>
+                        <h3 class="interpretation-title">Interpretación Estaciones</h3>
+                    </div>
+                    <p id="interpretacion-estaciones" class="interpretation-text">
+                        Cargando interpretación ...
+                    </p>
+                </section>
+
+                <!-- ============================================ -->
+                <!-- SECCIÓN EMBALSE URRÁ I                      -->
+                <!-- ============================================ -->
+                <div class="urra-divider">
+                    <h2 class="urra-section-title">Hidroelectrica Urrá I</h2>
+                    <div class="urra-report-time">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                        </svg>
+                        <span id="hora-reporte-urra">Cargando información...</span>
+                    </div>
+                </div>
+
+                <!-- Main Level Card: fuera del div con px-5 para que tenga el MISMO ancho
+                     que las tarjetas de interpretación -->
+                <div class="urra-main-card">
+                    <div class="level-info">
+                        <div class="urra-level-icon">
+                            <img src="assets/icono-nivel-de-agua.png" alt="Nivel del embalse" class="icon-nivel-agua" />
+                        </div>
+                        <div>
+                            <h3 class="urra-level-label">Nivel Del Embalse</h3>
+                            <div class="urra-level-value-container">
+                                <span id="urra-nivel" class="urra-level-value">--</span>
+                                <span class="urra-level-unit">msnm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido de Urrá (estadísticas) -->
+                <div class="px-5 pb-5">
+
+                    <!-- Detailed Stats -->
+                    <div class="urra-stats">
+
+                        <!-- Caudal Entrante -->
+                        <div class="urra-stat-item">
+                            <div class="urra-stat-left">
+                                <div class="urra-stat-icon bg-blue">
+                                    <img src="assets/icono-entrante.png" alt="Entrante" class="icon-entrante" />
+                                </div>
+                                <div>
+                                    <h4 class="urra-stat-label">Caudal Entrante</h4>
+                                    <div class="urra-stat-value-container">
+                                        <span id="urra-entrante" class="urra-stat-value blue">--</span>
+                                        <span class="urra-stat-unit">m³/s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Turbinas -->
+                        <div class="urra-stat-item">
+                            <div class="urra-stat-left">
+                                <div class="urra-stat-icon bg-yellow">
+                                    <img src="assets/icono-turbina.png" alt="Turbinas" class="icon-turbina" />
+                                </div>
+                                <div>
+                                    <h4 class="urra-stat-label">Caudal Turbinas</h4>
+                                    <div class="urra-stat-value-container">
+                                        <span id="urra-turbinas" class="urra-stat-value">--</span>
+                                        <span class="urra-stat-unit">m³/s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rebosadero -->
+                        <div class="urra-stat-item" style="border-bottom: none; padding-bottom: 4px;">
+                            <div class="urra-stat-left">
+                                <div class="urra-stat-icon bg-green">
+                                    <img src="assets/icon-rebosadero.png" alt="Rebosadero" class="icon-rebosadero" />
+                                </div>
+                                <div>
+                                    <h4 class="urra-stat-label">Caudal Rebosadero</h4>
+                                    <div class="urra-stat-value-container">
+                                        <span id="urra-rebosadero" class="urra-stat-value">--</span>
+                                        <span class="urra-stat-unit">m³/s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interpretación Urrá (al mismo nivel que Interpretación Estaciones,
+                     fuera del div con px-5, para que tenga el MISMO ancho) -->
+                <section class="interpretation-card">
+                    <div class="interpretation-header">
+                        <div class="interpretation-icon">
+                            <div class="icon-circle">
+                                <img src="assets/icon-comentario.png" alt="Interpretación" class="icon-comentario" />
+                            </div>
+                        </div>
+                        <h3 class="interpretation-title">Interpretación Urrá</h3>
+                    </div>
+                    <p id="urra-interpretacion" class="interpretation-text">
+                        Cargando interpretación...
+                    </p>
+                </section>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ============================================ -->
+    <!-- MODAL: TEMPERATURA ALTA                      -->
+    <!-- Se muestra SOLO si temperatura_actual >= 30°C -->
+    <!-- ============================================ -->
+    <div id="modal-temp-alta" class="modal-temp-alta hidden">
+        <div class="modal-temp-alta-caja">
+            <div class="modal-temp-alta-icono">
+                <img src="assets/icon-temperatura-alta.png" alt="Temperaturas Altas" class="modal-temp-alta-img" />
+            </div>
+            <h2 class="modal-temp-alta-titulo">Temperaturas Altas</h2>
+            <p class="modal-temp-alta-descripcion" id="modal-temp-alta-desc">Se detectó una temperatura elevada en la
+                zona consultada.</p>
+            <p class="modal-temp-alta-temp">
+                Temperatura actual: <span id="modal-temp-alta-valor">--</span>°C
+            </p>
+            <button type="button" id="modal-temp-alta-cerrar" class="modal-temp-alta-btn">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <script src="js/resultado-del-dia.js?v=20260907"></script>
+</body>
+
+</html>
