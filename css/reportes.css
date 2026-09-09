@@ -1,0 +1,253 @@
+/* ============================================ */
+/* REPORTES.CSS - ESTILOS                       */
+/* Basado en Hydrologic Precision System        */
+/* DESIGN.md v1.0                               */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ESTILOS GENERALES                         */
+/* ============================================ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f7f9fb;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    zoom: 1.1; /* Reducción de escala general - igual que principal.css y consulta.css */
+}
+
+/* ============================================ */
+/* 2. ICONOS DE MATERIAL                        */
+/* ============================================ */
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-family: 'Material Symbols Outlined', sans-serif;
+}
+
+/* ============================================ */
+/* 3. SCROLLBAR OCULTA                         */
+/* ============================================ */
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ============================================ */
+/* 4. BORDE PUNTEADO                           */
+/* ============================================ */
+
+.dashed-border {
+    border: 2px dashed #cbd5e1;
+}
+
+/* ============================================ */
+/* 5. BOTTOM SHEET ANIMATION                   */
+/* ============================================ */
+
+#bottom-sheet-container {
+    visibility: hidden;
+}
+
+#bottom-sheet-container.bottom-sheet-active {
+    visibility: visible;
+}
+
+.bottom-sheet-overlay {
+    background-color: rgba(19, 27, 46, 0.4);
+    transition: opacity 0.3s ease-in-out;
+}
+
+#bs-content {
+    border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.bottom-sheet-content {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(100%);
+}
+
+.bottom-sheet-active .bottom-sheet-content {
+    transform: translateY(0);
+}
+
+.bottom-sheet-active .bottom-sheet-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Lista de opciones - estilo igual a consulta-geografica */
+#bs-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#bs-list .bs-option {
+    border-bottom: 1px solid #eceef0;
+    padding: 24px 16px;
+    font-size: 16px;
+    color: #191c1e;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#bs-list .bs-option:hover {
+    background-color: #f2f4f6;
+}
+
+#bs-list .bs-option.selected {
+    background-color: rgba(0, 88, 190, 0.08);
+    border-left: 6px solid #0058be;
+    font-weight: 600;
+}
+/* ============================================ */
+/* 6. CAROUSEL ANIMATION                       */
+/* ============================================ */
+
+.carousel-item {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
+}
+
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+}
+
+/* ============================================ */
+/* 7. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    
+    header {
+        padding-top: 24px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    header h1 {
+        font-size: 20px;
+    }
+    
+    .hero-banner {
+        height: 160px;
+        padding: 16px;
+    }
+    
+    .hero-banner h2 {
+        font-size: 18px;
+    }
+    
+    .hero-banner p {
+        font-size: 12px;
+    }
+    
+    form {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .carousel-container {
+        height: 100px;
+    }
+    
+    .carousel-container .w-16.h-16 {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .carousel-container .material-symbols-outlined.text-4xl {
+        font-size: 28px;
+    }
+}
+
+
+/* ============================================ */
+/* 8. TRANSICIÓN DE ENTRADA Y SALIDA            */
+/* ============================================ */
+html {
+    background-color: #f7f9fb;
+}
+main {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+main.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+main.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+body.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+/* ============================================ */
+/* 9. MODAL DE ENVÍO EXITOSO - Animación       */
+/* ============================================ */
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.icon-success {
+    animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Transición de entrada del modal */
+#success-modal {
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#success-modal.modal-active {
+    opacity: 1;
+}
+
+#success-modal .modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#success-modal.modal-active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Transición de salida del modal */
+#success-modal.modal-exit {
+    opacity: 0;
+}
+
+#success-modal.modal-exit .modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+}

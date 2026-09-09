@@ -1,0 +1,424 @@
+/* ============================================ */
+/* INDEX.CSS - ESTILOS PERSONALIZADOS           */
+/* Basado en DESIGN.md                          */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. IMPORTACIÓN DE TAILWIND (opcional)       */
+/* ============================================ */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* ============================================ */
+/* 2. VARIABLES CSS (DESIGN TOKENS)             */
+/* ============================================ */
+:root {
+    /* Colores - Basados en DESIGN.md */
+    --surface: #f7f9fb;
+    --surface-dim: #d8dadc;
+    --surface-bright: #f7f9fb;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f2f4f6;
+    --surface-container: #eceef0;
+    --surface-container-high: #e6e8ea;
+    --surface-container-highest: #e0e3e5;
+    --on-surface: #191c1e;
+    --on-surface-variant: #45464d;
+    --inverse-surface: #2d3133;
+    --inverse-on-surface: #eff1f3;
+    --outline: #76777d;
+    --outline-variant: #c6c6cd;
+    --surface-tint: #565e74;
+    
+    /* Primarios */
+    --primary: #000000;
+    --on-primary: #ffffff;
+    --primary-container: #131b2e;
+    --on-primary-container: #7c839b;
+    --inverse-primary: #bec6e0;
+    
+    /* Secundarios */
+    --secondary: #0058be;
+    --on-secondary: #ffffff;
+    --secondary-container: #2170e4;
+    --on-secondary-container: #fefcff;
+    
+    /* Terciarios */
+    --tertiary: #000000;
+    --on-tertiary: #ffffff;
+    --tertiary-container: #271901;
+    --on-tertiary-container: #98805d;
+    
+    /* Errores */
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --error-container: #ffdad6;
+    --on-error-container: #93000a;
+    
+    /* Fijos */
+    --primary-fixed: #dae2fd;
+    --primary-fixed-dim: #bec6e0;
+    --on-primary-fixed: #131b2e;
+    --on-primary-fixed-variant: #3f465c;
+    --secondary-fixed: #d8e2ff;
+    --secondary-fixed-dim: #adc6ff;
+    --on-secondary-fixed: #001a42;
+    --on-secondary-fixed-variant: #004395;
+    --tertiary-fixed: #fcdeb5;
+    --tertiary-fixed-dim: #dec29a;
+    --on-tertiary-fixed: #271901;
+    --on-tertiary-fixed-variant: #574425;
+    
+    /* Fondo */
+    --background: #f7f9fb;
+    --on-background: #191c1e;
+    --surface-variant: #e0e3e5;
+    
+    /* Tipografía - Inter */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* Tamaños de texto */
+    --text-display-metric: 48px;
+    --text-headline-lg: 32px;
+    --text-headline-lg-mobile: 24px;
+    --text-headline-md: 20px;
+    --text-body-lg: 16px;
+    --text-body-sm: 14px;
+    --text-label-caps: 12px;
+    
+    /* Pesos de fuente */
+    --weight-display-metric: 700;
+    --weight-headline: 600;
+    --weight-body: 400;
+    --weight-label: 600;
+    
+    /* Espaciado - 8px base */
+    --space-base: 8px;
+    --space-container-mobile: 16px;
+    --space-container-desktop: 32px;
+    --space-gutter: 16px;
+    --space-stack-sm: 4px;
+    --space-stack-md: 12px;
+    --space-stack-lg: 24px;
+    
+    /* Bordes redondeados */
+    --radius-sm: 0.25rem;
+    --radius-default: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
+    
+    /* Sombras */
+    --shadow-modal: 0px 10px 25px rgba(0, 0, 0, 0.05);
+    --shadow-scrim: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================ */
+/* 3. ESTILOS GENERALES                         */
+/* ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background);
+    color: var(--on-background);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================ */
+/* 4. LAYOUT PRINCIPAL                          */
+/* ============================================ */
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: var(--space-container-mobile);
+}
+
+@media (min-width: 768px) {
+    main {
+        padding: var(--space-container-desktop);
+    }
+}
+
+/* ============================================ */
+/* 5. LOGO SECTION - VERSIÓN UNIFICADA          */
+/* ============================================ */
+
+#logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+    opacity: 0; /* Comienza oculto */
+    transition: opacity 0.3s ease;
+}
+
+#logo-container img {
+    width: 192px;
+    height: 192px;
+    object-fit: contain;
+    display: block;
+}
+
+/* ============================================ */
+/* 6. RESPONSIVE - TAMAÑOS DE LOGO             */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    #logo-container img {
+        width: 144px;
+        height: 144px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    #logo-container img {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #logo-container img {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* ============================================ */
+/* 7. UTILIDADES DE DISEÑO (DESIGN.MD)         */
+/* ============================================ */
+
+/* Tarjetas - Nivel 1 */
+.card {
+    background-color: var(--surface-container-lowest);
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-default);
+    padding: var(--space-stack-lg);
+}
+
+/* Tarjetas elevadas - Nivel 2 */
+.card-elevated {
+    background-color: var(--surface-container-lowest);
+    border-radius: var(--radius-lg);
+    padding: var(--space-stack-lg);
+    box-shadow: var(--shadow-modal);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    padding: var(--space-stack-sm) var(--space-stack-lg);
+    border-radius: var(--radius-default);
+    border: none;
+    font-weight: var(--weight-headline);
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+}
+
+.btn-secondary {
+    background-color: var(--surface-container);
+    color: var(--on-surface);
+    padding: var(--space-stack-sm) var(--space-stack-lg);
+    border-radius: var(--radius-default);
+    border: 1px solid var(--outline-variant);
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--surface-container-high);
+}
+
+/* Campos de entrada */
+.input-field {
+    border: 1px solid var(--outline-variant);
+    border-radius: var(--radius-default);
+    padding: var(--space-stack-sm);
+    font-family: var(--font-family);
+    font-size: var(--text-body-lg);
+    width: 100%;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    background-color: var(--surface-container-lowest);
+    color: var(--on-surface);
+}
+
+.input-field:focus {
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.2);
+}
+
+/* ============================================ */
+/* 8. TIPOGRAFÍA (Basado en DESIGN.MD)         */
+/* ============================================ */
+
+.display-metric {
+    font-family: var(--font-family);
+    font-size: var(--text-display-metric);
+    font-weight: var(--weight-display-metric);
+    line-height: 1.17;
+    letter-spacing: -0.02em;
+}
+
+.headline-lg {
+    font-family: var(--font-family);
+    font-size: var(--text-headline-lg);
+    font-weight: var(--weight-headline);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+.headline-md {
+    font-family: var(--font-family);
+    font-size: var(--text-headline-md);
+    font-weight: var(--weight-headline);
+    line-height: 1.4;
+}
+
+.body-lg {
+    font-family: var(--font-family);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-body);
+    line-height: 1.5;
+}
+
+.body-sm {
+    font-family: var(--font-family);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-body);
+    line-height: 1.43;
+}
+
+.label-caps {
+    font-family: var(--font-family);
+    font-size: var(--text-label-caps);
+    font-weight: var(--weight-label);
+    line-height: 1.33;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ============================================ */
+/* 9. ACCESIBILIDAD                             */
+/* ============================================ */
+
+/* Enfoque visible para navegación por teclado */
+:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+/* Alto contraste para texto */
+.text-high-contrast {
+    color: var(--on-surface);
+}
+
+.text-medium-contrast {
+    color: var(--on-surface-variant);
+}
+
+/* ============================================ */
+/* 10. ANIMACIONES Y TRANSICIONES              */
+/* ============================================ */
+
+/* Transición suave para hover */
+.hover-transition {
+    transition: all 0.2s ease;
+}
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--surface-container-low) 25%,
+        var(--surface-container) 50%,
+        var(--surface-container-low) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonLoading 1.5s infinite;
+}
+
+@keyframes skeletonLoading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ============================================ */
+/* 11. ANIMACIONES DE LOGO (ENTRADA Y SALIDA)  */
+/* ============================================ */
+
+/* Animación de entrada - Fade In */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animación de salida - Fade Out */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+}
+
+/* Clases para usar en el HTML/JS */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+/* Estado cuando el logo está visible */
+#logo-container.animate-fade-in {
+    opacity: 1;
+}
+
+/* Estado cuando el logo está oculto */
+#logo-container.animate-fade-out {
+    opacity: 0;
+}

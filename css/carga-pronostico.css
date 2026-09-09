@@ -1,0 +1,266 @@
+/* ============================================ */
+/* CARGA-PRONOSTICO.CSS - ESTILOS           */
+/* Basado en Hydrologic Precision System        */
+/* DESIGN.md v1.0                               */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ESTILOS GENERALES                         */
+/* ============================================ */
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+html {
+    background-color: #f7f9fb;
+}
+
+body {
+    background-color: #f7f9fb;
+    color: #191c1e;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.zoom-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transform: scale(1.2);
+}
+
+main {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+main.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+main.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+/* ============================================ */
+/* 2. MAPA DE PROGRESO (odómetro + puntos)      */
+/* ============================================ */
+
+.map-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+/* --- Odómetro de porcentaje --- */
+.odometer-wrap {
+    display: flex;
+    align-items: flex-start;
+    flex-shrink: 0;
+}
+.odometer {
+    display: flex;
+    color: #0066cc;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+}
+.odometer-col {
+    height: 24px;
+    overflow: hidden;
+    width: 0;
+    transition: width 0.35s ease;
+}
+.odometer-col.active {
+    width: 16px;
+}
+.odometer-strip {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.odometer-strip span {
+    height: 24px;
+    line-height: 24px;
+    display: block;
+    text-align: center;
+}
+.percent-sign {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0066cc;
+    margin-left: 2px;
+}
+
+/* --- Mapa de puntos --- */
+.map-wrapper {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 330 / 320;
+}
+
+.map-wrapper svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.node {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.5px solid #cbd5e1;
+    transform: translate(-50%, -50%);
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s ease;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.node.pending { background: #fff; border-color: #cbd5e1; }
+.node.active {
+    background: #f97316;
+    border-color: #f97316;
+    animation: pulseOrange 1.1s infinite;
+}
+.node.done {
+    background: #22c55e;
+    border-color: #22c55e;
+}
+.node.done::after {
+    content: '✓';
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+}
+@keyframes pulseOrange {
+    0%, 100% { box-shadow: 0 0 0 5px rgba(249, 115, 22, 0.28); }
+    50% { box-shadow: 0 0 0 9px rgba(249, 115, 22, 0.12); }
+}
+
+.step-label {
+    position: absolute;
+    background: #ffffff;
+    color: #191c1e;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -170%);
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                left 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                top 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 3;
+}
+.step-label.visible { opacity: 1; }
+.step-label::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+    filter: drop-shadow(0 2px 1px rgba(0, 0, 0, 0.05));
+}
+
+.path-line {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 3;
+    stroke-dasharray: 6 6;
+}
+.path-progress {
+    fill: none;
+    stroke: #22c55e;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================ */
+/* 5. MODAL DE CANCELACIÓN - Única card         */
+/* ============================================ */
+
+#cancel-modal {
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#cancel-modal.modal-active {
+    opacity: 1;
+}
+
+#cancel-modal .modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#cancel-modal.modal-active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#cancel-modal.modal-exit {
+    opacity: 0;
+}
+
+#cancel-modal.modal-exit .modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+/* ============================================ */
+/* 7. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    main {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    p.text-body-lg {
+        font-size: 14px;
+    }
+}
+
+/* ============================================ */
+/* 8. RESPONSIVE - ESCRITORIO                   */
+/* ============================================ */
+
+@media (min-width: 769px) {
+    main {
+        max-width: 430px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

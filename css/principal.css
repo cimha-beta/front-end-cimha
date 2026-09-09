@@ -1,0 +1,139 @@
+/* ============================================ */
+/* PRINCIPAL.CSS - ESTILOS                     */
+/* Basado en Hydrologic Precision System        */
+/* DESIGN.md v1.0                               */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ESTILOS GENERALES                         */
+/* ============================================ */
+html {
+    background-color: #F7F9FB;
+}
+body {
+    background-color: #F7F9FB;
+    -webkit-font-smoothing: antialiased;
+     zoom: 1.0; /* Reducción de escala general */
+}
+main {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+main.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+main.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+/* ============================================ */
+/* 2. ICONOS DE MATERIAL                        */
+/* ============================================ */
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ============================================ */
+/* 3. BANNER - GRADIENTE                        */
+/* ============================================ */
+
+.bg-banner-gradient {
+    background: linear-gradient(180deg, #0053C2 0%, #003A8C 100%);
+}
+
+/* ============================================ */
+/* 4. SOMBRA IOS                               */
+/* ============================================ */
+
+.ios-shadow {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================ */
+/* 5. ANIMACIÓN DE TARJETAS                    */
+/* ============================================ */
+
+.card-item {
+    transform: scale(1);
+    transition: transform 0.1s ease-out;
+}
+
+.card-item:active {
+    transform: scale(0.97);
+}
+
+/* ============================================ */
+/* 6. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+
+    .card-item {
+        padding: 16px;
+        gap: 16px;
+    }
+    
+    .card-item h3 {
+        font-size: 16px;
+    }
+    
+    .card-item p {
+        font-size: 13px;
+    }
+}
+/* ============================================ */
+/* 7. LAYOUT GLOBAL - Espaciado de bordes       */
+/* ============================================ */
+
+/* Quitamos el padding general de main (lo movemos a la sección de cards) */
+main {
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+}
+
+/* Sección de las cards - mantiene el espaciado actual a los bordes */
+main > section:not(.bg-banner-gradient) {
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* ============================================ */
+/* 8. BANNER - Full width, sin redondeo, padding interno 14px */
+/* ============================================ */
+
+.bg-banner-gradient {
+    border-radius: 0 !important; /* pisa el rounded-b-[40px] y la media query */
+}
+
+/* ============================================ */
+/* 9. TRANSICIÓN DE SALIDA PARA REDIRECCIÓN       */
+/* ============================================ */
+
+body {
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* Para todas las tarjetas */
+.card-item {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-item:active {
+    transform: scale(0.97);
+}
+.bg-banner-gradient .px-gutter {
+    padding-left: 14px;
+    padding-right: 14px;
+}

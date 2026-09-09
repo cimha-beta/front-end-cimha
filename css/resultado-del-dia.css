@@ -1,0 +1,1498 @@
+/* ============================================ */
+/* RESULTADO-DEL-DIA.CSS - ESTILOS              */
+/* Basado en Hydrologic Precision System        */
+/* DESIGN.md v1.0                               */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ESTILOS GENERALES                         */
+/* ============================================ */
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #ffffff;
+    color: #1A202C;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ============================================ */
+/* 2. ICONOS DE MATERIAL                        */
+/* ============================================ */
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-family: 'Material Symbols Outlined', sans-serif;
+}
+
+/* ============================================ */
+/* 3. GLASS EFFECT                              */
+/* ============================================ */
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* ============================================ */
+/* 4. WEATHER GRADIENT - Banner azul grande    */
+/* ============================================ */
+
+.weather-gradient {
+    background: linear-gradient(135deg, #2563EB 0%, #3f67d4 100%);
+    border-radius: 32px;
+    padding: 39px 24px 24px 24px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================ */
+/* 5. ALERT GRADIENT - Banner de alerta        */
+/* ============================================ */
+
+.alert-custom {
+    /* Color de fondo del banner completo */
+    --alert-bg-start: #FEE2E2;
+    --alert-bg-end: #f9f9f9;
+    background: linear-gradient(90deg, var(--alert-bg-start) 0%, var(--alert-bg-end) 100%);
+    border-radius: 16px;
+    padding: 16px 16px 16px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #FCA5A5;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+.alert-custom:hover {
+    filter: brightness(0.95);
+}
+
+/* ============================================ */
+/* 5.1 ALERT ICON CONTAINER - Círculo del icono */
+/* ============================================ */
+
+.alert-icon-container {
+    --alert-icon-bg: #fbf0f0;
+    background-color: var(--alert-icon-bg);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================ */
+/* 5.2 TOGGLE RÍO / CLIMA - Botones selector   */
+/* ============================================ */
+
+.toggle-btn-active {
+    background-color: #2563EB;
+    color: #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.25);
+    padding: 8px 32px 8px 32px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.toggle-btn-inactive {
+    background-color: #ffffff;
+    color: #2563EB;
+    border: 1px solid #eff6ff;
+    padding: 8px 32px 8px 32px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* ============================================ */
+/* 6. TRANSICIÓN DE ENTRADA - Animación body   */
+/* ============================================ */
+
+body {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================ */
+/* 7. TRANSICIÓN DE SALIDA                     */
+/* ============================================ */
+
+body.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* ============================================ */
+/* 8. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    /* Contenedor principal */
+    main {
+        padding: 16px 16px 16px 16px;
+    }
+
+    /* Banner azul grande */
+    .weather-gradient {
+        border-radius: 24px;
+        padding: 16px 16px 16px 16px;
+        min-height: 260px;
+    }
+
+    /* Temperatura actual en banner */
+    .weather-gradient .temp-actual {
+        font-size: 45px;
+    }
+
+    .weather-gradient .temp-symbol {
+        font-size: 28px;
+    }
+
+    /* Estado del cielo */
+    .weather-gradient .estado-cielo {
+        font-size: 15px;
+    }
+
+    /* Tarjeta blanca inferior del banner */
+    .weather-gradient .weather-stats-card {
+        padding: 13px 13px 13px 13px;
+        border-radius: 16px;
+    }
+
+    /* Iconos de estadísticas dentro del banner */
+    .weather-gradient .stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .weather-gradient .stat-icon img {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Textos de estadísticas */
+    .weather-gradient .stat-label {
+        font-size: 10px;
+    }
+
+    .weather-gradient .stat-value {
+        font-size: 16px;
+    }
+
+    /* Botones toggle */
+    .toggle-btn-active,
+    .toggle-btn-inactive {
+        padding: 6px 20px 6px 20px;
+        font-size: 15
+        px;
+    }
+
+    /* Contenedor de datos detallados */
+    .detailed-data .detail-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .detailed-data .detail-icon img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .detailed-data .detail-value {
+        font-size: 18px;
+    }
+
+    /* Tarjeta de interpretación */
+    .interpretation-card {
+        padding: 16px 16px 16px 16px;
+        border-radius: 16px;
+    }
+
+    /* Icono de interpretación */
+    .interpretation-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .interpretation-icon img {
+        width: 25px;
+        height: 25px;
+    }
+
+    /* Título de interpretación */
+    .interpretation-title {
+        font-size: 12px;
+    }
+
+    /* Texto de interpretación */
+    .interpretation-text {
+        font-size: 13px;
+    }
+
+    /* Estaciones del río - Tarjetas */
+    .river-station-card {
+        padding: 16px 16px 16px 16px;
+        border-radius: 16px;
+    }
+
+    /* Icono de estación */
+    .icon-river {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+    }
+
+    .icon-river svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Nombre de estación */
+    .station-name {
+        font-size: 14px;
+    }
+
+    /* Valor de nivel */
+    .station-level {
+        font-size: 24px;
+    }
+
+    /* Texto "msnm" */
+    .station-unit {
+        font-size: 12px;
+    }
+
+    /* Barra de progreso */
+    .station-progress {
+        height: 6px;
+        border-radius: 3px;
+    }
+
+    /* Altura del contenedor de la barra */
+    .station-progress-container {
+        height: 6px;
+    }
+
+    /* Interpretación de estaciones */
+    .station-interpretation {
+        padding: 16px 16px 16px 16px;
+        border-radius: 16px;
+    }
+
+    .station-interpretation-title {
+        font-size: 13px;
+    }
+
+    .station-interpretation-text {
+        font-size: 11px;
+    }
+
+    /* Embalse Urrá - Título */
+    .urra-title {
+        font-size: 24px;
+    }
+
+    /* Hora de reporte */
+    .urra-report-time {
+        font-size: 13px;
+    }
+
+    /* Tarjeta principal nivel */
+    .urra-main-card {
+        padding: 16px 16px 16px 16px;
+        border-radius: 24px;
+    }
+
+    /* Icono del nivel */
+    .urra-level-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+
+    .urra-level-icon img {
+        width: 28px;
+        height: 28px;
+    }
+
+    /* Título "Nivel del embalse" */
+    .urra-level-label {
+        font-size: 12px;
+    }
+
+    /* Valor del nivel */
+    .urra-level-value {
+        font-size: 28px;
+    }
+
+    /* Unidad msnm */
+    .urra-level-unit {
+        font-size: 13px;
+    }
+
+    /* Tarjetas de estadísticas detalladas */
+    .urra-stat-item {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #F3F4F6;
+        margin-bottom: 20px;
+    }
+
+    .urra-stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .urra-stat-icon img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .urra-stat-label {
+        font-size: 12px;
+    }
+
+    .urra-stat-value {
+        font-size: 18px;
+    }
+
+    .urra-stat-unit {
+        font-size: 12px;
+    }
+
+    /* Tarjeta de interpretación Urrá */
+    .urra-interpretation-card {
+        padding: 20px 20px 20px 20px;
+        border-radius: 24px;
+    }
+
+    .urra-interpretation-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .urra-interpretation-title {
+        font-size: 13px;
+    }
+
+    .urra-interpretation-text {
+        font-size: 11px;
+    }
+}
+
+/* ============================================ */
+/* 9. RESPONSIVE - ESCRITORIO                   */
+/* ============================================ */
+
+@media (min-width: 769px) {
+    main {
+        max-width: 430px;
+        margin: 0 auto;
+        border-radius: 32px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        min-height: 100vh;
+    }
+}
+
+/* ============================================ */
+/* ====== 10. ESTILOS PARA ESTACIONES DEL RÍO ====== */
+/* ============================================ */
+
+/* ============================================ */
+/* 10.1 ICONOS DE ESTACIONES (RIVER)           */
+/* ============================================ */
+
+.icon-river {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.icon-river-red {
+    background: radial-gradient(circle, rgba(254,226,226,1) 0%, rgba(255,255,255,0) 70%);
+}
+
+.icon-river-green {
+    background: radial-gradient(circle, rgba(220,252,231,1) 0%, rgba(255,255,255,0) 70%);
+}
+
+/* ============================================ */
+/* 10.2 SOMBRAS Y BORDES DE TARJETAS           */
+/* ============================================ */
+
+.shadow-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* ============================================ */
+/* 10.3 COLORES DE LA APP (RIVER STATIONS)     */
+/* ============================================ */
+
+.bg-app-bg {
+    background-color: #F8FAFC;
+}
+
+.text-app-text {
+    color: #111827;
+}
+
+.text-app-muted {
+    color: #6B7280;
+}
+
+.bg-app-red {
+    background-color: #EF4444;
+}
+
+.text-app-red {
+    color: #EF4444;
+}
+
+.bg-app-green {
+    background-color: #10B981;
+}
+
+.text-app-green {
+    color: #10B981;
+}
+
+.bg-app-blue {
+    background-color: #2563EB;
+}
+
+.text-app-blue {
+    color: #2563EB;
+}
+
+.bg-app-blueLight {
+    background-color: #DBEAFE;
+}
+
+.bg-app-blueBg {
+    background-color: #F1F5F9;
+}
+
+.border-app-cardBorder {
+    border-color: #E5E7EB;
+}
+
+/* ============================================ */
+/* ====== 11. ESTILOS PARA EMBALSE URRÁ I ====== */
+/* ============================================ */
+
+
+
+/* ============================================ */
+/* 11.2 COLORES PERSONALIZADOS DEL EMBALSE     */
+/* ============================================ */
+
+.text-ur-blue-900 {
+    color: #0A1A3F;
+}
+
+.text-ur-blue-600 {
+    color: #0F57EB;
+}
+
+.bg-ur-blue-50 {
+    background-color: #F0F5FF;
+}
+
+.bg-ur-blue-100 {
+    background-color: #E0EBFF;
+}
+
+.text-ur-gray-500 {
+    color: #6B7280;
+}
+
+.text-ur-green-500 {
+    color: #10B981;
+}
+
+.bg-ur-green-50 {
+    background-color: #ECFDF5;
+}
+
+.text-ur-yellow-500 {
+    color: #F59E0B;
+}
+
+.bg-ur-yellow-50 {
+    background-color: #FFFBEB;
+}
+
+.bg-ur-slate-50 {
+    background-color: #F8FAFC;
+}
+
+.text-ur-slate-800 {
+    color: #1E293B;
+}
+
+/* ============================================ */
+/* 11.3 SOMBRA PERSONALIZADA - Sombra del nivel */
+/* ============================================ */
+
+.shadow-custom {
+    box-shadow: 0 4px 20px -2px rgba(15, 87, 235, 0.15);
+}
+
+/* ============================================ */
+/* 11.4 RESPONSIVE PARA EMBALSE URRÁ I         */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    .bg-hero {
+        min-height: 140px;
+    }
+
+    .bg-hero .hero-title {
+        font-size: 24px;
+    }
+
+    .urra-level-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .urra-level-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .urra-level-value {
+        font-size: 24px;
+    }
+}
+
+/* ============================================ */
+/* 12. ESTILOS PARA CONTENEDORES Y CARDS       */
+/* ============================================ */
+
+/* Contenedor de categorías (toggle) */
+.category-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 6px 6px 6px 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 9999px;
+    border: 1px solid #EFF6FF;
+}
+
+/* Contenedor de datos detallados (fila de probabilidad y viento) */
+.detailed-data {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #F1F5F9;
+    padding: 8px 8px 8px 8px;
+}
+
+.detailed-data .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 8px 8px;
+}
+
+.detailed-data .detail-divider {
+    height: 1px;
+    background-color: #F1F5F9;
+    margin: 0 12px 0 12px;
+}
+
+.detailed-data .detail-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #EFF6FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.detailed-data .detail-icon img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.detailed-data .detail-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333840;
+    flex: 1;
+}
+
+.detailed-data .detail-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #24262a;
+}
+
+/* ============================================ */
+/* 13. ESTILOS PARA INTERPRETACIÓN CLIMA       */
+/* ============================================ */
+
+.interpretation-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px 24px 24px 24px;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 16px;
+}
+
+.interpretation-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.interpretation-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+}
+
+.interpretation-icon .icon-circle {
+    width: 100%;
+    height: 100%;
+    background-color: #EFF6FF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.interpretation-icon .icon-circle img {
+    width: 27px;
+    height: 27px;
+    object-fit: contain;
+}
+
+.interpretation-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #262932;
+    margin: 0;
+}
+
+.interpretation-text {
+    color: #282c31;
+    font-size: 14px;
+    line-height: 1.625;
+    margin: 12px 0 0 0;
+    padding: 0;
+    text-align: left;
+}
+
+/* ============================================ */
+/* 14. ESTILOS PARA ESTACIONES DEL RÍO         */
+/* ============================================ */
+
+.river-stations-container {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    margin-top: 8px;
+}
+
+.river-stations-header {
+    padding: 20px 20px 8px 20px;
+}
+
+.river-stations-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.025em;
+}
+
+.river-stations-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
+}
+
+.river-stations-list {
+    padding: 0 16px 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Tarjeta de estación individual */
+.river-station-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 16px 16px 16px 16px;
+    border: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.river-station-card:hover {
+    border-color: #BFDBFE;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.river-station-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.river-station-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.river-station-detail {
+    font-size: 12px;
+    color: #6B7280;
+    margin-top: 2px;
+}
+
+.river-station-level {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.river-station-level .level-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.river-station-level .level-unit {
+    font-size: 14px;
+    color: #6B7280;
+    font-weight: 500;
+}
+
+.river-station-progress {
+    width: 100px;
+    height: 4px;
+    background-color: #F3F4F6;
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.river-station-progress .progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+.river-station-progress .progress-bar.red {
+    background-color: #EF4444;
+}
+
+.river-station-progress .progress-bar.green {
+    background-color: #10B981;
+}
+
+.river-station-progress .progress-bar.blue {
+    background-color: #2563EB;
+}
+
+.river-station-progress .progress-bar.yellow {
+    background-color: #F59E0B;
+}
+
+/* ============================================ */
+/* 15. ESTILOS PARA INTERPRETACIÓN ESTACIONES  */
+/* ============================================ */
+
+
+
+.station-interpretation {
+    padding: 0 16px 24px 16px;
+}
+
+.station-interpretation .interpretation-box {
+    background-color: #F3F6FC;
+    border-radius: 16px;
+    padding: 16px 16px 16px 16px;
+    border: 1px solid #EFF6FF;
+}
+
+.station-interpretation .interpretation-box h4 {
+    color: #0A1A3F;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.station-interpretation .interpretation-box p {
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.625;
+}
+
+/* ============================================ */
+/* 16. ESTILOS PARA EMBALSE URRÁ I             */
+/* ============================================ */
+
+/* Divider entre secciones */
+.urra-divider {
+    border-top: 1px solid #F1F5F9;
+    padding: 40px 10px 20px 1px;
+}
+
+/* Título de Urrá */
+.urra-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color:  #111827;
+    letter-spacing: -0.025em;
+}
+
+.urra-report-time {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.urra-report-time svg {
+    width: 16px;
+    height: 16px;
+    color: #404346;
+}
+
+.urra-report-time span {
+    color: #3b3f45;
+    font-size: 14px;
+}
+
+/* Tarjeta principal de nivel */
+.urra-main-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 20px 20px 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Misma sombra que .interpretation-card */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.urra-main-card .level-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 15px;
+}
+
+.urra-level-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #ebe9e9;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #F3F4F6;
+    flex-shrink: 0;
+}
+
+.urra-level-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.urra-level-label {
+    color: #0A1A3F;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.urra-level-value-container {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.urra-level-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F57EB;
+    letter-spacing: -0.025em;
+}
+
+.urra-level-unit {
+    color: #3a3c3f;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Estadísticas detalladas de Urrá */
+.urra-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 0 px;
+    padding: 0 4px 0 4px;
+}
+
+.urra-stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #F3F4F6;
+}
+
+.urra-stat-item:last-child {
+    border-bottom: none;
+    padding-bottom: 4px;
+}
+
+.urra-stat-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.urra-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.urra-stat-icon.bg-blue {
+    background-color: #F0F5FF;
+}
+
+.urra-stat-icon.bg-yellow {
+    background-color: #FFFBEB;
+}
+
+.urra-stat-icon.bg-green {
+    background-color: #ECFDF5;
+}
+
+.urra-stat-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.urra-stat-label {
+    color: #0A1A3F;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.urra-stat-value-container {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.urra-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0A1A3F;
+}
+
+.urra-stat-value.blue {
+    color: #0F57EB;
+}
+
+.urra-stat-unit {
+    color: #3a3c3f;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Interpretación Urrá */
+.urra-interpretation-card {
+    background-color: #F3F6FC;
+    border-radius: 24px;
+    padding: 20px 20px 20px 20px;
+    margin-top: 0px;
+}
+
+.urra-interpretation-card .interpretation-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.urra-interpretation-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.urra-interpretation-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.urra-interpretation-title {
+    color: #0A1A3F;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.urra-interpretation-text {
+    color: rgba(10, 26, 63, 0.8);
+    font-size: 12px;
+    line-height: 1.625;
+}
+
+/* ============================================ */
+/* 17. HEADER - Ubicación y fecha              */
+/* ============================================ */
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-icon {
+    width: 38px;
+    height: 38px;
+    background-color: #2f84f436;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.header-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #0651f1;
+}
+
+.header-title {
+    color: #1E293B;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.header-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 4px;
+}
+
+.header-meta svg {
+    width: 16px;
+    height: 16px;
+    color: #94A3B8;
+}
+
+.header-meta span {
+    color: #64748B;
+    font-size: 14px;
+}
+
+.header-meta .separator {
+    color: #CBD5E1;
+    font-size: 14px;
+}
+
+/* ============================================ */
+/* 18. ELEMENTOS DEL BANNER CLIMA (WEATHER)    */
+/* ============================================ */
+
+/* Contenedor de la temperatura y estado */
+.weather-top {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #ffffff;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Temperatura actual */
+.weather-temp {
+    display: flex;
+    align-items: flex-start;
+}
+
+.weather-temp .temp-number {
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+}
+
+.weather-temp .temp-degree {
+    font-size: 33px;
+    font-weight: 600;
+    margin-top: 2px;
+    line-height: 1;
+    margin-left:6px
+}
+
+/* Estado del cielo */
+.weather-sky {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 0px;
+    margin-left: 4px;
+    line-height: 1.5;
+}
+
+/* Tarjeta blanca de estadísticas dentro del banner */
+.weather-stats-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 16px 16px 16px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 20;
+}
+
+.weather-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.weather-stat .stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    overflow: visible;
+}
+
+.weather-stat .stat-icon img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.weather-stat .stat-icon.bg-red {
+    background-color: #FEF2F2;
+}
+
+.weather-stat .stat-icon.bg-blue {
+    background-color: #EFF6FF;
+}
+
+.weather-stat .stat-icon.bg-indigo {
+    background-color: #EEF2FF;
+}
+
+.weather-stat .stat-label {
+    font-size: 12px;
+    color: #454747;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.weather-stat .stat-label br {
+    display: block;
+}
+
+.weather-stat .stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0d0d0e;
+}
+
+.weather-divider {
+    width: 2px;
+    height: 115px;
+    background-color: #edf1f5;
+}
+
+/* ============================================ */
+/* 19. ICONOS DE IMÁGENES PERSONALIZADOS       */
+/* ============================================ */
+
+/* Icono de temperatura máxima */
+.icon-temp-max {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Icono de temperatura mínima */
+.icon-temp-min {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Icono de sensación térmica */
+.icon-sensacion-termica {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Icono de probabilidad de lluvia */
+.icon-prob-lluvia {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+/* Icono de viento */
+.icon-viento {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+/* Icono de temperatura alta (alerta) */
+.icon-temp-alta {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+/* Icono de comentario/interpretación */
+.icon-comentario {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* Icono de nivel de agua (Urrá) */
+.icon-nivel-agua {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+/* Icono de caudal entrante (Urrá) */
+.icon-entrante {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* Icono de turbinas (Urrá) */
+.icon-turbina {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Icono de rebosadero (Urrá) */
+.icon-rebosadero {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* ============================================ */
+/* MODAL: TEMPERATURA ALTA                      */
+/* ============================================ */
+.modal-temp-alta {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.55);
+    padding: 24px;
+}
+
+.modal-temp-alta.hidden {
+    display: none;
+}
+
+.modal-temp-alta-caja {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 360px;
+    padding: 32px 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.modal-temp-alta-icono {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #FEF2F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.modal-temp-alta-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.modal-temp-alta-titulo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #262932;
+    margin: 0 0 8px 0;
+}
+
+.modal-temp-alta-descripcion {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4B5563;
+    margin: 0 0 12px 0;
+}
+
+.modal-temp-alta-temp {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0F57EB;
+    margin: 0 0 24px 0;
+}
+
+.modal-temp-alta-btn {
+    background-color: #EF4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 9999px;
+    padding: 12px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-temp-alta-btn:hover {
+    background-color: #DC2626;
+    transform: scale(1.02);
+}
+
+/* ============================================ */
+/* VIDEO DEL ESTADO DEL CIELO                   */
+/* ============================================ */
+
+/* Contenedor del video - oculto por defecto */
+.weather-video-container {
+    display: none;         
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 250px;      
+}
+
+/* Mostrar el contenedor cuando tiene video */
+.weather-video-container.visible {
+    display: flex;
+}
+
+/* El video en sí */
+.weather-video-container video {
+    width: 100px;            
+    height: 100px;           
+    object-fit: cover;      
+    border-radius: 30px;    
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 0px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Tamaño del video en móvil */
+@media (max-width: 480px) {
+    .weather-video-container {
+        margin-left: 130px;
+    }
+    
+    .weather-video-container video {
+        width: 60px;        
+        height: 60px;
+    }
+}

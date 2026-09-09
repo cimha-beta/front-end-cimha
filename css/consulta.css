@@ -1,0 +1,162 @@
+/* ============================================ */
+/* CONSULTA.CSS - ESTILOS                       */
+/* Basado en Hydrologic Precision System        */
+/* DESIGN.md v1.0                               */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ESTILOS GENERALES                         */
+/* ============================================ */
+
+html {
+    background-color: #f8fbff;
+}
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f8fbff;
+    min-height: 100vh;
+    overflow-y: auto;
+    zoom: 0.99; /* Reducción de escala general - igual que principal.css */
+}
+main {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+main.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+main.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+/* ============================================ */
+/* 2. ICONOS DE MATERIAL                        */
+/* ============================================ */
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-family: 'Material Symbols Outlined', sans-serif;
+}
+
+/* ============================================ */
+/* 3. SOMBRAS DE TARJETAS Y BOTONES            */
+/* ============================================ */
+
+.card-shadow {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-shadow {
+    box-shadow: 0 4px 12px rgba(0, 88, 190, 0.3);
+}
+
+/* Botones de consulta - efecto hover de agrandado */
+.btn-consulta {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+.btn-consulta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 88, 190, 0.4);
+}
+
+.btn-consulta:active {
+    transform: scale(0.98);
+}
+
+/* ============================================ */
+/* 4. HEADER - Sin curva, full width, delimitación 14px */
+/* ============================================ */
+
+header {
+    border-radius: 0 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    box-sizing: border-box;
+}
+
+main {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    box-sizing: border-box;
+}
+
+/* ============================================ */
+/* 5. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    header {
+        padding-top: 32px;
+        padding-bottom: 80px;
+    }
+    
+    header h1 {
+        font-size: 24px;
+    }
+    
+    header p {
+        font-size: 14px;
+    }
+    
+    main {
+        margin-top: -48px;
+    }
+    
+    article {
+        padding: 16px;
+        border-radius: 20px;
+    }
+    
+    article .flex.items-start.gap-4 {
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    
+    article .w-16.h-16 {
+        width: 48px;
+        height: 48px;
+    }
+    
+    article h2 {
+        font-size: 16px;
+    }
+       
+    article .flex.items-center.justify-between {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    article .flex.flex-wrap.gap-4 {
+        gap: 8px;
+    }
+    
+    article button {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ============================================ */
+/* 6. RESPONSIVE - ESCRITORIO                   */
+/* ============================================ */
+
+@media (min-width: 769px) {
+    main {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ============================================ */
+/* 7. TRANSICIÓN DE ENTRADA Y SALIDA            */
+/* ============================================ */

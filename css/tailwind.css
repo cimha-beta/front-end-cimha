@@ -1,0 +1,87 @@
+/* ============================================ */
+/* TAILWIND.CSS - CONFIGURACIÓN DE TAILWIND     */
+/* ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================ */
+/* EXTENSIONES PERSONALIZADAS DE TAILWIND      */
+/* Basado en DESIGN.md                          */
+/* ============================================ */
+
+@layer base {
+    /* Estilos base */
+    html {
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+    
+    body {
+        @apply bg-[#f7f9fb] text-[#191c1e];
+    }
+}
+
+@layer components {
+    /* Botones personalizados */
+    .btn-primary {
+        @apply bg-black text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200;
+    }
+    
+    .btn-primary:hover {
+        @apply bg-[#131b2e] text-[#7c839b];
+    }
+    
+    .btn-secondary {
+        @apply bg-[#eceef0] text-[#191c1e] px-6 py-2 rounded-lg border border-[#c6c6cd] transition-all duration-200;
+    }
+    
+    .btn-secondary:hover {
+        @apply bg-[#e6e8ea];
+    }
+    
+    /* Tarjetas */
+    .card {
+        @apply bg-white border border-[#c6c6cd] rounded-lg p-6;
+    }
+    
+    .card-elevated {
+        @apply bg-white rounded-xl p-6 shadow-[0px_10px_25px_rgba(0,0,0,0.05)];
+    }
+    
+    /* Campos de entrada */
+    .input-field {
+        @apply border border-[#c6c6cd] rounded-lg px-2 py-1 w-full transition-all duration-200 bg-white;
+    }
+    
+    .input-field:focus {
+        @apply border-[#0058be] outline-none ring-2 ring-[#0058be]/20;
+    }
+}
+
+@layer utilities {
+    /* Tipografía personalizada */
+    .display-metric {
+        @apply font-inter text-[48px] font-bold leading-[56px] tracking-[-0.02em];
+    }
+    
+    .headline-lg {
+        @apply font-inter text-[32px] font-semibold leading-[40px] tracking-[-0.01em];
+    }
+    
+    .headline-md {
+        @apply font-inter text-[20px] font-semibold leading-[28px];
+    }
+    
+    .body-lg {
+        @apply font-inter text-[16px] font-normal leading-[24px];
+    }
+    
+    .body-sm {
+        @apply font-inter text-[14px] font-normal leading-[20px];
+    }
+    
+    .label-caps {
+        @apply font-inter text-[12px] font-semibold leading-[16px] tracking-[0.05em] uppercase;
+    }
+}
