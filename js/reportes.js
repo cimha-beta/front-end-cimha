@@ -223,7 +223,7 @@ submitBtn.addEventListener('click', async (e) => {
     };
 
     try {
-        const response = await fetch('http://localhost:3000/webhook/correo-reportes', {
+        const response = await fetch('https://back-end-cimha-production.up.railway.app/webhook/correo-reportes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

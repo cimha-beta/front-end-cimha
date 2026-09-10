@@ -2,8 +2,8 @@
 // RESULTADO-DEL-DIA.JS - JAVASCRIPT            //
 // ============================================ //
 
-// ✅ URL correcta: puerto 3000 (tu server.js), prefijo /webhook definido en app.use()
-const BACKEND_URL = 'http://localhost:3000/webhook/consulta-coordenadas';
+// ✅ URL correcta: dominio de producción del backend en Railway
+const BACKEND_URL = 'https://back-end-cimha-production.up.railway.app/webhook/consulta-coordenadas';
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('🚀 Resultado del Día - Pantalla cargada');

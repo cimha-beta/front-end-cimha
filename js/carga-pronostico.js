@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:3000/webhook/consulta-coordenadas';
+const BACKEND_URL = 'https://back-end-cimha-production.up.railway.app/webhook/consulta-coordenadas';
 
 const statusSteps = [
     "Localizando Ubicación",
