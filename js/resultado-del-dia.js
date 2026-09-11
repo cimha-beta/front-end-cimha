@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     aplicarTransicionEntrada();
     initInteracciones();
+    configurarVistaPronostico();
     // Inicializar el botón "Cancelar" del modal de temperatura alta
     initModalTemperatura();
 
@@ -68,6 +69,23 @@ async function cargarDatos() {
         // (Sin fetch adicional: la consulta principal ya la hizo enviarConsulta en js/consulta.js)
         console.warn('⚠️ No hay datos en sessionStorage. Realiza la consulta desde la pantalla principal.');
     }
+}
+
+function configurarVistaPronostico() {
+    const tipoPronostico = sessionStorage.getItem('tipoPronostico');
+    if (tipoPronostico !== 'mañana') return;
+
+    const elementosExclusivosDeHoy = [
+        document.getElementById('temp-actual')?.closest('.weather-temp'),
+        document.getElementById('alert-banner'),
+        document.getElementById('interpretacion-estaciones-card'),
+        document.getElementById('seccion-urra'),
+        ...document.querySelectorAll('.urra-content')
+    ];
+
+    elementosExclusivosDeHoy.forEach(elemento => {
+        if (elemento) elemento.classList.add('hidden');
+    });
 }
 
 async function cargarDatosBackend() {
@@ -132,10 +150,12 @@ function poblarInterfaz(resultado) {
         actualizarVideoClima(estadoCielo);
         document.getElementById('temp-max').textContent = `${resultado.clima.temperatura_maxima ?? '--'}°`;
         document.getElementById('temp-min').textContent = `${resultado.clima.temperatura_minima ?? '--'}°`;
-        document.getElementById('sensacion-termica').textContent = `${resultado.clima.sensacion_termica ?? '--'}°`;
+        const sensacionTermica = resultado.clima.posible_sensacion_termica ?? resultado.clima.sensacion_termica;
+        document.getElementById('sensacion-termica').textContent = `${sensacionTermica ?? '--'}°`;
         document.getElementById('prob-lluvia').textContent = `${resultado.clima.probabilidad_lluvia ?? '--'}%`;
         document.getElementById('velocidad-viento').textContent = `${resultado.clima.velocidad_viento ?? '--'} Km/h`;
-        document.getElementById('interpretacion').textContent = resultado.clima.interpretacion ?? 'Sin información.';
+        document.getElementById('interpretacion').textContent =
+            resultado.interpretacion ?? resultado.clima.interpretacion ?? 'Sin información.';
 
         // Modal de temperatura alta: se muestra SOLO si temp actual >= 30°C
         if (!isNaN(tempActual) && tempActual >= 30) {
@@ -189,7 +209,8 @@ function renderizarEstaciones(estacionesData) {
         const municipio = estacionesData[`estacion_${i}_municipio`] || '';
         const nivel = estacionesData[`estacion_${i}_nivel_actual`] ?? 'N/A';
         const precip = estacionesData[`estacion_${i}_precipitacion_actual`];
-        const tendencia = estacionesData[`estacion_${i}_tendencia`] || 'Estable';
+        const tendencia = estacionesData[`estacion_${i}_tendencia_actual`] ||
+            estacionesData[`estacion_${i}_tendencia`] || 'Estable';
         // (Cuando no hay dato de precipitación se muestra una línea gris "-".)
 
         const esEstable = tendencia.toLowerCase() === 'estable' ||

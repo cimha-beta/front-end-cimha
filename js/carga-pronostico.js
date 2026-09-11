@@ -295,6 +295,7 @@ async function consultarBackendYGuardar() {
         console.log('✅ DATOS RECIBIDOS DEL BACKEND:', data);
 
         sessionStorage.setItem('datosPronostico', JSON.stringify(data.reporte || data));
+        sessionStorage.setItem('tipoPronostico', payload.consulta || 'hoy');
         return data;
     } catch (err) {
         console.error('❌ Error de red o CORS al conectar con el backend:', err);
