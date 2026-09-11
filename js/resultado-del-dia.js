@@ -26,7 +26,14 @@ function aplicarTransicionEntrada() {
 function initInteracciones() {
     const btnRio = document.getElementById('btn-rio');
     const btnClima = document.getElementById('btn-clima');
+    const btnSalirPronostico = document.getElementById('salir-pronostico');
     const botonesToggle = [btnRio, btnClima];
+
+    if (btnSalirPronostico) {
+        btnSalirPronostico.addEventListener('click', function () {
+            window.location.href = 'principal.html';
+        });
+    }
 
     function seleccionarCategoria(botonActivo) {
         botonesToggle.forEach(b => {
