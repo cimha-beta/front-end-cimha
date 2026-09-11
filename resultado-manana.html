@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronóstico de Mañana - CIMHA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/resultado-manana.css" />
+</head>
+
+<body>
+    <main class="forecast-page">
+        <div class="page-content">
+            <header class="forecast-header">
+                <div class="location-heading">
+                    <div class="location-icon" aria-hidden="true">⌖</div>
+                    <h1 id="ubicacion">Cargando ubicación...</h1>
+                </div>
+                <div class="forecast-meta">
+                    <span id="fecha">--</span>
+                    <span aria-hidden="true">·</span>
+                    <span id="hora">--:--</span>
+                </div>
+            </header>
+
+            <section class="weather-card" aria-label="Pronóstico del clima para mañana">
+                <div class="weather-heading">
+                    <p class="forecast-label">Pronóstico de mañana</p>
+                    <p id="estado-cielo" class="weather-sky">Cargando información...</p>
+                </div>
+                <div class="weather-stats-card">
+                    <div class="weather-stat">
+                        <img src="assets/icon-temp-max.png" alt="Temperatura máxima" />
+                        <span class="stat-label">Temperatura máxima</span>
+                        <strong id="temp-max">--°</strong>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="weather-stat">
+                        <img src="assets/icon-temp-min.png" alt="Temperatura mínima" />
+                        <span class="stat-label">Temperatura mínima</span>
+                        <strong id="temp-min">--°</strong>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="weather-stat">
+                        <img src="assets/icon-sensacion-termica.png" alt="Sensación térmica" />
+                        <span class="stat-label">Sensación térmica</span>
+                        <strong id="sensacion-termica">--</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="detail-grid" aria-label="Datos meteorológicos">
+                <div class="detail-card">
+                    <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de lluvia" />
+                    <span>Probabilidad de lluvia</span>
+                    <strong id="prob-lluvia">--%</strong>
+                </div>
+                <div class="detail-card">
+                    <img src="assets/icon-viento.png" alt="Viento" />
+                    <span>Viento</span>
+                    <strong id="velocidad-viento">-- Km/h</strong>
+                </div>
+            </section>
+
+            <section class="interpretation-card">
+                <div class="card-heading">
+                    <img src="assets/icon-comentario.png" alt="Interpretación" />
+                    <h2>Interpretación</h2>
+                </div>
+                <p id="interpretacion">Cargando interpretación...</p>
+            </section>
+
+            <section class="stations-card">
+                <div class="stations-heading">
+                    <h2>Estaciones del Río Sinú</h2>
+                    <p>Pronóstico hidrológico de mañana</p>
+                </div>
+                <div id="contenedor-estaciones" class="stations-list">
+                    <p class="empty-state">Cargando estaciones...</p>
+                </div>
+            </section>
+
+            <button type="button" id="salir-pronostico" class="exit-button">Salir del pronóstico</button>
+        </div>
+    </main>
+
+    <script src="js/resultado-manana.js"></script>
+</body>
+
+</html>

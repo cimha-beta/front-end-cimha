@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     aplicarTransicionEntrada();
     initInteracciones();
-    configurarVistaPronostico();
     // Inicializar el botón "Cancelar" del modal de temperatura alta
     initModalTemperatura();
 
@@ -69,23 +68,6 @@ async function cargarDatos() {
         // (Sin fetch adicional: la consulta principal ya la hizo enviarConsulta en js/consulta.js)
         console.warn('⚠️ No hay datos en sessionStorage. Realiza la consulta desde la pantalla principal.');
     }
-}
-
-function configurarVistaPronostico() {
-    const tipoPronostico = sessionStorage.getItem('tipoPronostico');
-    if (tipoPronostico !== 'mañana') return;
-
-    const elementosExclusivosDeHoy = [
-        document.getElementById('temp-actual')?.closest('.weather-temp'),
-        document.getElementById('alert-banner'),
-        document.getElementById('interpretacion-estaciones-card'),
-        document.getElementById('seccion-urra'),
-        ...document.querySelectorAll('.urra-content')
-    ];
-
-    elementosExclusivosDeHoy.forEach(elemento => {
-        if (elemento) elemento.classList.add('hidden');
-    });
 }
 
 async function cargarDatosBackend() {
