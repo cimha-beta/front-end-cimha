@@ -28,24 +28,29 @@
 
             <section class="weather-card" aria-label="Pronóstico del clima para mañana">
                 <div class="weather-heading">
-                    <p class="forecast-label">Pronóstico de mañana</p>
                     <p id="estado-cielo" class="weather-sky">Cargando información...</p>
                 </div>
                 <div class="weather-stats-card">
                     <div class="weather-stat">
-                        <img src="assets/icon-temp-max.png" alt="Temperatura máxima" />
+                        <div class="stat-icon bg-red">
+                            <img src="assets/icon-temp-max.png" alt="Temperatura máxima" />
+                        </div>
                         <span class="stat-label">Temperatura máxima</span>
                         <strong id="temp-max">--°</strong>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="weather-stat">
-                        <img src="assets/icon-temp-min.png" alt="Temperatura mínima" />
+                        <div class="stat-icon bg-blue">
+                            <img src="assets/icon-temp-min.png" alt="Temperatura mínima" />
+                        </div>
                         <span class="stat-label">Temperatura mínima</span>
                         <strong id="temp-min">--°</strong>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="weather-stat">
-                        <img src="assets/icon-sensacion-termica.png" alt="Sensación térmica" />
+                        <div class="stat-icon bg-indigo">
+                            <img src="assets/icon-sensacion-termica.png" alt="Sensación térmica" />
+                        </div>
                         <span class="stat-label">Sensación térmica</span>
                         <strong id="sensacion-termica">--</strong>
                     </div>
