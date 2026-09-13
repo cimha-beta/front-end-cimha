@@ -389,9 +389,9 @@ body.fade-out {
 
     /* Tarjetas de estadísticas detalladas */
     .urra-stat-item {
-        padding-bottom: 20px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #F3F4F6;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .urra-stat-icon {
@@ -1010,7 +1010,7 @@ body.fade-out {
 .urra-stats {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     margin-bottom: 0 px;
     padding: 0 4px 0 4px;
 }
@@ -1019,7 +1019,7 @@ body.fade-out {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #F3F4F6;
 }
 
@@ -1082,7 +1082,11 @@ body.fade-out {
 }
 
 .urra-stat-value.blue {
-    color: #0F57EB;
+    color: #0A1A3F;
+}
+
+.river-stations-container > .px-5.pb-5 {
+    padding-bottom: 10px;
 }
 
 .urra-stat-unit {
