@@ -185,7 +185,7 @@ body.fade-out {
     /* Banner azul grande */
     .weather-gradient {
         border-radius: 24px;
-        padding: 16px 16px 16px 16px;
+        padding: 20px 16px 16px 16px;
         min-height: 260px;
     }
 
@@ -1234,8 +1234,8 @@ body.fade-out {
 
 /* Estado del cielo */
 .weather-sky {
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     margin: 0;
     line-height: 1.5;
     text-align: right;
