@@ -183,8 +183,11 @@ function validateEmail(email) {
 
 function validateForm() {
     const isEmailValid = validateEmail(emailInput.value);
-    const isSubjectValid = subjectInput.value.trim().length > 0;
-    const isDescValid = descInput.value.trim().length > 0;
+    // Mínimos alineados con la validación del backend (routes/reportes.js):
+    // asunto >= 3 caracteres, descripción >= 10 caracteres. Si no coinciden,
+    // el botón se habilita con datos que el servidor rechaza con un 400.
+    const isSubjectValid = subjectInput.value.trim().length >= 3;
+    const isDescValid = descInput.value.trim().length >= 10;
     const isDeptValid = !!selectedDept;
     const isMuniValid = !!selectedMuni;
     const isTypeValid = !!selectedReportType;
@@ -232,7 +235,23 @@ submitBtn.addEventListener('click', async (e) => {
         });
 
         if (!response.ok) {
-            throw new Error(`Error del servidor: ${response.status}`);
+            // El backend devuelve { ok: false, errores: [...] } en un 400 de
+            // validación — mostrarlo tal cual ayuda a saber qué campo falló,
+            // en vez de solo ver "Error del servidor: 400" en consola.
+            let detalle = `Error del servidor: ${response.status}`;
+            let esValidacion = false;
+            try {
+                const data = await response.json();
+                if (data && Array.isArray(data.errores) && data.errores.length > 0) {
+                    detalle = data.errores.join(' ');
+                    esValidacion = true;
+                }
+            } catch (_) {
+                // La respuesta no traía JSON válido; se deja el detalle genérico.
+            }
+            const err = new Error(detalle);
+            err.esValidacion = esValidacion;
+            throw err;
         }
 
         console.log('✅ Reporte enviado correctamente al webhook');
@@ -247,7 +266,9 @@ submitBtn.addEventListener('click', async (e) => {
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         
-        alert('No se pudo enviar el reporte. Verifica tu conexión e inténtalo de nuevo.');
+        alert(error.esValidacion
+            ? error.message
+            : 'No se pudo enviar el reporte. Verifica tu conexión e inténtalo de nuevo.');
     }
 });
 
