@@ -189,6 +189,13 @@ body.fade-out {
         min-height: 260px;
     }
 
+    .weather-gradient .weather-top {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 0;
+    }
+
     /* Temperatura actual en banner */
     .weather-gradient .temp-actual {
         font-size: 45px;
