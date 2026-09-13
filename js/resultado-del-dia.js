@@ -311,6 +311,7 @@ function mostrarModalTemperaturaAlta(tempActual) {
 
     // Quitar la clase "hidden" para mostrarlo
     modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
 }
 
 // Botón "Cancelar": elimina el modal por completo de la pantalla
@@ -320,9 +321,9 @@ function initModalTemperatura() {
         btnCerrar.addEventListener('click', function () {
             const modal = document.getElementById('modal-temp-alta');
             if (modal) {
-                // Eliminarlo del DOM
-                modal.remove();
+                modal.classList.add('hidden');
             }
+            document.body.classList.remove('modal-open');
         });
     }
 }

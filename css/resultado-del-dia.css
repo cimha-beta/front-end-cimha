@@ -196,18 +196,17 @@ body.fade-out {
         padding-bottom: 0;
     }
 
+    .weather-gradient .weather-sky {
+        font-size: 20.9px;
+    }
+
     /* Temperatura actual en banner */
-    .weather-gradient .temp-actual {
+    .weather-gradient .temp-number {
         font-size: 45px;
     }
 
-    .weather-gradient .temp-symbol {
+    .weather-gradient .temp-degree {
         font-size: 28px;
-    }
-
-    /* Estado del cielo */
-    .weather-gradient .estado-cielo {
-        font-size: 15px;
     }
 
     /* Tarjeta blanca inferior del banner */
@@ -1208,10 +1207,9 @@ body.fade-out {
 .weather-top {
     position: relative;
     z-index: 10;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
     gap: 16px;
     color: #ffffff;
     padding-bottom: 24px;
@@ -1222,6 +1220,7 @@ body.fade-out {
 .weather-temp {
     display: flex;
     align-items: flex-start;
+    justify-content: center;
 }
 
 .weather-temp .temp-number {
@@ -1241,11 +1240,11 @@ body.fade-out {
 
 /* Estado del cielo */
 .weather-sky {
-    font-size: 22px;
+    font-size: 20.9px;
     font-weight: 500;
     margin: 0;
     line-height: 1.5;
-    text-align: right;
+    text-align: left;
 }
 
 /* Tarjeta blanca de estadísticas dentro del banner */
@@ -1416,6 +1415,12 @@ body.fade-out {
     padding: 24px;
 }
 
+body.modal-open,
+body.modal-open main {
+    overflow: hidden;
+    touch-action: none;
+}
+
 .modal-temp-alta.hidden {
     display: none;
 }
@@ -1468,7 +1473,7 @@ body.fade-out {
 .modal-temp-alta-temp {
     font-size: 16px;
     font-weight: 600;
-    color: #181819e3d9;
+    color: #181819;
     margin: 0 0 24px 0;
 }
 
