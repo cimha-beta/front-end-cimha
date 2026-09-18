@@ -1413,14 +1413,16 @@ body.fade-out {
     inset: 0;
     z-index: 1000;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.55);
-    padding: 80px 24px 24px;
+    padding: 24px;
 }
 
 body.modal-open,
 body.modal-open main {
+    position: fixed;
+    width: 100%;
     overflow: hidden;
     touch-action: none;
 }

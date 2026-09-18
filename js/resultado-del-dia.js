@@ -306,6 +306,8 @@ function mostrarModalTemperaturaAlta(tempActual) {
     const modal = document.getElementById('modal-temp-alta');
     if (!modal) return;
 
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
     const valorEl = document.getElementById('modal-temp-alta-valor');
     if (valorEl) valorEl.textContent = tempActual;
 
@@ -320,10 +322,13 @@ function initModalTemperatura() {
     if (btnCerrar) {
         btnCerrar.addEventListener('click', function () {
             const modal = document.getElementById('modal-temp-alta');
+            const previousScrollY = window.scrollY;
+
             if (modal) {
                 modal.classList.add('hidden');
             }
             document.body.classList.remove('modal-open');
+            window.scrollTo({ top: previousScrollY, left: 0, behavior: 'instant' });
         });
     }
 }
