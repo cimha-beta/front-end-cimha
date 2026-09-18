@@ -1410,10 +1410,7 @@ body.fade-out {
 /* ============================================ */
 .modal-temp-alta {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: min(100vw, 430px);
+    inset: 0;
     z-index: 1000;
     display: flex;
     align-items: center;
