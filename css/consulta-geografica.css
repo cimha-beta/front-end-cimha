@@ -24,6 +24,7 @@ html {
 body {
     background-color: var(--bg);
     color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
     zoom: 0.85;
 }
 
