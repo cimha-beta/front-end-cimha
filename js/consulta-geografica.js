@@ -95,7 +95,7 @@ function openDropdown(type) {
     activeSelectionType = type;
     trigger.classList.add('open');
     list.classList.add('open');
-    icon.textContent = 'expand_less';
+    
 }
 
 function closeDropdowns() {
@@ -103,7 +103,7 @@ function closeDropdowns() {
         const { trigger, icon, list } = getParts(type);
         trigger.classList.remove('open');
         list.classList.remove('open');
-        icon.textContent = 'expand_more';
+        
     });
     activeSelectionType = null;
 }
