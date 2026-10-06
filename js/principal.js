@@ -7,31 +7,58 @@
  * Interacciones y funcionalidades
  */
 
-// ============================================ //
-// 1. ESPERAR A QUE EL DOM ESTÉ LISTO          //
-// ============================================ //
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Pantalla Principal - Iniciada correctamente');
-    initCardInteractions();
-    initEntranceTransition();
-});
+'use strict';
 
 // ============================================ //
-// 2. FUNCIÓN DE TRANSICIÓN SUAVE              //
+// 1. CONSTANTES Y CONFIGURACIÓN               //
 // ============================================ //
 
-function navegarConTransicion(destino, tiempo = 400) {
-    const main = document.querySelector('main');
-    
-    // Agregar clase de fade-out
+const CONFIG = {
+    TIEMPO_TRANSICION: 400,
+    RUTAS: {
+        reportes: 'reportes.html',
+        acerca: 'acerca-de-nosotros.html',
+        fuentes: 'fuentes-de-datos.html'
+    },
+    SELECTORES: {
+        main: 'main',
+        cards: '.card-item',
+        tituloCard: 'h3'
+    }
+};
+
+// ============================================ //
+// 2. UTILIDADES                               //
+// ============================================ //
+
+/**
+ * Navega a un destino con una transición suave de salida.
+ * @param {string} destino - URL o archivo de destino.
+ * @param {number} tiempo - Duración de la animación en ms.
+ */
+function navegarConTransicion(destino, tiempo = CONFIG.TIEMPO_TRANSICION) {
+    const main = document.querySelector(CONFIG.SELECTORES.main);
+    if (!main) return;
+
     main.classList.remove('loaded');
     main.classList.add('fade-out-back');
-    
-    // Esperar a que termine la animación y redirigir
+
     setTimeout(() => {
         window.location.href = destino;
     }, tiempo);
+}
+
+/**
+ * Determina la ruta de destino según el título de la tarjeta.
+ * @param {string} titulo - Texto del título de la tarjeta.
+ * @returns {string|null} Ruta destino o null si no coincide.
+ */
+function obtenerRutaPorTitulo(titulo) {
+    const t = titulo.toLowerCase();
+    if (t.includes('reportes')) return CONFIG.RUTAS.reportes;
+    if (t.includes('acerca'))   return CONFIG.RUTAS.acerca;
+    if (t.includes('fuentes'))  return CONFIG.RUTAS.fuentes;
+    return null;
 }
 
 // ============================================ //
@@ -39,56 +66,62 @@ function navegarConTransicion(destino, tiempo = 400) {
 // ============================================ //
 
 function initCardInteractions() {
-    const cards = document.querySelectorAll('.card-item');
-    
+    const cards = document.querySelectorAll(CONFIG.SELECTORES.cards);
+
     cards.forEach(card => {
-        // Efecto al presionar
-        card.addEventListener('mousedown', () => {
+        // --- Efecto visual al presionar ---
+        const activarScale = () => {
             card.style.transform = 'scale(0.97)';
             card.style.transition = 'transform 0.1s ease-out';
-        });
-        
-        card.addEventListener('mouseup', () => {
+        };
+        const restaurarScale = () => {
             card.style.transform = 'scale(1)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'scale(1)';
-        });
-        
-        // Efecto táctil
-        card.addEventListener('touchstart', () => {
-            card.style.transform = 'scale(0.97)';
-            card.style.transition = 'transform 0.1s ease-out';
-        });
-        
-        card.addEventListener('touchend', () => {
-            card.style.transform = 'scale(1)';
-        });
-        
-        // ✅ Click con transición suave
-        card.addEventListener('click', function(e) {
-            if (!e.target.closest('a')) {
-                const title = this.querySelector('h3')?.textContent || 'Tarjeta';
-                console.log('📱 Tarjeta seleccionada:', title);
-                
-                // ✅ Redirección con transición suave
-                if (title.includes('Reportes')) {
-                    navegarConTransicion('reportes.html');
-                } else if (title.includes('Acerca')) {
-                    navegarConTransicion('acerca-de-nosotros.html');
-                } else if (title.includes('Fuentes')) {
-                    navegarConTransicion('fuentes-de-datos.html');
-                }
+        };
+
+        card.addEventListener('mousedown', activarScale);
+        card.addEventListener('mouseup', restaurarScale);
+        card.addEventListener('mouseleave', restaurarScale);
+
+        card.addEventListener('touchstart', activarScale, { passive: true });
+        card.addEventListener('touchend', restaurarScale);
+
+        // --- Click con transición suave ---
+        card.addEventListener('click', function (e) {
+            // Si el click fue sobre un enlace, dejamos que el navegador lo maneje
+            if (e.target.closest('a')) return;
+
+            const titulo = this.querySelector(CONFIG.SELECTORES.tituloCard)?.textContent || 'Tarjeta';
+            console.log('📱 Tarjeta seleccionada:', titulo.toLowerCase());
+
+            const destino = obtenerRutaPorTitulo(titulo);
+            if (destino) {
+                navegarConTransicion(destino);
+            } else {
+                console.warn('⚠️ No hay ruta definida para:', titulo);
             }
         });
     });
 }
 
+// ============================================ //
+// 4. TRANSICIÓN DE ENTRADA                    //
+// ============================================ //
+
 function initEntranceTransition() {
     requestAnimationFrame(() => {
-        document.querySelector('main').classList.add('loaded');
+        const main = document.querySelector(CONFIG.SELECTORES.main);
+        if (main) main.classList.add('loaded');
     });
 }
+
+// ============================================ //
+// 5. INICIALIZACIÓN                           //
+// ============================================ //
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Pantalla Principal - Iniciada correctamente');
+    initCardInteractions();
+    initEntranceTransition();
+});
 
 console.log('✅ Pantalla Principal - Script cargado correctamente');
