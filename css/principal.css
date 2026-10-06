@@ -210,10 +210,10 @@ main.fade-out-back {
 
 /* Borde azul al pasar el mouse */
 @media (hover: hover) {
-    .card-item:hover {
-        border-color: var(--blue);
-        box-shadow: 0 6px 22px rgba(2, 65, 204, 0.12);
-    }
+   .card-item:hover {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 1px var(--blue), 0 6px 22px rgba(2, 65, 204, 0.12);
+}
 }
 
 .card-item:active {
