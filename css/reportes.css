@@ -256,35 +256,38 @@ form {
 }
 
 /* Campos de texto */
-.input {
+.field .input {
     width: 100%;
-    padding: 0 14px;
+    padding: 12px 14px;
     background-color: #ffffff;
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 10px;
     font-family: inherit;
     font-size: 14px;
+    line-height: 1.5;
     box-sizing: border-box;
+    box-shadow: none;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input.input {
-    height: 48px;
+/* Correo y asunto más pequeños */
+.field input.input {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 13px;
 }
 
-textarea.input {
-    padding: 12px 14px;
-    line-height: 1.5;
+.field textarea.input {
     resize: none;
 }
 
-.input::placeholder {
+.field .input::placeholder {
     color: #94a3b8;
 }
 
-.input:focus {
+.field .input:focus {
     border-color: var(--blue);
     box-shadow: 0 0 0 1px var(--blue);
 }
