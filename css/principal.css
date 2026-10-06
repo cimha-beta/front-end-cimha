@@ -41,7 +41,7 @@ body.fade-out {
 main {
     max-width: 480px;
     margin: 0 auto;
-    padding: 64px 24px 40px;
+    padding: 32px 24px 40px;
     box-sizing: border-box;
     opacity: 0;
     transform: scale(0.98);
@@ -212,7 +212,7 @@ main.fade-out-back {
 @media (hover: hover) {
    .card-item:hover {
     border-color: var(--blue);
-    box-shadow: 0 0 0 1px var(--blue), 0 6px 22px rgba(2, 65, 204, 0.12);
+    box-shadow: 0 0 0 2px var(--blue), 0 6px 22px rgba(2, 65, 204, 0.12);
 }
 }
 
