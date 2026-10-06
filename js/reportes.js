@@ -54,37 +54,60 @@ const muniList = document.getElementById('muni-list');
 // 4. CARRUSEL                                  //
 // ============================================ //
 
+const SLIDE_MS = 500; // igual a la transición del CSS
+let carouselPosition = 1;
+let isSliding = false;
+
 function initCarousel() {
-    track.innerHTML = types.map(type => `
+    // Copias en los extremos para el bucle
+    const slides = [types[types.length - 1], ...types, types[0]];
+
+    track.innerHTML = slides.map(type => `
         <div class="type-icon">
             <span class="material-symbols-outlined">${type.icon}</span>
         </div>`).join('');
 
-    labelsTrack.innerHTML = types.map(type => `
+    labelsTrack.innerHTML = slides.map(type => `
         <span class="type-label">${type.label}</span>`).join('');
 
-    updateCarouselPosition();
+    updateCarouselPosition(false);
 }
 
-function updateCarouselPosition() {
-    // Mover solo ícono y texto
-    const offset = `translateX(-${currentTypeIndex * 100}%)`;
-    track.style.transform = offset;
-    labelsTrack.style.transform = offset;
+function updateCarouselPosition(animate = true) {
+    [track, labelsTrack].forEach(el => {
+        el.style.transition = animate ? '' : 'none';
+        el.style.transform = `translateX(-${carouselPosition * 100}%)`;
+    });
+
+    // Aplicar sin animación y restaurar
+    if (!animate) {
+        void track.offsetWidth;
+        [track, labelsTrack].forEach(el => { el.style.transition = ''; });
+    }
 
     selectedReportType = types[currentTypeIndex].label;
     validateForm();
 }
 
-document.getElementById('prev-report').addEventListener('click', () => {
-    currentTypeIndex = (currentTypeIndex - 1 + types.length) % types.length;
-    updateCarouselPosition();
-});
+function moveCarousel(step) {
+    if (isSliding) return;
+    isSliding = true;
 
-document.getElementById('next-report').addEventListener('click', () => {
-    currentTypeIndex = (currentTypeIndex + 1) % types.length;
+    carouselPosition += step;
+    currentTypeIndex = (currentTypeIndex + step + types.length) % types.length;
     updateCarouselPosition();
-});
+
+    // Saltar al slide real tras llegar a la copia
+    setTimeout(() => {
+        if (carouselPosition === 0) carouselPosition = types.length;
+        if (carouselPosition === types.length + 1) carouselPosition = 1;
+        updateCarouselPosition(false);
+        isSliding = false;
+    }, SLIDE_MS + 20);
+}
+
+document.getElementById('prev-report').addEventListener('click', () => moveCarousel(-1));
+document.getElementById('next-report').addEventListener('click', () => moveCarousel(1));
 
 // ============================================ //
 // 5. LISTAS DESPLEGABLES                       //
