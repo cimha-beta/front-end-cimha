@@ -4,95 +4,86 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Principal - Final</title>
-    
-    <!-- ✅ Tailwind CSS -->
+
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <!-- ✅ Fuentes Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
-    
-    <!-- ✅ CSS Personalizado -->
+
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/principal.css" />
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- MAIN CONTENT                                -->
-    <!-- ============================================ -->
-    <main class="flex-grow">
-        <!-- ============================================ -->
-        <!-- BANNER SECTION                              -->
-        <!-- ============================================ -->
-        <section class="bg-banner-gradient rounded-b-[40px] pb-14 relative overflow-hidden pt-12">
-            <div class="relative z-10 px-gutter">
-                <h2 class="text-[42px] font-bold text-white leading-tight mb-2">Consulta</h2>
-                <p class="text-[16px] leading-relaxed text-white/90 font-medium w-full mb-6">
-                    Explora datos en tiempo real de lluvias, niveles de ríos, caudales, pronósticos y más.
-                </p>
-                
-                <a class="inline-flex items-center gap-3 bg-white text-primary font-bold text-[16px] px-8 py-4 rounded-2xl shadow-lg active:scale-95 transition-transform" href="consulta.html">
-                Ir a Consulta
-                <span class="material-symbols-outlined font-bold">arrow_forward</span>
-              </a>
+    <main>
+
+        <!-- Encabezado -->
+        <header class="hero">
+            <h1>Consulta</h1>
+            <p>Accede a información confiable de forma rápida y sencilla.</p>
+        </header>
+
+        <!-- Tarjeta de consulta -->
+        <section class="consulta-card">
+            <div class="consulta-info">
+                <div class="consulta-icon">
+                    <span class="material-symbols-outlined">search</span>
+                </div>
+                <div>
+                    <h2>Realiza una consulta</h2>
+                    <p>Busca y revisa la información disponible en un solo lugar.</p>
+                </div>
+            </div>
+            <a class="consulta-btn" href="consulta.html">
+                Iniciar consulta
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </section>
+
+        <!-- Más información -->
+        <section class="info">
+            <h2>Más información</h2>
+            <p class="info-sub">Explora recursos y conoce cómo trabajamos.</p>
+
+            <!-- Informe sobre los reportes -->
+            <div class="card-item">
+                <img src="assets/icon-reportes.png" alt="Ícono de Reportes" />
+                <div class="card-text">
+                    <h3>Informe sobre los reportes</h3>
+                    <p>Consulta incidencias y reportes registrados.</p>
+                </div>
+                <span class="card-arrow material-symbols-outlined">chevron_right</span>
+            </div>
+
+            <!-- Acerca de nosotros -->
+            <div class="card-item">
+                <img src="assets/icon-acerca.png" alt="Acerca de nosotros" />
+                <div class="card-text">
+                    <h3>Acerca de nosotros</h3>
+                    <p>Conoce el propósito y el equipo del proyecto.</p>
+                </div>
+                <span class="card-arrow material-symbols-outlined">chevron_right</span>
+            </div>
+
+            <!-- Fuentes de datos -->
+            <div class="card-item">
+                <img src="assets/icon-fuentes.png" alt="Fuentes de Datos" />
+                <div class="card-text">
+                    <h3>Fuentes de datos</h3>
+                    <p>Revisa el origen y la actualización de la información.</p>
+                </div>
+                <span class="card-arrow material-symbols-outlined">chevron_right</span>
             </div>
         </section>
-        
-        <!-- ============================================ -->
-        <!-- LIST SECTION                                -->
-        <!-- ============================================ -->
-        <section class="px-gutter mt-10 flex flex-col gap-5 max-w-screen-xl mx-auto">
-            
-            <!-- Card 1 - Informe Sobre Los Reportes -->
-            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
-                <img 
-                    src="assets/icon-reportes.png" 
-                    alt="Ícono de Reportes" 
-                    class="w-12 h-12 flex-shrink-0"
-                />
-                <div class="flex-grow">
-                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Informe Sobre Los Reportes</h3>
-                    <p class="text-[14px] text-on-surface-variant leading-snug">Reporta problemas o incidencias fácilmente.</p>
-                </div>
-                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
-                    <span class="material-symbols-outlined text-primary">chevron_right</span>
-                </div>
-            </div>
-            
-            <!-- Card 2 - Acerca de nosotros -->
-            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
-                <img 
-                    src="assets/icon-acerca.png" 
-                    alt="Acerca de nosotros" 
-                    class="w-12 h-12 flex-shrink-0"
-                />
-                <div class="flex-grow">
-                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Acerca de nosotros</h3>
-                    <p class="text-[14px] text-on-surface-variant leading-snug">Conoce nuestra misión, equipo y compromiso.</p>
-                </div>
-                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
-                    <span class="material-symbols-outlined text-primary">chevron_right</span>
-                </div>
-            </div>
-            
-            <!-- Card 3 - Fuentes de Datos -->
-            <div class="bg-white p-5 rounded-[24px] flex items-center gap-5 ios-shadow border border-gray-50/50 group cursor-pointer shadow-lg card-item">
-                <img 
-                    src="assets/icon-fuentes.png" 
-                    alt="Fuentes de Datos" 
-                    class="w-12 h-12 flex-shrink-0"
-                />
-                <div class="flex-grow">
-                    <h3 class="text-[18px] font-bold text-[#131B2E] mb-1">Fuentes de Datos</h3>
-                    <p class="text-[14px] text-on-surface-variant leading-snug">Información sobre nuestras fuentes oficiales y metodología.</p>
-                </div>
-                <div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-lg group-hover:bg-gray-50 transition-colors">
-                    <span class="material-symbols-outlined text-primary">chevron_right</span>
-                </div>
-            </div>
-            
-        </section>
+
+        <!-- Nota inferior -->
+        <p class="note">
+            <span class="material-symbols-outlined">verified_user</span>
+            Datos verificados y actualizados periódicamente
+        </p>
     </main>
 
-    <!-- ✅ JavaScript -->
+    <!-- JavaScript -->
     <script src="js/principal.js"></script>
 </body>
 </html>
