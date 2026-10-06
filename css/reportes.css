@@ -139,66 +139,39 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 28px;
-}
-
-.type-arrow {
-    display: flex;
-    background: none;
-    border: none;
-    color: var(--blue);
-    cursor: pointer;
+    gap: 20px;
 }
 
 .type-arrow .material-symbols-outlined {
-    font-size: 32px;
+    font-size: 28px;
 }
 
 .type-center {
-    width: 190px;
+    width: 170px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 /* Caja fija */
 .type-box {
-    width: 72px;
-    height: 72px;
+    width: 56px;
+    height: 56px;
     overflow: hidden;
     background-color: #ffffff;
     border: 2px solid var(--blue);
-    border-radius: 16px;
-}
-
-.label-window {
-    width: 100%;
-    overflow: hidden;
-}
-
-.type-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.type-icon {
-    flex: 0 0 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--blue);
+    border-radius: 14px;
 }
 
 .type-icon .material-symbols-outlined {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .type-label {
     flex: 0 0 100%;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
 }
 
