@@ -1,119 +1,28 @@
 /* ============================================ */
-/* PRINCIPAL.CSS - ESTILOS                     */
-/* Basado en Hydrologic Precision System        */
-/* DESIGN.md v1.0                               */
+/* PRINCIPAL.CSS                                */
 /* ============================================ */
 
-/* ============================================ */
-/* 1. ESTILOS GENERALES                         */
-/* ============================================ */
+/* Variables globales */
+:root {
+    --bg: #f7f9fb;
+    --text: #131b2e;
+    --text-soft: #64748b;
+    --blue: #0241cc;
+    --blue-soft: #e8eefb;
+    --border: #e5e7eb;
+}
+
+/* Base */
 html {
-    background-color: #F7F9FB;
+    background-color: var(--bg);
 }
+
 body {
-    background-color: #F7F9FB;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-     zoom: 1.0; /* Reducción de escala general */
-}
-main {
-    opacity: 0;
-    transform: scale(0.98);
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-main.loaded {
-    opacity: 1;
-    transform: scale(1);
-}
-main.fade-out-back {
-    opacity: 0;
-    transform: scale(0.98);
-}
-/* ============================================ */
-/* 2. ICONOS DE MATERIAL                        */
-/* ============================================ */
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-/* ============================================ */
-/* 3. BANNER - GRADIENTE                        */
-/* ============================================ */
-
-.bg-banner-gradient {
-    background: linear-gradient(180deg, #0053C2 0%, #003A8C 100%);
-}
-
-/* ============================================ */
-/* 4. SOMBRA IOS                               */
-/* ============================================ */
-
-.ios-shadow {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-
-/* ============================================ */
-/* 5. ANIMACIÓN DE TARJETAS                    */
-/* ============================================ */
-
-.card-item {
-    transform: scale(1);
-    transition: transform 0.1s ease-out;
-}
-
-.card-item:active {
-    transform: scale(0.97);
-}
-
-/* ============================================ */
-/* 6. RESPONSIVE - AJUSTES PARA MÓVIL          */
-/* ============================================ */
-
-@media (max-width: 480px) {
-
-    .card-item {
-        padding: 16px;
-        gap: 16px;
-    }
-    
-    .card-item h3 {
-        font-size: 16px;
-    }
-    
-    .card-item p {
-        font-size: 13px;
-    }
-}
-/* ============================================ */
-/* 7. LAYOUT GLOBAL - Espaciado de bordes       */
-/* ============================================ */
-
-/* Quitamos el padding general de main (lo movemos a la sección de cards) */
-main {
-    padding-left: 0;
-    padding-right: 0;
-    box-sizing: border-box;
-}
-
-/* Sección de las cards - mantiene el espaciado actual a los bordes */
-main > section:not(.bg-banner-gradient) {
-    padding-left: 24px;
-    padding-right: 24px;
-}
-
-/* ============================================ */
-/* 8. BANNER - Full width, sin redondeo, padding interno 14px */
-/* ============================================ */
-
-.bg-banner-gradient {
-    border-radius: 0 !important; /* pisa el rounded-b-[40px] y la media query */
-}
-
-/* ============================================ */
-/* 9. TRANSICIÓN DE SALIDA PARA REDIRECCIÓN       */
-/* ============================================ */
-
-body {
+    zoom: 1;
     transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -124,16 +33,205 @@ body.fade-out {
     pointer-events: none;
 }
 
-/* Para todas las tarjetas */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Contenedor principal */
+main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 64px 24px 40px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+main.loaded {
+    opacity: 1;
+    transform: scale(1);
+}
+
+main.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
+}
+
+/* Encabezado */
+.hero {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-soft);
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Tarjeta de consulta */
+.consulta-card {
+    background-color: var(--blue);
+    color: #ffffff;
+    padding: 16px;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(2, 65, 204, 0.25);
+}
+
+.consulta-info {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.consulta-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+}
+
+.consulta-info h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.consulta-info p {
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.consulta-btn {
+    margin-top: 40px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #ffffff;
+    color: var(--blue);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.consulta-btn:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+
+/* Más información */
+.info {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.info-sub {
+    font-size: 14px;
+    color: var(--text-soft);
+    margin-top: -12px;
+    margin-bottom: 4px;
+}
+
+/* Tarjetas de opciones */
 .card-item {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 16px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-item img {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.card-text {
+    flex-grow: 1;
+}
+
+.card-text h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-soft);
+}
+
+.card-arrow {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blue-soft);
+    color: var(--blue);
+    border-radius: 50%;
+}
+
+/* Borde azul al pasar el mouse */
+@media (hover: hover) {
+    .card-item:hover {
+        border-color: var(--blue);
+        box-shadow: 0 6px 22px rgba(2, 65, 204, 0.12);
+    }
 }
 
 .card-item:active {
     transform: scale(0.97);
 }
-.bg-banner-gradient .px-gutter {
-    padding-left: 14px;
-    padding-right: 14px;
+
+/* Nota inferior */
+.note {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.note .material-symbols-outlined {
+    font-size: 18px;
+    color: var(--blue);
 }
