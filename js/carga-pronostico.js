@@ -202,8 +202,7 @@ function inicializarListaDePasos() {
                 <span class="num">${i + 1}</span>
                 <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" pathLength="1"></path></svg>
             </span>
-            <span class="step-text">${nombre}</span>
-            <span class="step-pct">${porcentajePorPaso[i]}%</span>`;
+            <span class="step-text">${nombre}</span>`;
         stepsList.appendChild(row);
         rowEls.push(row);
     });
