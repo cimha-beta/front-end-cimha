@@ -1,42 +1,69 @@
+// ============================================ //
+// CARGA-PRONOSTICO.JS                          //
+// ============================================ //
+
+// ============================================ //
+// 1. CONFIGURACIÓN                             //
+// ============================================ //
+
 const BACKEND_URL = 'https://back-end-cimha-production.up.railway.app/webhook/consulta-coordenadas';
 
 const statusSteps = [
-    "Localizando Ubicación",
-    "Consultando Clima",
-    "Buscando Estaciones",
-    "Estaciones Encontradas",
-    "Obteniendo Información",
-    "Triangulando Información",
-    "Integrando IA",
-    "Preparando Formato",
-    "¡Listo!"
+    "Validando ubicación",
+    "Consultando clima",
+    "Ubicando estaciones",
+    "Estaciones verificadas",
+    "Analizando el río",
+    "Contrastando fuentes",
+    "Procesando con IA",
+    "Generando pronóstico",
+    "Pronóstico listo"
 ];
 
-// Porcentaje que se muestra al llegar a cada paso (mismo orden que statusSteps).
-// Edita estos números libremente; no tienen que ser parejos ni consecutivos.
+// Porcentaje por paso (mismo orden que statusSteps)
 const porcentajePorPaso = [12, 21, 35, 43, 62, 72, 84, 96, 100];
+
+const totalPasos = statusSteps.length;
+const timePerPhase = 1500;
+
+// ============================================ //
+// 2. VARIABLES DE ESTADO                       //
+// ============================================ //
 
 let currentStep = 0;
 let isCancelled = false;
 let timeoutId = null;
 let consultaPromise = null;
-const timePerPhase = 1500;
+
+// ============================================ //
+// 3. REFERENCIAS A ELEMENTOS DOM               //
+// ============================================ //
 
 const cancelButton = document.getElementById('cancel-button');
 const cancelModal = document.getElementById('cancel-modal');
 const modalOkBtn = document.getElementById('modal-ok-btn');
 const cancelVideo = document.getElementById('cancel-video');
 
+const ringBar = document.getElementById('ring-bar');
+const stepInfo = document.getElementById('step-info');
+const stepCount = document.getElementById('step-count');
+const stepName = document.getElementById('step-name');
+const stepsList = document.getElementById('steps-list');
+const highlightEl = document.getElementById('step-highlight');
+
 if (cancelVideo) {
-    cancelVideo.addEventListener('ended', () => {
-        cancelVideo.pause();
-    });
+    cancelVideo.addEventListener('ended', () => cancelVideo.pause());
 }
+
+// ============================================ //
+// 4. INICIALIZACIÓN                            //
+// ============================================ //
 
 document.addEventListener('DOMContentLoaded', function () {
     aplicarTransicionEntrada();
     inicializarOdometro();
-    inicializarMapaDeProgreso();
+    inicializarListaDePasos();
+    inicializarAnillo();
 
     setTimeout(() => {
         iniciarCarga();
@@ -55,10 +82,8 @@ function aplicarTransicionEntrada() {
 }
 
 // ============================================ //
-// ODÓMETRO DE PORCENTAJE                       //
+// 5. ODÓMETRO DE PORCENTAJE                    //
 // ============================================ //
-
-const DIGIT_HEIGHT = 24; // debe coincidir con el font-size/height en el CSS
 
 let odometerEl = null;
 let columnasOdometro = [];
@@ -97,7 +122,7 @@ function setPorcentajeOdometro(valor) {
     const str = String(valor);
     asegurarColumnasOdometro(str.length);
 
-    // Alinear los dígitos a la derecha (como un número real)
+    // Alinear dígitos a la derecha
     const offset = columnasOdometro.length - str.length;
 
     columnasOdometro.forEach((colObj, i) => {
@@ -105,133 +130,110 @@ function setPorcentajeOdometro(valor) {
         colObj.col.classList.toggle('active', esVisible);
         if (esVisible) {
             const digito = parseInt(str[i - offset], 10);
-            colObj.strip.style.transform = `translateY(-${digito * DIGIT_HEIGHT}px)`;
+            // Altura de cada dígito: 1em
+            colObj.strip.style.transform = `translateY(-${digito}em)`;
         }
     });
 }
 
 // ============================================ //
-// MAPA DE PROGRESO (puntos + etiqueta)         //
+// 6. ANILLO DE PROGRESO                        //
 // ============================================ //
 
-const W = 330, H = 320, PAD = 30;
-const totalPasos = statusSteps.length;
+const RING_LENGTH = 2 * Math.PI * 60; // radio del círculo SVG
 
-let puntos = [];
-let nodeEls = [];
-let label = null;
-let pathBg = null;
-let pathProgress = null;
-let totalLength = 0;
-
-function generarPuntos() {
-    const pts = [];
-    const amplitude = 95;
-    const centerX = W / 2;
-    const angleStep = (Math.PI * 1.4) / (totalPasos - 1);
-    for (let i = 0; i < totalPasos; i++) {
-        const y = PAD + (i * (H - PAD * 2)) / (totalPasos - 1);
-        const x = centerX + amplitude * Math.sin(i * angleStep);
-        pts.push({ x, y });
-    }
-    return pts;
+function inicializarAnillo() {
+    if (!ringBar) return;
+    ringBar.style.strokeDasharray = RING_LENGTH;
+    ringBar.style.strokeDashoffset = RING_LENGTH;
 }
 
-function puntosToPath(pts) {
-    return pts.map((p, i) => (i === 0 ? 'M' : 'L') + p.x + ',' + p.y).join(' ');
+function actualizarAnillo(porcentaje) {
+    if (!ringBar) return;
+    ringBar.style.strokeDashoffset = RING_LENGTH * (1 - porcentaje / 100);
 }
 
-function inicializarMapaDeProgreso() {
-    const mapWrapper = document.getElementById('map-wrapper');
-    pathBg = document.getElementById('path-bg');
-    pathProgress = document.getElementById('path-progress');
+// ============================================ //
+// 7. LISTA DE PASOS                            //
+// ============================================ //
 
-    if (!mapWrapper || !pathBg || !pathProgress) return;
+let rowEls = [];
 
-    puntos = generarPuntos();
-    const fullPathD = puntosToPath(puntos);
-    pathBg.setAttribute('d', fullPathD);
-    pathProgress.setAttribute('d', fullPathD);
+function inicializarListaDePasos() {
+    if (!stepsList) return;
 
-    // Preparar el "dibujado" progresivo de la línea verde
-    totalLength = pathProgress.getTotalLength();
-    pathProgress.style.strokeDasharray = totalLength;
-    pathProgress.style.strokeDashoffset = totalLength;
-
-    // Crear nodos
-    nodeEls = [];
-    puntos.forEach((p) => {
-        const node = document.createElement('div');
-        node.className = 'node pending';
-        node.style.left = (p.x / W * 100) + '%';
-        node.style.top = (p.y / H * 100) + '%';
-        mapWrapper.appendChild(node);
-        nodeEls.push(node);
+    statusSteps.forEach((nombre, i) => {
+        const row = document.createElement('div');
+        row.className = 'step';
+        row.innerHTML = `
+            <span class="step-num">
+                <span class="num">${i + 1}</span>
+                <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" pathLength="1"></path></svg>
+            </span>
+            <span class="step-text">${nombre}</span>
+            <span class="step-pct">${porcentajePorPaso[i]}%</span>`;
+        stepsList.appendChild(row);
+        rowEls.push(row);
     });
-
-    // Crear etiqueta reutilizable
-    label = document.createElement('div');
-    label.className = 'step-label';
-    mapWrapper.appendChild(label);
 }
 
-function mostrarEtiqueta(index) {
-    if (!label) return;
-    const p = puntos[index];
-    label.textContent = statusSteps[index];
-    label.style.left = (p.x / W * 100) + '%';
-    label.style.top = (p.y / H * 100) + '%';
-    requestAnimationFrame(() => label.classList.add('visible'));
+function marcarPaso(index, estado) {
+    const row = rowEls[index];
+    if (!row) return;
+    row.classList.remove('active', 'done');
+    row.classList.add(estado);
 }
 
-function ocultarEtiqueta() {
-    if (label) label.classList.remove('visible');
+// Resaltado deslizante entre filas
+function moverResaltado(index) {
+    const row = rowEls[index];
+    if (!row || !highlightEl) return;
+    highlightEl.style.transform = `translateY(${row.offsetTop}px)`;
+    highlightEl.style.opacity = '1';
+}
+
+// Fundido cruzado del paso actual
+function actualizarEtiqueta(index) {
+    if (!stepInfo) return;
+    stepInfo.classList.add('swap');
+
+    setTimeout(() => {
+        stepCount.textContent = `PASO ${index + 1} DE ${totalPasos}`;
+        stepName.textContent = statusSteps[index];
+        stepInfo.classList.remove('swap');
+    }, 250);
 }
 
 function activarPaso(index) {
-    // Marcar el paso anterior como completado
-    if (index > 0 && nodeEls[index - 1]) {
-        nodeEls[index - 1].classList.remove('active');
-        nodeEls[index - 1].classList.add('done');
-    }
+    // Completar paso anterior
+    if (index > 0) marcarPaso(index - 1, 'done');
 
-    // Activar el paso actual
-    if (nodeEls[index]) {
-        nodeEls[index].classList.remove('pending');
-        nodeEls[index].classList.add('active');
-    }
+    // El resaltado se desliza primero
+    moverResaltado(index);
+    setTimeout(() => {
+        if (!isCancelled) marcarPaso(index, 'active');
+    }, 250);
 
-    ocultarEtiqueta();
-    setTimeout(() => mostrarEtiqueta(index), 200);
+    actualizarEtiqueta(index);
 
-    // Línea de progreso dibujándose suavemente hasta el punto actual
-    if (pathProgress) {
-        const fraction = index / (totalPasos - 1);
-        pathProgress.style.strokeDashoffset = totalLength - totalLength * fraction;
-    }
-
-    // Odómetro: porcentaje girando dígito por dígito (según porcentajePorPaso)
+    // Porcentaje: odómetro y anillo
     const pct = porcentajePorPaso[index] ?? Math.round(((index + 1) / totalPasos) * 100);
     setPorcentajeOdometro(pct);
+    actualizarAnillo(pct);
 }
 
 function finalizarUltimoPaso() {
-    const ultimo = nodeEls[totalPasos - 1];
-    if (ultimo) {
-        ultimo.classList.remove('active');
-        ultimo.classList.add('done');
-    }
-    ocultarEtiqueta();
+    marcarPaso(totalPasos - 1, 'done');
 }
 
 // ============================================ //
-// CICLO DE CARGA                               //
+// 8. CICLO DE CARGA                            //
 // ============================================ //
 
 async function iniciarCarga() {
     if (isCancelled) return;
 
-    // Disparar la consulta al backend (POST) en paralelo con la animación
+    // Disparar consulta al backend en paralelo
     if (currentStep === 0) {
         consultaPromise = consultarBackendYGuardar();
     }
@@ -245,13 +247,13 @@ async function iniciarCarga() {
         if (currentStep < statusSteps.length) {
             timeoutId = setTimeout(iniciarCarga, timePerPhase);
         } else {
-            // Asegurar que el backend ya respondió antes de ir al resultado
+            // Esperar respuesta del backend
             if (consultaPromise) {
                 try { await consultaPromise; } catch (err) { console.error('❌ Error al obtener los datos:', err); }
             }
             if (isCancelled) return;
 
-            // Se redirige únicamente cuando el mapa termina Y los datos ya están guardados
+            // Redirigir al terminar animación y datos
             setTimeout(() => {
                 if (!isCancelled) {
                     finalizarUltimoPaso();
@@ -263,7 +265,7 @@ async function iniciarCarga() {
                                 : 'resultado-del-dia.html';
                             navegarConTransicion(pantallaResultado);
                         }
-                    }, 400);
+                    }, 700);
                 }
             }, 600);
         }
@@ -271,7 +273,7 @@ async function iniciarCarga() {
 }
 
 async function consultarBackendYGuardar() {
-    // Leer la consulta que dejó preparada enviarConsulta (js/consulta.js)
+    // Leer consulta preparada en consulta.js
     const pendiente = sessionStorage.getItem('consultaPendiente');
     if (!pendiente) {
         console.warn('⚠️ No hay consulta pendiente en sessionStorage (consultaPendiente).');
@@ -295,7 +297,7 @@ async function consultarBackendYGuardar() {
 
         const data = await response.json();
 
-        // El backend responde { ok: true, reporte: {...} } o el reporte directo
+        // Responde { ok: true, reporte: {...} } o el reporte directo
         console.log('✅ DATOS RECIBIDOS DEL BACKEND:', data);
 
         sessionStorage.setItem('datosPronostico', JSON.stringify(data.reporte || data));
@@ -308,7 +310,7 @@ async function consultarBackendYGuardar() {
 }
 
 // ============================================ //
-// CANCELACIÓN - Se mantiene igual que antes    //
+// 9. CANCELACIÓN                               //
 // ============================================ //
 
 function cancelarProceso() {
@@ -352,9 +354,9 @@ function initInteracciones() {
     });
 }
 
-// (Eliminada: cargarDatos() era una copia en desuso de resultado-del-dia.js y
-//  referenciaba cargarDatosBackend()/poblarInterfaz(), inexistentes en este archivo.
-//  La pantalla de carga solo anima el progreso; los datos llegan vía sessionStorage.)
+// ============================================ //
+// 10. NAVEGACIÓN CON TRANSICIÓN                //
+// ============================================ //
 
 function navegarConTransicion(destino) {
     const main = document.querySelector('main');
@@ -369,7 +371,6 @@ function navegarConTransicion(destino) {
     }
 
     setTimeout(() => {
-        // Redirección del navegador
         window.location.href = destino;
     }, 400);
 }

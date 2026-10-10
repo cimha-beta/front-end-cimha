@@ -1,78 +1,77 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Generando Pronóstico</title>
 
-    <!-- ✅ Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
 
-    <!-- ✅ CSS Personalizado -->
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/carga-pronostico.css" />
 </head>
-
 <body>
-    <!-- ============================================ -->
-    <!-- STATUS BAR (VACÍO)                           -->
-    <!-- ============================================ -->
-    <header class="flex justify-between items-center px-8 py-4 w-full"></header>
+    <main>
 
-    <!-- ============================================ -->
-    <!-- MAIN CONTENT (pantalla normal, sin card)     -->
-    <!-- ============================================ -->
-    <main class="flex-grow flex flex-col items-center justify-center px-10 text-center">
-        <div class="w-full max-w-[280px] flex flex-col items-center">
+        <!-- Encabezado -->
+        <header class="head">
+            <h1>Generando Pronóstico</h1>
+            <p>Este proceso puede tardar unos minutos.</p>
+        </header>
 
-            <!-- Titles and Description -->
-            <h1 class="text-headline-lg-mobile font-bold text-on-surface mb-stack-md">Generando Pronóstico</h1>
-            <p class="text-body-lg font-body-lg text-on-surface-variant leading-relaxed mb-8">
-                Este proceso puede tardar unos minutos.<br />
-            </p>
-
-            <!-- ============================================ -->
-            <!-- MAPA DE PROGRESO (odómetro + puntos)         -->
-            <!-- ============================================ -->
-            <div class="map-row" id="map-row">
-                <div class="odometer-wrap">
-                    <div class="odometer" id="odometer"></div>
-                    <div class="percent-sign">%</div>
-                </div>
-                <div class="map-wrapper" id="map-wrapper">
-                    <svg viewBox="0 0 330 320" preserveAspectRatio="none">
-                        <path id="path-bg" class="path-line" d=""></path>
-                        <path id="path-progress" class="path-progress" d=""></path>
-                    </svg>
-                    <!-- Los nodos y la etiqueta de paso se insertan dinámicamente por JS -->
+        <!-- Progreso -->
+        <section class="progress">
+            <div class="ring">
+                <svg viewBox="0 0 140 140">
+                    <circle class="ring-bg" cx="70" cy="70" r="60"></circle>
+                    <circle class="ring-bar" id="ring-bar" cx="70" cy="70" r="60"></circle>
+                </svg>
+                <div class="ring-center">
+                    <div class="odometer-wrap">
+                        <div class="odometer" id="odometer"></div>
+                        <div class="percent-sign">%</div>
+                    </div>
+                    <span class="ring-sub">completado</span>
                 </div>
             </div>
 
-            <!-- Cancel Button -->
-            <button
-                class="w-full py-4 bg-red-600 rounded-xl flex items-center justify-center space-x-2 text-white font-bold active:bg-red-700 transition-colors mt-8"
-                id="cancel-button">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                </svg>
-                <span>Cancelar</span>
-            </button>
+            <!-- Paso actual -->
+            <div class="step-info" id="step-info">
+                <span class="step-count" id="step-count"></span>
+                <strong class="step-name" id="step-name"></strong>
+            </div>
+        </section>
 
+        <!-- Lista de pasos -->
+        <div class="steps" id="steps-list">
+            <span class="step-highlight" id="step-highlight"></span>
         </div>
+
+        <!-- Botón cancelar -->
+        <button class="cancel" id="cancel-button" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Cancelar
+        </button>
     </main>
 
-    <!-- Cancel Modal (única "card" de la pantalla) -->
-    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden" id="cancel-modal">
-        <div class="modal-content bg-white rounded-2xl p-8 mx-4 max-w-sm w-full flex flex-col items-center text-center shadow-2xl">
-            <video class="w-24 h-24 object-contain mb-4" id="cancel-video" autoplay muted playsinline src="assets/video_icono_cancelacion.mp4"></video>
-            <h2 class="text-xl font-bold text-gray-900 mb-2">Proceso Cancelado</h2>
-            <p class="text-gray-500 mb-6">El proceso fue cancelado.<br> Se redirigira a la pantalla Principal.</p>
-            <button class="bg-red-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-red-700 transition-colors" id="modal-ok-btn">Aceptar</button>
+    <!-- Modal de cancelación -->
+    <div class="modal hidden" id="cancel-modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <video id="cancel-video" autoplay muted playsinline src="assets/video_icono_cancelacion.mp4"></video>
+            </div>
+            <h2>Consulta cancelada</h2>
+            <p>Detuvimos la generación de tu pronóstico. Te llevaremos a la pantalla principal.</p>
+            <button class="modal-btn" id="modal-ok-btn" type="button">Volver al inicio</button>
         </div>
     </div>
 
-    <!-- ✅ JavaScript -->
+    <!-- JavaScript -->
     <script src="js/carga-pronostico.js"></script>
 </body>
-
 </html>
