@@ -137,6 +137,16 @@ main.fade-out-back {
     opacity: 0.9;
 }
 
+.consulta-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.consulta-btn img {
+    width: 20px;
+    height: 20px;
+}
+
 /* Más información */
 .info {
     margin-top: 36px;
