@@ -65,9 +65,10 @@ document.addEventListener('DOMContentLoaded', function () {
     inicializarListaDePasos();
     inicializarAnillo();
 
+    // Pausa para ver el 0 % inicial
     setTimeout(() => {
         iniciarCarga();
-    }, 500);
+    }, 900);
 
     initInteracciones();
 });
@@ -168,12 +169,19 @@ const RING_LENGTH = 2 * Math.PI * 60; // radio del círculo SVG
 
 function inicializarAnillo() {
     if (!ringBar) return;
+
+    // Empezar vacío (0 %) sin animación
+    ringBar.style.transition = 'none';
     ringBar.style.strokeDasharray = RING_LENGTH;
     ringBar.style.strokeDashoffset = RING_LENGTH;
+    ringBar.style.opacity = '0';
+    void ringBar.getBoundingClientRect();
+    ringBar.style.transition = '';
 }
 
 function actualizarAnillo(porcentaje) {
     if (!ringBar) return;
+    ringBar.style.opacity = porcentaje > 0 ? '1' : '0';
     ringBar.style.strokeDashoffset = RING_LENGTH * (1 - porcentaje / 100);
 }
 
@@ -222,7 +230,7 @@ function actualizarEtiqueta(index) {
     stepInfo.classList.add('swap');
 
     setTimeout(() => {
-        stepCount.textContent = `Paso ${index + 1} De ${totalPasos}`;
+        stepCount.textContent = `PASO ${index + 1} DE ${totalPasos}`;
         stepName.textContent = statusSteps[index];
         stepInfo.classList.remove('swap');
     }, 250);

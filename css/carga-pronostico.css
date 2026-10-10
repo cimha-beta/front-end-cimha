@@ -111,7 +111,10 @@ main.fade-out-back {
 .ring-bar {
     stroke: var(--blue);
     stroke-linecap: round;
-    transition: stroke-dashoffset 1.1s var(--ease);
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    opacity: 0;
+    transition: stroke-dashoffset 1.1s var(--ease), opacity 0.3s ease;
 }
 
 .ring-center {
