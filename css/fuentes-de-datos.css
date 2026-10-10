@@ -1,204 +1,368 @@
 /* ============================================ */
-/* FUENTES-DE-DATOS.CSS - ESTILOS              */
-/* Basado en Hydrologic Precision System        */
-/* DESIGN.md v1.0                               */
+/* FUENTES-DE-DATOS.CSS                         */
 /* ============================================ */
 
-/* ============================================ */
-/* 1. ESTILOS GENERALES                         */
-/* ============================================ */
+/* Variables globales */
+:root {
+    --bg: #f1f4f9;
+    --text: #131b2e;
+    --text-soft: #64748b;
+    --text-body: #475569;
+    --line: #eef1f5;
+    --blue: #2563eb;
+    --blue-soft: #eaf1ff;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base */
+html, body {
+    margin: 0;
+    padding: 0;
+}
 
 html {
-    background-color: #f7f9fb;
+    background-color: var(--bg);
 }
+
 body {
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f7f9fb;
-    color: #191c1e;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    min-height: 100vh;
-    padding-bottom: 24px;
-    zoom: 0.95;
 }
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+img {
+    display: block;
+}
+
+/* Transición de pantalla */
 main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 4px 16px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     opacity: 0;
     transform: scale(0.98);
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
+
 main.loaded {
     opacity: 1;
     transform: scale(1);
 }
+
 main.fade-out-back {
     opacity: 0;
     transform: scale(0.98);
 }
 
-/* ============================================ */
-/* 2. ICONOS DE MATERIAL                        */
-/* ============================================ */
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    font-family: 'Material Symbols Outlined', sans-serif;
-}
-
-/* ============================================ */
-/* 3. TRANSICIÓN DE ENTRADA Y SALIDA           */
-/* ============================================ */
-
-/* ============================================ */
-/* 5. HEADER - FONDO CON DESENFOQUE             */
-/* ============================================ */
-
-header {
-    background-color: rgba(247, 249, 251, 0.9);
+/* Encabezado */
+.top {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px 16px 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    background-color: rgba(241, 244, 249, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 102, 204, 0.08);
 }
 
-/* ============================================ */
-/* 6. BOTONES - EFECTO DE ESCALA                */
-/* ============================================ */
-
-button {
-    transition: transform 0.15s ease, opacity 0.2s ease;
+.top h1 {
+    flex: 1;
+    padding-right: 44px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
 }
 
-button:active {
+.back {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: var(--blue);
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.back svg {
+    width: 24px;
+    height: 24px;
+}
+
+.back:active {
     transform: scale(0.95);
 }
 
-/* ============================================ */
-/* 7. TARJETAS - EFECTO HOVER                   */
-/* ============================================ */
-
-section {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-section:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* ============================================ */
-/* 8. RESPONSIVE - AJUSTES PARA MÓVIL          */
-/* ============================================ */
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 18px;
-    }
-    
-    main {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-    
-    section .h-48 {
-        height: 160px;
-    }
-    
-    section .p-6 {
-        padding: 16px;
-    }
-    
-    section h2 {
-        font-size: 20px;
-    }
-    
-    section p {
-        font-size: 14px;
-    }
-    
-    section button {
-        padding: 12px 20px;
-        font-size: 13px;
-        width: 100%;
-        justify-content: center;
-    }
-}
-/* ============================================ */
-/* 9. RESPONSIVE - TABLET                       */
-/* ============================================ */
-
-@media (min-width: 481px) and (max-width: 768px) {
-    main {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
-
-/* ============================================ */
-/* 10. RESPONSIVE - ESCRITORIO                  */
-/* ============================================ */
-
-@media (min-width: 769px) {
-    main {
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-/* ============================================ */
-/* 11. MAPEO DE COLORES Y TOKENS (clases no reales de Tailwind) */
-/* ============================================ */
-
-.bg-surface {
-    background-color: #f7f9fb;
-}
-
-.bg-surface-container-lowest {
+/* Tarjetas */
+.card {
     background-color: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
 }
 
-.border-outline-variant {
-    border-color: #e2e5e9;
+/* Presentación */
+.intro {
+    padding: 24px 20px;
 }
 
-.text-on-surface {
-    color: #131b2e;
-}
-
-.text-on-surface-variant {
-    color: #5a6472;
-}
-
-.text-primary-container {
-    color: #131b2e;
-}
-
-.bg-primary {
-    background-color: #131b2e;
-}
-
-.text-on-primary {
-    color: #ffffff;
-}
-
-.text-primary {
-    color: #0066cc;
-}
-
-.text-headline-md {
+.intro h2 {
+    margin-bottom: 14px;
+    text-align: center;
     font-size: 20px;
     font-weight: 700;
 }
 
-.text-body-lg {
+.accent {
+    color: var(--blue);
+}
+
+.intro p {
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.65;
+    color: var(--text-body);
 }
 
-.text-body-sm {
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background-color: var(--blue-soft);
+    border-radius: 999px;
     font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
 }
 
-.px-container-margin-mobile {
-    padding-left: 24px;
-    padding-right: 24px;
+.chip img {
+    width: 16px;
+    height: 16px;
+}
+
+/* Grupos de fuentes */
+.group-title {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.group-sub {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.source-card {
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+/* Banner con título */
+.banner {
+    position: relative;
+    height: 170px;
+    overflow: hidden;
+    background-color: #e8f1fb;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+}
+
+.banner-title {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text);
+}
+
+/* Fuente */
+.source {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px 12px;
+}
+
+.source-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.source-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.source-text h3 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.source-text p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-soft);
+}
+
+.link-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.link-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.link-btn:hover {
+    border-color: var(--blue);
+}
+
+.link-btn:active {
+    transform: scale(0.95);
+}
+
+/* Etiquetas */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 20px 18px;
+}
+
+.tags span {
+    padding: 6px 14px;
+    background-color: #eef1f5;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+}
+
+.divider {
+    margin: 0 20px 6px;
+    border: none;
+    border-top: 1px solid var(--line);
+}
+
+/* Del dato a tu pantalla */
+.process {
+    padding: 24px 16px;
+}
+
+.process h2 {
+    padding: 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.process-sub {
+    margin-top: 2px;
+    padding: 0 4px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.process-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 28px;
+}
+
+/* Línea punteada entre pasos */
+.process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 16%;
+    right: 16%;
+    border-top: 2px dashed #bfd2fb;
+}
+
+.process-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4px;
+    text-align: center;
+}
+
+.process-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    background-color: var(--blue);
+    border-radius: 50%;
+}
+
+.process-icon.dark {
+    background-color: #1e40af;
+}
+
+.process-icon img {
+    width: 28px;
+    height: 28px;
+}
+
+.process-step h3 {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.process-step p {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--text-soft);
 }
