@@ -222,7 +222,7 @@ function actualizarEtiqueta(index) {
     stepInfo.classList.add('swap');
 
     setTimeout(() => {
-        stepCount.textContent = `PASO ${index + 1} DE ${totalPasos}`;
+        stepCount.textContent = `Paso ${index + 1} De ${totalPasos}`;
         stepName.textContent = statusSteps[index];
         stepInfo.classList.remove('swap');
     }, 250);

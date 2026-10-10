@@ -423,19 +423,14 @@ main.fade-out-back {
 }
 
 .modal-icon {
-    width: 72px;
-    height: 72px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
-    background-color: #fde8e7;
-    border-radius: 50%;
+    margin-bottom: 12px;
 }
 
 .modal-icon video {
-    width: 56px;
-    height: 56px;
+    width: 96px;
+    height: 96px;
     object-fit: contain;
 }
 
