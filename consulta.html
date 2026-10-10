@@ -1,151 +1,75 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
-
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Ir a Consulta - Monitoreo Hidro</title>
 
-    <!-- ✅ Tailwind CSS -->
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-    <!-- ✅ Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-    <!-- ✅ CSS Personalizado -->
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/consulta.css" />
 </head>
-
 <body>
-    <!-- ============================================ -->
-    <!-- HEADER SECTION                              -->
-    <!-- ============================================ -->
-    <header class="bg-[#0066cc] pt-12 pb-24 px-gutter header-curve-large relative">
-        <div class="flex items-center gap-3 mb-2">
-            <button id="back-button" aria-label="Volver"
-                class="w-10 h-10 flex items-center justify-center rounded-full border border-white/40 flex-shrink-0">
-                <span class="material-symbols-outlined text-white"
-                    style="font-size: 22px; font-weight: 600;">chevron_left</span>
-            </button>
-            <h1 class="text-[32px] font-bold text-white">Ir a Consulta</h1>
-        </div>
-        <p class="text-[16px] text-white/90 font-normal">Selecciona el tipo de pronóstico que deseas consultar.</p>
+
+    <!-- Encabezado -->
+    <header class="top">
+        <button class="back" id="back-button" aria-label="Volver" type="button">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1>Consultar</h1>
     </header>
 
-    <!-- ============================================ -->
-    <!-- MAIN CONTENT                                -->
-    <!-- ============================================ -->
-    <main class="px-gutter -mt-16 space-y-4 pb-12 relative z-20">
+    <p class="intro">Selecciona el tipo de pronóstico que deseas consultar.</p>
 
-        <!-- Card 1: Pronóstico de Hoy -->
-        <article class="bg-[#fff9e6] rounded-3xl p-6 card-shadow border border-white/50 relative overflow-hidden">
-            <div class="flex items-start gap-4 mb-8">
-                <div class="w-20 h-20 flex items-center justify-center shrink-0">
-                    <img src="assets/icon-pronostico-hoy.png" alt="Pronóstico de Hoy"
-                        class="w-full h-full object-contain" />
-                </div>
-                <div class="pt-1">
-                    <h2 class="text-[18px] font-semibold text-slate-800">Pronóstico de Hoy</h2>
-                    <p class="text-sm text-slate-500 mt-1.5">Consulta en tiempo real el estado actual del clima y del
-                        río.</p>
-                </div>
+    <main>
+
+        <!-- Pronóstico de hoy -->
+        <article class="option option-hoy" onclick="enviarConsulta('hoy')">
+            <div class="option-icon option-icon-hoy">
+                <img src="assets/icon-pronostico-hoy.png" alt="Pronóstico de Hoy" />
             </div>
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-clima.png" alt="Clima" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Clima actual</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-nivel-rio.png" alt="Nivel del río" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Nivel del río</span>
-                    </div>
-                </div>
-                <!-- Card 1: Pronóstico de Hoy -->
-                <button
-                    class="btn-consulta bg-[#0052cc] text-white px-6 py-2.5 rounded-full font-semibold flex items-center gap-2 btn-shadow text-sm"
-                    onclick="enviarConsulta('hoy')">
-                    Consultar <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
+            <div class="option-text">
+                <h2>Pronóstico de Hoy</h2>
+                <p>Consulta en tiempo real el estado actual del clima y del río.</p>
             </div>
+            <span class="option-arrow material-symbols-outlined">chevron_right</span>
         </article>
 
-        <!-- Card 2: Pronóstico de Mañana -->
-        <article class="bg-[#edf5ff] rounded-3xl p-6 card-shadow border border-white/50 relative overflow-hidden">
-            <div class="flex items-start gap-4 mb-8">
-                <div class="w-20 h-20 bg-[#d1e6ff] rounded-full flex items-center justify-center shrink-0">
-                    <img src="assets/icon-pronostico-manana.png" alt="Pronóstico de Mañana"
-                        class="w-full h-full object-contain" />
-                </div>
-                <div class="pt-1">
-                    <h2 class="text-[18px] font-semibold text-slate-800">Pronóstico de Mañana</h2>
-                    <p class="text-sm text-slate-500 mt-1.5">Clima y tendencia estimada del río para
-                        mañana.</p>
-                </div>
+        <!-- Pronóstico de mañana -->
+        <article class="option option-manana" onclick="enviarConsulta('mañana')">
+            <div class="option-icon">
+                <img src="assets/icon-pronostico-manana.png" alt="Pronóstico de Mañana" />
             </div>
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-clima.png" alt="Clima" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Clima</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-tendencia-rio.png" alt="Tendencia" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Pronóstico tendencia del río</span>
-                    </div>
-                </div>
-                <!-- Card 2: Pronóstico de Mañana -->
-                <button
-                    class="btn-consulta bg-[#0052cc] text-white px-6 py-2.5 rounded-full font-semibold flex items-center gap-2 btn-shadow text-sm"
-                    onclick="enviarConsulta('mañana')">
-                        Consultar <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
+            <div class="option-text">
+                <h2>Pronóstico de Mañana</h2>
+                <p>Clima y tendencia estimada del río para mañana.</p>
             </div>
+            <span class="option-arrow material-symbols-outlined">chevron_right</span>
         </article>
 
-        <!-- Card 3: Pronóstico de Semana -->
-        <article class="bg-[#f5f3ff] rounded-3xl p-6 card-shadow border border-white/50">
-            <div class="flex items-start gap-4 mb-8">
-                <div class="w-20 h-20 bg-[#e9e4ff] rounded-full flex items-center justify-center shrink-0">
-                    <img src="assets/icon-pronostico-semana.png" alt="Pronóstico de Semana"
-                        class="w-full h-full object-contain" />
-                </div>
-                <div class="pt-1">
-                    <h2 class="text-[18px] font-semibold text-slate-800">Pronóstico de Semana</h2>
-                    <p class="text-sm text-slate-500 mt-1.5">Datos semanales del clima y tendencia estimada del río.</p>
-                </div>
+        <!-- Pronóstico de la semana -->
+        <article class="option option-semana" onclick="enviarConsulta('semana')">
+            <div class="option-icon">
+                <img src="assets/icon-pronostico-semana.png" alt="Pronóstico de la Semana" />
             </div>
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-datos-semanales.png" alt="Datos semanales" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Datos semanales</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="assets/icon-tendencia-rio.png" alt="Tendencia" class="w-5 h-5 object-contain"
-                            style="width: 21px; height: 21px;" />
-                        <span class="text-slate-600 text-sm font-medium">Pronóstico tendencia del río</span>
-                    </div>
-                </div>
-                <!-- Card 3: Pronóstico de Semana -->
-                <button
-                    class="btn-consulta bg-[#0052cc] text-white px-6 py-2.5 rounded-full font-semibold flex items-center gap-2 btn-shadow text-sm"
-                    onclick="enviarConsulta('semana')">
-                    Consultar <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </button>
+            <div class="option-text">
+                <h2>Pronóstico de la Semana</h2>
+                <p>Datos semanales del clima y tendencia estimada del río.</p>
             </div>
+            <span class="option-arrow material-symbols-outlined">chevron_right</span>
         </article>
 
     </main>
 
-    <!-- ✅ JavaScript -->
+    <!-- JavaScript -->
     <script src="js/consulta.js"></script>
 </body>
-
 </html>
