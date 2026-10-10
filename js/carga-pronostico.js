@@ -85,6 +85,9 @@ function aplicarTransicionEntrada() {
 // 5. ODÓMETRO DE PORCENTAJE                    //
 // ============================================ //
 
+// Cada columna repite 0-9 varias veces para girar en bucle
+const REPETICIONES = 5;
+
 let odometerEl = null;
 let columnasOdometro = [];
 
@@ -93,13 +96,15 @@ function crearColumnaOdometro() {
     col.className = 'odometer-col';
     const strip = document.createElement('div');
     strip.className = 'odometer-strip';
-    for (let d = 0; d <= 9; d++) {
-        const span = document.createElement('span');
-        span.textContent = d;
-        strip.appendChild(span);
+    for (let r = 0; r < REPETICIONES; r++) {
+        for (let d = 0; d <= 9; d++) {
+            const span = document.createElement('span');
+            span.textContent = d;
+            strip.appendChild(span);
+        }
     }
     col.appendChild(strip);
-    return { col, strip };
+    return { col, strip, pos: 0, timer: null };
 }
 
 function asegurarColumnasOdometro(cantidad) {
@@ -117,6 +122,27 @@ function inicializarOdometro() {
     setPorcentajeOdometro(0);
 }
 
+// Avanza siempre hacia adelante: ...8, 9, 0, 1, 2...
+function avanzarColumna(colObj, digito) {
+    const pasos = (digito - (colObj.pos % 10) + 10) % 10;
+    if (pasos === 0) return;
+
+    colObj.pos += pasos;
+    colObj.strip.style.transform = `translateY(-${colObj.pos}em)`;
+
+    // Reinicio invisible para no salirse de la columna
+    clearTimeout(colObj.timer);
+    colObj.timer = setTimeout(() => {
+        if (colObj.pos >= 30) {
+            colObj.pos -= 20;
+            colObj.strip.style.transition = 'none';
+            colObj.strip.style.transform = `translateY(-${colObj.pos}em)`;
+            void colObj.strip.offsetWidth;
+            colObj.strip.style.transition = '';
+        }
+    }, 700);
+}
+
 function setPorcentajeOdometro(valor) {
     if (!odometerEl) return;
     const str = String(valor);
@@ -129,9 +155,7 @@ function setPorcentajeOdometro(valor) {
         const esVisible = i >= offset;
         colObj.col.classList.toggle('active', esVisible);
         if (esVisible) {
-            const digito = parseInt(str[i - offset], 10);
-            // Altura de cada dígito: 1em
-            colObj.strip.style.transform = `translateY(-${digito}em)`;
+            avanzarColumna(colObj, parseInt(str[i - offset], 10));
         }
     });
 }
