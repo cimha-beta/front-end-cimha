@@ -135,7 +135,7 @@ function poblarInterfaz(resultado) {
         const sensacionTermica = resultado.clima.posible_sensacion_termica ?? resultado.clima.sensacion_termica;
         document.getElementById('sensacion-termica').textContent = `${sensacionTermica ?? '--'}°`;
         document.getElementById('prob-lluvia').textContent = `${resultado.clima.probabilidad_lluvia ?? '--'}%`;
-        document.getElementById('velocidad-viento').textContent = `${resultado.clima.velocidad_viento ?? '--'} Km/h`;
+        document.getElementById('velocidad-viento').textContent = resultado.clima.velocidad_viento ?? '--';
         document.getElementById('interpretacion').textContent =
             resultado.interpretacion ?? resultado.clima.interpretacion ?? 'Sin información.';
 
@@ -153,7 +153,7 @@ function poblarInterfaz(resultado) {
 
     // 4. Bloque Urrá I
     if (resultado.urra) {
-        document.getElementById('hora-reporte-urra').textContent = `Reporte de las ${resultado.urra.hora_reporte ?? '--'}`;
+        document.getElementById('hora-reporte-urra').textContent = resultado.urra.hora_reporte ?? '--';
         document.getElementById('urra-nivel').textContent = resultado.urra.nivel_embalse ?? '--';
         document.getElementById('urra-entrante').textContent = resultado.urra.caudal_entrante ?? '--';
         document.getElementById('urra-turbinas').textContent = resultado.urra.caudal_turbinas ?? '--';
@@ -171,20 +171,16 @@ function renderizarEstaciones(estacionesData) {
     const cantidad = estacionesData.cantidad || 0;
 
     if (cantidad === 0) {
-        contenedor.innerHTML = '<p class="text-slate-400 text-sm px-2">No hay estaciones disponibles.</p>';
+        contenedor.innerHTML = '<p class="estaciones-vacio">No hay estaciones disponibles.</p>';
         return;
     }
 
-    // Función para convertir color hex a filtro
-    function getFilterColor(hex) {
-        const colors = {
-            '#10B981': 'invert(54%) sepia(73%) saturate(438%) hue-rotate(98deg) brightness(95%) contrast(89%)',
-            '#EF4444': 'invert(35%) sepia(93%) saturate(2525%) hue-rotate(346deg) brightness(95%) contrast(88%)',
-            '#6B7280': 'invert(39%) sepia(8%) saturate(687%) hue-rotate(179deg) brightness(90%) contrast(90%)',
-            '#3B82F6': 'invert(51%) sepia(58%) saturate(2420%) hue-rotate(210deg) brightness(99%) contrast(86%)'
-        };
-        return colors[hex] || colors['#3B82F6'];
-    }
+    // Íconos de tendencia (SVG)
+    const ICONOS = {
+        aumento: '<path d="M6 15l6-7 6 7"></path>',
+        descenso: '<path d="M6 9l6 7 6-7"></path>',
+        estable: '<path d="M6 12h12"></path>'
+    };
 
     for (let i = 1; i <= cantidad; i++) {
         const nombre = estacionesData[`estacion_${i}_nombre`] || `Estación ${i}`;
@@ -193,104 +189,58 @@ function renderizarEstaciones(estacionesData) {
         const precip = estacionesData[`estacion_${i}_precipitacion_actual`];
         const tendencia = estacionesData[`estacion_${i}_tendencia_actual`] ||
             estacionesData[`estacion_${i}_tendencia`] || 'Estable';
-        // (Cuando no hay dato de precipitación se muestra una línea gris "-".)
 
-        const esEstable = tendencia.toLowerCase() === 'estable' ||
-            tendencia.toLowerCase().includes('estable') ||
-            tendencia.toLowerCase() === 'sin cambio' ||
-            tendencia.toLowerCase().includes('sin cambio');
+        const t = tendencia.toLowerCase();
+        const esEstable = t.includes('estable') || t.includes('sin cambio');
+        const esAscenso = t.includes('ascenso') || t.includes('aumento');
+        const esDescenso = t.includes('descenso') || t.includes('disminución');
 
-        const esAscenso = tendencia.toLowerCase().includes('ascenso') ||
-            tendencia.toLowerCase().includes('aumento');
-
-        const esDescenso = tendencia.toLowerCase().includes('descenso') ||
-            tendencia.toLowerCase().includes('disminución');
-
-        let colorClase = '#3B82F6';
-        let iconTrend = '';
-        let textoColor = '#0F172A';
+        // Estado según la tendencia
+        let estado = 'descenso';
+        let etiqueta = tendencia;
 
         if (esAscenso) {
-            colorClase = '#10B981';
-            iconTrend = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/trending-up.svg';
-            textoColor = '#10B981';
+            estado = 'aumento';
+            etiqueta = 'En aumento';
         } else if (esDescenso) {
-            colorClase = '#EF4444';
-            iconTrend = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/trending-down.svg';
-            textoColor = '#EF4444';
+            estado = 'descenso';
+            etiqueta = 'En descenso';
         } else if (esEstable) {
-            colorClase = '#6B7280';
-            iconTrend = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/minus.svg';
-            textoColor = '#6B7280';
-        } else {
-            colorClase = '#EF4444';
-            iconTrend = 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/trending-down.svg';
-            textoColor = '#EF4444';
+            estado = 'estable';
+            etiqueta = 'Estable';
         }
 
-        // ============================================ */
-        // PRECIPITACIÓN / DATO NO DISPONIBLE           */
-        // ============================================ */
-        // Si hay dato de precipitación → se muestra SOLO ese dato.
-        // Si NO hay dato → se muestra una línea gris "-"
-        // (sin texto, sin gotas y sin "mm").
-        let iconoGotas = '';
-        let precipHTML;
-        if (precip !== undefined && precip !== null) {
-            iconoGotas = `<img src="https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/droplets.svg" alt="Precipitación" style="width: 28px; height: 32px; margin-bottom: 2px; opacity: 0.7;" />`;
-            precipHTML = `<div class="flex items-baseline gap-0.5">
-                   <span style="font-size: 18px; font-weight: 700; color: ${colorClase};">${precip}</span>
-                   <span style="font-size: 11px; font-weight: 500; color: ${colorClase};">mm</span>
-               </div>`;
-        } else {
-            // No hay dato → se muestra una línea gris "-"
-            precipHTML = `<p style="margin: 0; font-size: 24px; font-weight: 300; color: #9CA3AF; line-height: 1; text-align: center;">-</p>`;
-        }
+        // Precipitación: valor o guion si no hay dato
+        const hayPrecip = precip !== undefined && precip !== null;
+        const precipHTML = hayPrecip
+            ? `<span class="precip-valor">${precip}</span><span class="precip-unidad">mm</span>`
+            : '<span class="precip-vacio">—</span>';
 
-        const article = document.createElement('article');
-        article.className = "bg-white rounded-2xl p-4 shadow-sm relative overflow-hidden flex items-stretch border border-[#E5E7EB] estacion-card";
-        article.innerHTML = `
-            <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: ${colorClase};"></div>
-            <div class="flex flex-1 items-center gap-3">
-                <div class="flex-1 pr-3 border-r border-gray-100">
-                    <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: #0F172A;">${municipio || nombre}</h3>
-                    <p style="margin: 2px 0; font-size: 10px; font-weight: 500; color: #9CA3AF; text-transform: uppercase;">${nombre}</p>
-                    <div class="flex items-baseline gap-1">
-                        <span style="font-size: 24px; font-weight: 700; color: ${colorClase};">${nivel}</span>
-                        <span style="font-size: 14px; font-weight: 600; color: ${colorClase};">m</span>
-                    </div>
-                    <div class="flex items-center gap-1 mt-0.5">
-                        <img src="${iconTrend}" alt="Tendencia" style="width: 12px; height: 12px; filter: brightness(0) saturate(100%) ${getFilterColor(colorClase)};" />
-                        <span style="font-size: 12px; font-weight: 500; color: ${textoColor};">${tendencia}</span>
-                    </div>
-                </div>
-                <!-- ============================================ -->
-                <!-- SECCIÓN DE PRECIPITACIÓN - MODIFICADA       -->
-                <!-- ============================================ -->
-                <div class="shrink-0 flex flex-col justify-center items-center text-center" style="width: 110px; padding-left: 8px;">
-                    ${iconoGotas}
+        // Nombre de estación solo si es distinto al municipio
+        const subtitulo = (municipio && nombre !== municipio)
+            ? `<p class="estacion-sub">${nombre}</p>`
+            : '';
+
+        const fila = document.createElement('article');
+        fila.className = 'estacion-card';
+        fila.innerHTML = `
+            <div class="estacion-info">
+                <h3 class="estacion-nombre">${municipio || nombre}</h3>
+                ${subtitulo}
+                <span class="estacion-nivel ${estado}">${nivel} m</span>
+                <span class="estacion-estado ${estado}">
+                    <svg viewBox="0 0 24 24">${ICONOS[estado]}</svg>${etiqueta}
+                </span>
+            </div>
+            <div class="estacion-precip">
+                <span class="precip-label">Precipitación</span>
+                <div class="precip-dato">
+                    <svg class="precip-gota" viewBox="0 0 24 24"><path d="M12 2.5c3.3 4.2 6 7.4 6 11a6 6 0 11-12 0c0-3.6 2.7-6.8 6-11z"></path></svg>
                     ${precipHTML}
                 </div>
-            </div>
-        `;
-        contenedor.appendChild(article);
+            </div>`;
+        contenedor.appendChild(fila);
     }
-
-    initEstacionesInteracciones();
-}
-
-function initEstacionesInteracciones() {
-    const estaciones = document.querySelectorAll('.estacion-card');
-    estaciones.forEach(estacion => {
-        estacion.addEventListener('mouseenter', function () {
-            this.style.cursor = 'pointer';
-            this.style.transform = 'translateY(-2px)';
-            this.style.transition = 'transform 0.2s ease';
-        });
-        estacion.addEventListener('mouseleave', function () {
-            this.style.transform = 'translateY(0)';
-        });
-    });
 }
 
 // ============================================ //
