@@ -4,168 +4,113 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Acerca de nosotros</title>
-    
-    <!-- ✅ Google Fonts: Inter -->
+
+    <!-- Fuentes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    
-    <!-- ✅ Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <!-- ✅ CSS Personalizado -->
+
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/acerca-de-nosotros.css" />
 </head>
-<body class="font-sans antialiased pb-10 bg-surface">
-    <!-- ============================================ -->
-    <!-- MAIN HEADER                                 -->
-    <!-- ============================================ -->
-    <header class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md px-6 py-4 flex items-center">
-        <button class="bg-white p-2 rounded-xl shadow-sm border border-slate-100" id="back-button">
-            <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-            </svg>
+<body>
+
+    <!-- Encabezado -->
+    <header class="top">
+        <button class="back" id="back-button" type="button">
+            <span class="material-symbols-outlined">arrow_back</span>
         </button>
-        <div class="flex-1 text-center pr-8">
-            <h1 class="text-2xl font-bold text-slate-900">Acerca de nosotros</h1>
-        </div>
+        <h1>Acerca de Nosotros</h1>
     </header>
 
-    <!-- ============================================ -->
-    <!-- MAIN CONTENT                                -->
-    <!-- ============================================ -->
-    <main class="px-5 space-y-6">
-        
-        <!-- Hero Section -->
-        <section class="relative overflow-hidden rounded-xl border border-outline-variant shadow-sm bg-white mt-2">
-            <div class="p-6">
-                <h2 class="text-2xl font-bold text-slate-900 mb-4">¿Quiénes somos?</h2>
-                <div class="space-y-4 text-slate-600 text-sm leading-relaxed pr-2">
-                    <p>
-                        CIMHA es un sistema inteligente de monitoreo climático, hidrológico y ambiental creado para brindar información confiable y en tiempo real sobre las condiciones hidrometeorológicas de las regiones.
-                    </p>
-                    <p>
-                        Utilizamos tecnología avanzada para proteger comunidades, prevenir riesgos y apoyar la toma de decisiones.
-                    </p>
+    <main>
+
+        <!-- Presentación CIMHA -->
+        <section class="card">
+            <div class="brand">
+                <img class="brand-logo" src="assets/cimha-logo.png" alt="CIMHA" />
+                <div>
+                    <h2 class="brand-name">CIMHA</h2>
+                    <p class="brand-sub">Centro de Inteligencia Meteorológica, Hidrológica y Ambiental</p>
+                </div>
+            </div>
+            <p class="lead">Monitoreamos el clima y el estado del río para que comunidades y autoridades tomen decisiones con información confiable y en tiempo real.</p>
+        </section>
+
+        <!-- Qué puedes consultar -->
+        <section class="card">
+            <h2 class="card-title">¿Qué puedes consultar?</h2>
+
+            <ul class="items">
+                <li class="item">
+                    <div class="item-icon"><img src="assets/icon-clima.png" alt="Pronóstico y clima" /></div>
+                    <div>
+                        <h3>Pronóstico y clima</h3>
+                        <p>Lluvia, temperatura y viento del día.</p>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="item-icon"><img src="assets/icon-nivel-rio.png" alt="Estado del río" /></div>
+                    <div>
+                        <h3>Estado del río</h3>
+                        <p>Nivel y tendencia del agua.</p>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="item-icon"><img src="assets/icon-estaciones.png" alt="Estaciones de monitoreo" /></div>
+                    <div>
+                        <h3>Estaciones de monitoreo</h3>
+                        <p>Datos medidos en tu zona.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <hr class="divider" />
+
+            <p class="coverage">
+                <span class="material-symbols-outlined">location_on</span>
+                <span><strong>Cobertura:</strong> Santa Cruz de Lorica, Córdoba.</span>
+            </p>
+        </section>
+
+        <!-- Nuestro equipo -->
+        <section class="card">
+            <h2 class="card-title">Nuestro equipo</h2>
+            <p class="card-sub">Profesionales comprometidos.</p>
+
+            <div class="team">
+
+                <!-- Miembro 1 -->
+                <div class="member">
+                    <div class="avatar">DM</div>
+                    <h3>David Morelo</h3>
+                    <p>Director del proyecto</p>
                 </div>
             </div>
         </section>
 
-        <!-- Values Section -->
-<section class="space-y-4">
-    <h3 class="text-xl font-bold text-slate-900 px-1">Nuestros valores</h3>
-    <div class="relative overflow-hidden" id="values-carousel-container">
-        <div class="flex transition-transform duration-700 ease-in-out" id="values-track">
-            
-           <!-- Confianza -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-confianza.png" alt="Confianza" class="w-[114px] h-[114px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-blue-600 text-lg">Confianza</h4>
-        <p class="text-slate-500 text-sm">Brindamos datos precisos y verificados, para que cada decisión se tome con información en la que realmente se puede confiar.</p>
-    </div>
-</div>
-
-<!-- Compromiso -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-compromiso.png" alt="Compromiso" class="w-[118px] h-[118px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-green-600 text-lg">Compromiso</h4>
-        <p class="text-slate-500 text-sm">Nos dedicamos día a día a proteger vidas y bienes, trabajando de la mano con las comunidades expuestas a riesgos hidrometeorológicos.</p>
-    </div>
-</div>
-
-<!-- Innovación -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-innovacion.png" alt="Innovación" class="w-[121px] h-[121px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-blue-500 text-lg">Innovación</h4>
-        <p class="text-slate-500 text-sm">Integramos tecnología y análisis inteligente para mantenerlos informados sobre los fenómenos climáticos que puedan afectar a los territorios.</p>
-    </div>
-</div>
-
-<!-- Colaboración -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-colaboracion.png" alt="Colaboración" class="w-[117px] h-[117px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-green-600 text-lg">Colaboración</h4>
-        <p class="text-slate-500 text-sm">Creemos en el trabajo conjunto con la comunidad, autoridades locales y aliados estratégicos para lograr un impacto real y duradero.</p>
-    </div>
-</div>
-
-<!-- Sostenibilidad -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-sostenibilidad.png" alt="Sostenibilidad" class="w-[119px] h-[119px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-green-600 text-lg">Sostenibilidad</h4>
-        <p class="text-slate-500 text-sm">Promovemos el uso responsable de la información ambiental, ayudando a que las comunidades y autoridades tomen decisiones que cuiden los recursos hídricos de la región.</p>
-    </div>
-</div>
-
-<!-- Clon de Confianza (para el loop infinito) -->
-<div class="w-full flex-shrink-0 flex items-center gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm value-card">
-    <img src="assets/icon-confianza.png" alt="Confianza" class="w-[114px] h-[114px] object-contain flex-shrink-0" />
-    <div class="text-left">
-        <h4 class="font-bold text-blue-600 text-lg">Confianza</h4>
-        <p class="text-slate-500 text-sm">Brindamos datos precisos y verificados, para que cada decisión se tome con información en la que realmente se puede confiar.</p>
-    </div>
-</div>
-        </div>
-    </div>
-    
-    <!-- Indicadores (puntos) -->
-    <div class="flex justify-center gap-2" id="values-dots"></div>
-</section>
-
-       <!-- Team Section -->
-<section class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm">
-    <h3 class="text-lg font-bold text-slate-900">Nuestro equipo</h3>
-    <p class="text-xs text-slate-500 mb-6">Profesionales comprometidos.</p>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        
-        <!-- Team Member 1 -->
-        <div class="flex flex-col items-center text-center">
-            <div class="relative mb-3">
-                <div class="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl avatar-gradient-1">
-                    DM
-                </div>
-                
+        <!-- Antes de decidir -->
+        <section class="notice">
+            <span class="notice-icon">i</span>
+            <div>
+                <h3>Antes de decidir</h3>
+                <p>Consulta la fecha y la fuente de cada dato. CIMHA no sustituye los avisos oficiales ni las alertas de las autoridades competentes.</p>
             </div>
-            <h4 class="text-xs font-bold text-slate-900">David Morelo</h4>
-            <p class="text-[10px] text-slate-500">Director del proyecto</p>
+        </section>
+
+        <!-- Acciones -->
+        <div class="actions">
+            <button class="action action-main" id="support-btn" type="button">Contactar soporte</button>
+            <button class="action" id="privacy-btn" type="button">Política de privacidad</button>
         </div>
-
-        <!-- Team Member 2 -->
-        <div class="flex flex-col items-center text-center">
-            <div class="relative mb-3">
-                <div class="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-xl avatar-gradient-2">
-                    LM
-                </div>
-              
-            </div>
-            <h4 class="text-xs font-bold text-slate-900">Luis Eduardo Morelo</h4>
-            <p class="text-[10px] text-slate-500">Desarrollador</p>
-        </div>
-
-    </div>
-</section>
-
-       <!-- Commitment Footer -->
-<section class="bg-blue-50 rounded-2xl p-6 border border-outline-variant shadow-sm flex items-center space-x-6 overflow-hidden relative">
-    <div class="flex-shrink-0 z-10">
-        <img src="assets/icon-compromiso-footer.png" alt="Nuestro compromiso" class="w-[100px] h-[100px] object-contain" />
-    </div>
-    <div class="z-10">
-        <h3 class="text-lg font-bold text-slate-900 mb-2">Nuestro compromiso</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">
-            En el Centro de Inteligencia Meteorológica, Hidrológica y Ambiental trabajamos cada día para ofrecer información que salva vidas, protege el medio ambiente y construye comunidades más resilientes.
-        </p>
-    </div>
-</section>
 
     </main>
 
-    <!-- ✅ JavaScript -->
+    <!-- JavaScript -->
     <script src="js/acerca-de-nosotros.js"></script>
 </body>
 </html>
