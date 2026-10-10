@@ -139,11 +139,19 @@ main.fade-out-back {
     color: #ffffff;
 }
 
-.trigger .material-symbols-outlined {
+.chevron {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.trigger.open .material-symbols-outlined {
+.trigger.open .chevron {
     transform: rotate(180deg);
 }
 
