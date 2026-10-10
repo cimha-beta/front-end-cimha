@@ -112,7 +112,7 @@ main.fade-out-back {
 }
 
 .hero-robot {
-    width: 120px;
+    width: 150px;
     height: auto;
     flex-shrink: 0;
     object-fit: contain;
