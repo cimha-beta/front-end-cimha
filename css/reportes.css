@@ -88,29 +88,34 @@ main.fade-out-back {
 .hero {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     margin-bottom: 24px;
 }
 
+.hero-text {
+    flex: 0 1 230px;
+    min-width: 0;
+}
+
 .hero-text h2 {
-    font-size: 17px;
+    margin-bottom: 8px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.25;
-    margin-bottom: 6px;
 }
 
 .hero-text p {
-    font-size: 12.5px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text);
 }
 
 .hero-robot {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: auto;
     flex-shrink: 0;
-    object-fit: cover;
-    object-position: 82% center;
-    border-radius: 20px;
+    object-fit: contain;
 }
 
 /* Formulario */
