@@ -282,7 +282,7 @@ img {
 
 /* Paneles (estaciones y Urrá) */
 .panel {
-    margin: 16px;
+    margin: 32px 16px 16px;
     padding: 0;
     background-color: transparent;
 }
