@@ -224,6 +224,34 @@ main.fade-out-back {
     border-radius: 50%;
 }
 
+/* Logos con borde circular y zoom */
+.logo-ring {
+    --ring-color: #149848;
+    --zoom: 1;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 2px solid var(--ring-color);
+    border-radius: 50%;
+}
+
+.logo-ring img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: scale(var(--zoom));
+}
+
+/* Zoom por logo: mayor a 1 amplía, menor a 1 aleja */
+.logo-ideam { --zoom: 1; }
+.logo-urra { --zoom: 0.7; }
+
 .source-text {
     flex: 1;
     min-width: 0;
