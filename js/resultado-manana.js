@@ -40,7 +40,7 @@ function pintarReporte(reporte) {
         establecerTextoConUnidad('temp-min', reporte.clima.temperatura_minima, '°');
         establecerTexto('sensacion-termica', reporte.clima.posible_sensacion_termica);
         establecerTextoConUnidad('prob-lluvia', reporte.clima.probabilidad_lluvia, '%');
-        establecerTextoConUnidad('velocidad-viento', reporte.clima.velocidad_viento, ' Km/h');
+        establecerTexto('velocidad-viento', reporte.clima.velocidad_viento);
     }
 
     establecerTexto('interpretacion', reporte.interpretacion || 'Sin información.');
@@ -58,32 +58,76 @@ function renderizarEstaciones(estaciones) {
         return;
     }
 
+    // Íconos de tendencia (SVG)
+    const ICONOS = {
+        aumento: '<path d="M6 15l6-7 6 7"></path>',
+        descenso: '<path d="M6 9l6 7 6-7"></path>',
+        estable: '<path d="M6 12h12"></path>'
+    };
+
     for (let indice = 1; indice <= cantidad; indice += 1) {
         const nombre = estaciones[`estacion_${indice}_nombre`] || `Estación ${indice}`;
-        const municipio = estaciones[`estacion_${indice}_municipio`] || 'Sin municipio';
+        const municipio = estaciones[`estacion_${indice}_municipio`] || '';
         const nivel = estaciones[`estacion_${indice}_nivel_actual`] ?? 'N/D';
-        const precipitacion = estaciones[`estacion_${indice}_precipitacion_actual`] ?? 'N/D';
         const tendencia = estaciones[`estacion_${indice}_tendencia_actual`] || 'Sin dato';
-        const prediccion = estaciones[`estacion_${indice}_prediccion_12h`] || 'Sin dato';
-        const magnitud = estaciones[`estacion_${indice}_magnitud_prediccion`] || 'Sin dato';
+        const prediccion = estaciones[`estacion_${indice}_prediccion_12h`];
+        const magnitud = estaciones[`estacion_${indice}_magnitud_prediccion`];
+
+        const { estado, etiqueta } = clasificarTendencia(tendencia);
+
+        // Nombre de estación solo si es distinto al municipio
+        const subtitulo = (municipio && nombre !== municipio)
+            ? `<p class="station-sub">${escaparHTML(nombre)}</p>`
+            : '';
 
         const tarjeta = document.createElement('article');
         tarjeta.className = 'station-item';
         tarjeta.innerHTML = `
-            <div>
-                <p class="station-name">${escaparHTML(nombre)}</p>
-                <p class="station-location">${escaparHTML(municipio)}</p>
-                <div class="station-level">${escaparHTML(nivel)} m</div>
+            <div class="station-main">
+                <h3 class="station-name">${escaparHTML(municipio || nombre)}</h3>
+                ${subtitulo}
+                <span class="station-level ${estado}">${escaparHTML(nivel)} m</span>
+                <span class="station-trend ${estado}">
+                    <svg viewBox="0 0 24 24">${ICONOS[estado]}</svg>${escaparHTML(etiqueta)}
+                </span>
             </div>
-            <div class="station-data">
-                <span>Precipitación: ${escaparHTML(precipitacion)} mm</span>
-                <span class="station-trend">${escaparHTML(tendencia)}</span>
-                <span class="station-prediction">12 h: ${escaparHTML(prediccion)}</span>
-                <span>Magnitud: ${escaparHTML(magnitud)}</span>
+            <div class="station-forecast">
+                <span class="forecast-label">Predicción 12 h</span>
+                <strong class="forecast-value">${escaparHTML(textoPrediccion(prediccion, magnitud))}</strong>
             </div>
         `;
         contenedor.appendChild(tarjeta);
     }
+}
+
+// Estado según la tendencia actual
+function clasificarTendencia(tendencia) {
+    const t = String(tendencia).toLowerCase();
+
+    if (t.includes('ascenso') || t.includes('aumento')) {
+        return { estado: 'aumento', etiqueta: 'En aumento' };
+    }
+    if (t.includes('descenso') || t.includes('disminución')) {
+        return { estado: 'descenso', etiqueta: 'En descenso' };
+    }
+    if (t.includes('estable') || t.includes('sin cambio')) {
+        return { estado: 'estable', etiqueta: 'Estable' };
+    }
+    // Sin dato reconocido: estilo neutro con el texto original
+    return { estado: 'estable', etiqueta: tendencia };
+}
+
+// Predicción y magnitud en una sola frase (ej.: "Descenso leve")
+function textoPrediccion(prediccion, magnitud) {
+    const vacio = (v) => !v || ['sin dato', 'n/d', 'ninguna', 'ninguno', '-']
+        .includes(String(v).trim().toLowerCase());
+
+    if (vacio(prediccion)) return 'Sin dato';
+    if (vacio(magnitud)) return String(prediccion);
+
+    const base = String(prediccion);
+    const extra = String(magnitud).trim().toLowerCase();
+    return base.toLowerCase().includes(extra) ? base : `${base} ${extra}`;
 }
 
 function establecerTexto(id, valor) {

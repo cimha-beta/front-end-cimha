@@ -1,130 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pronóstico de Mañana - CIMHA</title>
+
+    <!-- Fuentes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/resultado-manana.css" />
 </head>
-
 <body>
-    <main class="forecast-page">
-        <div class="page-content">
-            <header class="header-container">
-                <div class="header-top">
-                    <div class="header-icon">
-                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd"
-                                d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                                fill-rule="evenodd"></path>
+    <main class="page">
+
+        <!-- Encabezado azul -->
+        <header class="hero">
+            <div class="hero-top">
+                <div>
+                    <div class="hero-place">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path>
                         </svg>
+                        <h1 id="ubicacion">Cargando ubicación...</h1>
                     </div>
-                    <h1 id="ubicacion" class="header-title">Cargando ubicación...</h1>
+                    <p id="fecha" class="hero-date">--</p>
                 </div>
+                <span class="hero-badge">Mañana</span>
+            </div>
 
-                <div class="header-meta">
-                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                    </svg>
-                    <span id="fecha" class="text-slate-500 text-sm">--</span>
-                    <span class="header-meta-separator">&middot;</span>
-                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2"></path>
-                    </svg>
-                    <span id="hora" class="text-slate-500 text-sm">--:--</span>
+            <p class="hero-label">Temperatura Máxima Pronosticada</p>
+            <p id="temp-max" class="hero-temp">--°</p>
+            <p id="estado-cielo" class="hero-sky">Cargando información...</p>
+
+            <div class="hero-min">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span>Mín <strong id="temp-min">--°</strong></span>
+            </div>
+        </header>
+
+        <!-- Tarjeta de estadísticas -->
+        <section class="stats-card">
+
+            <!-- Sensación térmica -->
+            <div class="stat">
+                <div class="stat-icon bg-orange">
+                    <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica" />
                 </div>
-            </header>
+                <span class="stat-label">Sensación<br />Térmica</span>
+                <span id="sensacion-termica" class="stat-value">--°</span>
+            </div>
 
-            <section class="weather-gradient">
-                <div class="weather-top">
-                    <p id="estado-cielo" class="weather-sky">Cargando información...</p>
+            <!-- Probabilidad de lluvia -->
+            <div class="stat">
+                <div class="stat-icon bg-blue">
+                    <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia" />
                 </div>
+                <span class="stat-label">Probabilidad de<br />Lluvia</span>
+                <span id="prob-lluvia" class="stat-value">--%</span>
+            </div>
 
-                <div class="weather-stats-card">
-                    <div class="weather-stat">
-                        <div class="stat-icon bg-red">
-                            <img src="assets/icon-temp-max.png" alt="Temperatura Máxima" class="icon-temp-max" />
-                        </div>
-                        <span class="stat-label">Temperatura Maxima</span>
-                        <span id="temp-max" class="stat-value">--°</span>
-                    </div>
-
-                    <div class="weather-divider"></div>
-
-                    <div class="weather-stat">
-                        <div class="stat-icon bg-blue">
-                            <img src="assets/icon-temp-min.png" alt="Temperatura Mínima" class="icon-temp-min" />
-                        </div>
-                        <span class="stat-label">Temperatura<br />Minima</span>
-                        <span id="temp-min" class="stat-value">--°</span>
-                    </div>
-
-                    <div class="weather-divider"></div>
-
-                    <div class="weather-stat">
-                        <div class="stat-icon bg-indigo">
-                            <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica"
-                                class="icon-sensacion-termica" />
-                        </div>
-                        <span class="stat-label">Sensación Térmica</span>
-                        <span id="sensacion-termica" class="stat-value">--°</span>
-                    </div>
+            <!-- Velocidad del viento -->
+            <div class="stat">
+                <div class="stat-icon bg-blue">
+                    <img src="assets/icon-viento.png" alt="Viento" />
                 </div>
-            </section>
+                <span class="stat-label">Velocidad del<br />Viento</span>
+                <span class="stat-value"><span id="velocidad-viento">--</span><small>km/h</small></span>
+            </div>
+        </section>
 
-            <section class="detailed-data">
-                <div class="detail-item">
-                    <div class="detail-icon">
-                        <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia"
-                            class="icon-prob-lluvia" />
-                    </div>
-                    <span class="detail-label">Probabilidad de Lluvia</span>
-                    <span id="prob-lluvia" class="detail-value">--%</span>
-                </div>
+        <!-- Interpretación del pronóstico -->
+        <section class="interpretation-card">
+            <div class="interpretation-header">
+                <img src="assets/icon-comentario.png" alt="Interpretación" />
+                <h2>Interpretación del Pronóstico</h2>
+            </div>
+            <p id="interpretacion">Cargando interpretación...</p>
+        </section>
 
-                <div class="detail-divider"></div>
-
-                <div class="detail-item">
-                    <div class="detail-icon">
-                        <img src="assets/icon-viento.png" alt="Viento" class="icon-viento" />
-                    </div>
-                    <span class="detail-label">Viento</span>
-                    <span id="velocidad-viento" class="detail-value">-- Km/h</span>
-                </div>
-            </section>
-
-            <section class="interpretation-card">
-                <div class="card-heading">
-                    <img src="assets/icon-comentario.png" alt="Interpretación" />
-                    <h2>Interpretación</h2>
-                </div>
-                <p id="interpretacion">Cargando interpretación...</p>
-            </section>
-
-            <section class="stations-card">
-                <div class="stations-heading">
-                    <h2>Estaciones del Río Sinú</h2>
+        <!-- Estaciones del río Sinú -->
+        <section class="stations">
+            <div class="stations-head">
+                <div>
+                    <h2>Estaciones del río Sinú</h2>
                     <p>Pronóstico hidrológico de mañana</p>
                 </div>
-                <div id="contenedor-estaciones" class="stations-list">
-                    <p class="empty-state">Cargando estaciones...</p>
-                </div>
-            </section>
+                <span class="next-pill">Próx. 12 h</span>
+            </div>
 
-            <button type="button" id="salir-pronostico" class="exit-button">Salir del pronóstico</button>
-        </div>
+            <!-- Contenedor dinámico de estaciones -->
+            <div id="contenedor-estaciones" class="stations-card">
+                <p class="empty-state">Cargando estaciones...</p>
+            </div>
+        </section>
+
+        <!-- Nota de fuentes -->
+        <p class="source-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <rect x="3" y="13" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <path d="M7 7.5h.01M7 16.5h.01" stroke-width="2.4" stroke-linecap="round"></path>
+            </svg>
+            Los datos numéricos fueron extraídos de las fuentes oficiales.
+        </p>
+
+        <!-- Botón salir -->
+        <button type="button" id="salir-pronostico" class="exit-btn">Salir del pronóstico</button>
+
     </main>
 
     <script src="js/resultado-manana.js"></script>
 </body>
-
 </html>
