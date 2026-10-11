@@ -251,7 +251,7 @@ main.fade-out-back {
 /* Zoom por logo: mayor a 1 amplía, menor a 1 aleja */
 .logo-ideam { --zoom: 1; }
 .logo-urra { --zoom: 0.7; }
-.logo-open-meteo { --zoom: 0.9; }
+.logo-open-meteo { --zoom: 1; }
 
 .source-text {
     flex: 1;
