@@ -28,7 +28,7 @@ body {
     color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
-    zoom: 1.2;
+    zoom: 1;
 }
 
 .material-symbols-outlined {
