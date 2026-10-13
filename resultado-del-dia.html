@@ -38,58 +38,37 @@
 
         <!-- Tarjeta de estadísticas -->
         <section class="stats-card">
-            <div class="stats-row">
 
-                <!-- Temperatura máxima -->
-                <div class="stat">
-                    <div class="stat-icon bg-red">
-                        <img src="assets/icon-temp-max.png" alt="Temperatura Máxima" />
-                    </div>
-                    <span class="stat-label">Temperatura<br />Máxima</span>
-                    <span id="temp-max" class="stat-value">--°</span>
+            <!-- Sensación térmica -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica" />
                 </div>
-
-                <!-- Temperatura mínima -->
-                <div class="stat">
-                    <div class="stat-icon bg-green">
-                        <img src="assets/icon-temp-min.png" alt="Temperatura Mínima" />
-                    </div>
-                    <span class="stat-label">Temperatura<br />Mínima</span>
-                    <span id="temp-min" class="stat-value">--°</span>
-                </div>
-
-                <!-- Sensación térmica -->
-                <div class="stat">
-                    <div class="stat-icon bg-orange">
-                        <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica" />
-                    </div>
-                    <span class="stat-label">Sensación<br />Térmica</span>
+                <div class="stat-text">
+                    <span class="stat-label">Sensación Térmica</span>
                     <span id="sensacion-termica" class="stat-value">--°</span>
                 </div>
             </div>
 
-            <div class="detail-row">
-
-                <!-- Probabilidad de lluvia -->
-                <div class="detail">
-                    <div class="detail-icon">
-                        <img src="assets/icon-clima.png" alt="Probabilidad de Lluvia" />
-                    </div>
-                    <div>
-                        <span class="detail-label">Prob. de lluvia</span>
-                        <span id="prob-lluvia" class="detail-value">--%</span>
-                    </div>
+            <!-- Probabilidad de lluvia -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia" />
                 </div>
+                <div class="stat-text">
+                    <span class="stat-label">Probabilidad de lluvia</span>
+                    <span id="prob-lluvia" class="stat-value">--%</span>
+                </div>
+            </div>
 
-                <!-- Viento -->
-                <div class="detail">
-                    <div class="detail-icon">
-                        <img src="assets/icon-viento.png" alt="Viento" />
-                    </div>
-                    <div>
-                        <span class="detail-label">Viento</span>
-                        <span class="detail-value"><span id="velocidad-viento">--</span><small>km/h</small></span>
-                    </div>
+            <!-- Velocidad del viento -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-viento.png" alt="Viento" />
+                </div>
+                <div class="stat-text">
+                    <span class="stat-label">Velocidad del Viento</span>
+                    <span class="stat-value"><span id="velocidad-viento">--</span><small>km/h</small></span>
                 </div>
             </div>
         </section>
