@@ -112,6 +112,30 @@ function normalizarTipoPronostico(valor) {
     return 'hoy';
 }
 
+function getFechaColombiaISO() {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('sv-SE', {
+        timeZone: 'America/Bogota',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    const parts = formatter.formatToParts(now);
+    const map = {};
+    parts.forEach(part => {
+        if (part.type !== 'literal') {
+            map[part.type] = part.value;
+        }
+    });
+
+    return `${map.year}-${map.month}-${map.day}T${map.hour}:${map.minute}:${map.second}-05:00`;
+}
+
 function enviarConsulta(tipoPronostico) {
     // Leer lo que guardó consulta-geografica.html
     const ubicacion = JSON.parse(localStorage.getItem('selected_location') || '{}');
@@ -121,7 +145,7 @@ function enviarConsulta(tipoPronostico) {
         departamento: ubicacion.dept || null,
         municipio: ubicacion.muni || null,
         consulta: tipoNormalizado,
-        fecha: new Date().toISOString()
+        fecha: getFechaColombiaISO()
     };
 
     console.log('🗒 Consulta preparada:', payload);
