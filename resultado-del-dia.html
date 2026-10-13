@@ -2,17 +2,16 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Resultado del Día - CIMHA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronóstico de Mañana - CIMHA</title>
 
     <!-- Fuentes Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
     <!-- CSS personalizado -->
-    <link rel="stylesheet" href="css/resultado-del-dia.css?v=20261010" />
+    <link rel="stylesheet" href="css/resultado-manana.css" />
 </head>
 <body>
     <main class="page">
@@ -20,20 +19,28 @@
         <!-- Encabezado azul -->
         <header class="hero">
             <div class="hero-top">
-                <div class="hero-place">
-                    <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path>
-                    </svg>
-                    <h1 id="ubicacion">Cargando ubicación...</h1>
+                <div>
+                    <div class="hero-place">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path>
+                        </svg>
+                        <h1 id="ubicacion">Cargando ubicación...</h1>
+                    </div>
+                    <p id="fecha" class="hero-date">--</p>
                 </div>
-                <span class="hero-time" id="hora">--:--</span>
+                <span class="hero-badge">Mañana</span>
             </div>
 
-            <div class="hero-temp">
-                <span id="temp-actual" class="temp-number">--</span><span class="temp-degree">°</span>
-            </div>
+            <p class="hero-label">Temperatura Máxima Pronosticada</p>
+            <p id="temp-max" class="hero-temp">--°</p>
             <p id="estado-cielo" class="hero-sky">Cargando información...</p>
-            <p id="fecha" class="hero-date">--</p>
+
+            <div class="hero-min">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span>Mín <strong id="temp-min">--°</strong></span>
+            </div>
         </header>
 
         <!-- Tarjeta de estadísticas -->
@@ -73,115 +80,38 @@
             </div>
         </section>
 
-        <!-- Interpretación del clima -->
+        <!-- Interpretación del pronóstico -->
         <section class="interpretation-card">
             <div class="interpretation-header">
                 <img src="assets/icon-comentario.png" alt="Interpretación" />
-                <h3>Interpretación del Clima</h3>
+                <h2>Interpretación del Pronóstico</h2>
             </div>
             <p id="interpretacion">Cargando interpretación...</p>
         </section>
 
         <!-- Estaciones del río Sinú -->
-        <section class="panel">
-            <div class="panel-header">
+        <section class="stations">
+            <div class="stations-head">
                 <div>
-                    <h2>Estaciones del Río Sinú</h2>
-                    <p>Nivel y precipitación por estación</p>
+                    <h2>Estaciones del río Sinú</h2>
+                    <p>Pronóstico hidrológico de mañana</p>
                 </div>
-                <span class="live-badge">En vivo</span>
+                <span class="next-pill">Próx. 12 h</span>
             </div>
 
             <!-- Contenedor dinámico de estaciones -->
             <div id="contenedor-estaciones" class="stations-card">
-                <p class="estaciones-vacio">Cargando estaciones...</p>
+                <p class="empty-state">Cargando estaciones...</p>
             </div>
-
-            <!-- Interpretación de estaciones -->
-            <section class="interpretation-card">
-                <div class="interpretation-header">
-                    <img src="assets/icon-comentario.png" alt="Interpretación" />
-                    <h3>Interpretación de Estaciones</h3>
-                </div>
-                <p id="interpretacion-estaciones">Cargando interpretación...</p>
-            </section>
-        </section>
-
-        <!-- Hidroeléctrica Urrá I -->
-        <section class="panel">
-            <div class="panel-header">
-                <div>
-                    <h2>Hidroeléctrica Urrá I</h2>
-                    <p>Estado del embalse</p>
-                </div>
-                <span class="time-pill">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                    </svg>
-                    <span id="hora-reporte-urra">--</span>
-                </span>
-            </div>
-
-            <!-- Nivel del embalse -->
-            <div class="urra-level">
-                <div class="urra-level-icon">
-                    <img src="assets/icono-nivel-de-agua.png" alt="Nivel del embalse" />
-                </div>
-                <div>
-                    <span class="urra-level-label">Nivel del Embalse</span>
-                    <div class="urra-level-value">
-                        <span id="urra-nivel">--</span><small>msnm</small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Caudales -->
-            <div class="urra-stats">
-
-                <!-- Caudal entrante -->
-                <div class="urra-stat">
-                    <div class="urra-stat-icon bg-blue">
-                        <img src="assets/icono-entrante.png" alt="Entrante" />
-                    </div>
-                    <span class="urra-stat-label">Caudal<br />Entrante</span>
-                    <span id="urra-entrante" class="urra-stat-value">--</span>
-                    <small>m³/s</small>
-                </div>
-
-                <!-- Caudal turbinas -->
-                <div class="urra-stat">
-                    <div class="urra-stat-icon bg-gray">
-                        <img src="assets/icono-turbina.png" alt="Turbinas" />
-                    </div>
-                    <span class="urra-stat-label">Caudal<br />Turbinas</span>
-                    <span id="urra-turbinas" class="urra-stat-value">--</span>
-                    <small>m³/s</small>
-                </div>
-
-                <!-- Caudal rebosadero -->
-                <div class="urra-stat">
-                    <div class="urra-stat-icon bg-green">
-                        <img src="assets/icon-rebosadero.png" alt="Rebosadero" />
-                    </div>
-                    <span class="urra-stat-label">Caudal<br />Rebosadero</span>
-                    <span id="urra-rebosadero" class="urra-stat-value">--</span>
-                    <small>m³/s</small>
-                </div>
-            </div>
-
-            <!-- Interpretación de Urrá -->
-            <section class="interpretation-card">
-                <div class="interpretation-header">
-                    <img src="assets/icon-comentario.png" alt="Interpretación" />
-                    <h3>Interpretación de Urrá</h3>
-                </div>
-                <p id="urra-interpretacion">Cargando interpretación...</p>
-            </section>
         </section>
 
         <!-- Nota de fuentes -->
         <p class="source-note">
-            <span class="material-symbols-outlined">dns</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <rect x="3" y="13" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <path d="M7 7.5h.01M7 16.5h.01" stroke-width="2.4" stroke-linecap="round"></path>
+            </svg>
             Los datos numéricos fueron extraídos de las fuentes oficiales.
         </p>
 
@@ -190,16 +120,6 @@
 
     </main>
 
-    <!-- Modal: temperatura alta (solo si temperatura actual >= 30°C) -->
-    <div id="modal-temp-alta" class="modal-temp-alta hidden">
-        <div class="modal-temp-alta-caja">
-            <img src="assets/icon-temperatura-alta.png" alt="Temperaturas Altas" class="modal-temp-alta-img" />
-            <h2 class="modal-temp-alta-titulo">Altas temperaturas</h2>
-            <p class="modal-temp-alta-descripcion" id="modal-temp-alta-desc">Se detectó una temperatura elevada en la zona consultada.</p>
-            <button type="button" id="modal-temp-alta-cerrar" class="modal-temp-alta-btn">Aceptar</button>
-        </div>
-    </div>
-
-    <script src="js/resultado-del-dia.js?v=20261010"></script>
+    <script src="js/resultado-manana.js"></script>
 </body>
 </html>
