@@ -231,11 +231,21 @@ img {
 
 .day-header,
 .day-row {
+    position: relative;
     display: grid;
     grid-template-columns: 52px 78px 34px minmax(0, 1fr) 34px;
     align-items: center;
     gap: 10px;
     padding: 14px 18px;
+}
+
+.day-row {
+    cursor: pointer;
+}
+
+.day-row:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: -3px;
 }
 
 .day-header {
@@ -264,6 +274,67 @@ img {
 
 .day-row + .day-row {
     border-top: 1px solid var(--line);
+}
+
+.day-detail-overlay {
+    position: absolute;
+    z-index: 1;
+    inset: 4px 8px;
+    display: grid;
+    grid-template-columns: minmax(70px, 0.65fr) minmax(0, 1.35fr);
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 14px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.day-row.is-expanded .day-detail-overlay {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.day-overlay-date,
+.day-overlay-weather {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.day-overlay-date {
+    color: var(--blue);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.day-overlay-date small {
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.day-overlay-weather {
+    min-width: 0;
+    color: #475569;
+    font-size: 13px;
+}
+
+.day-overlay-weather span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.day-overlay-weather strong {
+    margin-left: 8px;
+    color: var(--text);
 }
 
 .day-name {

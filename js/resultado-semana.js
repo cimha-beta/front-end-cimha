@@ -225,20 +225,54 @@ function pintarDias(dias, resumen) {
 
         const fila = document.createElement('article');
         fila.className = 'day-row';
-        fila.setAttribute('role', 'row');
+        fila.setAttribute('role', 'button');
+        fila.setAttribute('tabindex', '0');
+        fila.setAttribute('aria-expanded', 'false');
+        fila.setAttribute('aria-label', `${nombre}, ${detalle}. Mostrar información del clima.`);
+        const estadoCielo = escaparHTML(dia.estado_cielo || 'Clima no disponible');
+        const probabilidadLluvia = lluvia !== null ? `${Math.round(lluvia)}%` : 'Sin dato';
         fila.innerHTML = `
-            <div role="cell">
+            <div>
                 <span class="day-name${hoy ? ' today' : ''}">${nombre}</span>
                 <span class="day-date">${detalle}</span>
             </div>
-            <div class="day-sky" role="cell">
+            <div class="day-sky">
                 <img src="${iconoClima(dia.estado_cielo)}" alt="${escaparHTML(dia.estado_cielo || '')}" />
                 <span class="day-rain${lluvioso ? ' wet' : ''}">${GOTA}${lluvia !== null ? Math.round(lluvia) : '--'}%</span>
             </div>
-            <span class="day-min" role="cell">${tmin !== null ? Math.round(tmin) : '--'}°</span>
-            <div class="temp-track" role="cell"><span class="temp-fill" style="left:${izquierda.toFixed(1)}%;width:${ancho.toFixed(1)}%"></span></div>
-            <span class="day-max" role="cell">${tmax !== null ? Math.round(tmax) : '--'}°</span>
+            <span class="day-min">${tmin !== null ? Math.round(tmin) : '--'}°</span>
+            <div class="temp-track"><span class="temp-fill" style="left:${izquierda.toFixed(1)}%;width:${ancho.toFixed(1)}%"></span></div>
+            <span class="day-max">${tmax !== null ? Math.round(tmax) : '--'}°</span>
+            <div class="day-detail-overlay" aria-hidden="true">
+                <div class="day-overlay-date">
+                    <span>${nombre}</span>
+                    <small>${detalle}</small>
+                </div>
+                <div class="day-overlay-weather">
+                    <span>${estadoCielo}</span>
+                    <span>Lluvia <strong>${probabilidadLluvia}</strong></span>
+                </div>
+            </div>
         `;
+
+        const alternarDetalle = () => {
+            const expandida = fila.classList.toggle('is-expanded');
+            fila.setAttribute('aria-expanded', String(expandida));
+            fila.setAttribute(
+                'aria-label',
+                `${nombre}, ${detalle}. ${expandida ? 'Ocultar' : 'Mostrar'} información del clima.`
+            );
+            fila.querySelector('.day-detail-overlay').setAttribute('aria-hidden', String(!expandida));
+        };
+
+        fila.addEventListener('click', alternarDetalle);
+        fila.addEventListener('keydown', evento => {
+            if (evento.key === 'Enter' || evento.key === ' ') {
+                evento.preventDefault();
+                alternarDetalle();
+            }
+        });
+
         contenedor.appendChild(fila);
     });
 }
