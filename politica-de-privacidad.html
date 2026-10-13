@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Política de privacidad</title>
+
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="css/politica-de-privacidad.css" />
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header class="top">
+        <button class="back" id="back-button" type="button" aria-label="Volver">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h1>Política de privacidad</h1>
+    </header>
+
+    <main>
+
+        <!-- Aviso de borrador -->
+        <section class="notice" id="draft-notice" hidden>
+            <span class="notice-icon">i</span>
+            <div>
+                <h3>Documento en preparación</h3>
+                <p>Esta política se completará cuando CIMHA esté terminada.</p>
+            </div>
+        </section>
+
+        <!-- Presentación -->
+        <section class="card">
+            <h2 class="card-title">Tu privacidad en CIMHA</h2>
+            <p class="lead" id="policy-intro"></p>
+            <hr class="divider" />
+            <p class="meta">
+                <span class="material-symbols-outlined">event</span>
+                <span>Última actualización: <strong id="policy-date"></strong></span>
+            </p>
+            <p class="meta">
+                <span class="material-symbols-outlined">tag</span>
+                <span>Versión: <strong id="policy-version"></strong></span>
+            </p>
+        </section>
+
+        <!-- Secciones dinámicas -->
+        <div class="sections" id="policy-sections"></div>
+
+        <!-- Acciones -->
+        <div class="actions">
+            <button class="action action-main" id="support-btn" type="button">Contactar soporte</button>
+        </div>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/politica-de-privacidad-contenido.js"></script>
+    <script src="js/politica-de-privacidad.js"></script>
+</body>
+</html>
