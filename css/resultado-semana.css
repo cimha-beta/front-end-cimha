@@ -304,7 +304,7 @@ img {
 .day-overlay-date,
 .day-overlay-weather {
     display: flex;
-    gap: 2px;
+    gap: 4px;
 }
 
 .day-overlay-date {

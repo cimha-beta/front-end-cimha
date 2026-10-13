@@ -208,6 +208,10 @@ function pintarDias(dias, resumen) {
         const hoy = fecha ? esHoy(fecha) : false;
         const nombre = hoy ? 'Hoy' : (fecha ? DIAS_CORTO[fecha.getDay()] : '--');
         const detalle = fecha ? `${fecha.getDate()} ${MESES_CORTO[fecha.getMonth()]}` : '';
+        const nombreLargo = fecha ? DIAS_LARGO[fecha.getDay()] : nombre;
+        const detalleLargo = fecha
+            ? `${fecha.getDate()} de ${MESES_LARGO[fecha.getMonth()]}`
+            : detalle;
 
         const tmin = numero(dia.temperatura_minima);
         const tmax = numero(dia.temperatura_maxima);
@@ -228,7 +232,7 @@ function pintarDias(dias, resumen) {
         fila.setAttribute('role', 'button');
         fila.setAttribute('tabindex', '0');
         fila.setAttribute('aria-expanded', 'false');
-        fila.setAttribute('aria-label', `${nombre}, ${detalle}. Mostrar información del clima.`);
+        fila.setAttribute('aria-label', `${nombreLargo}, ${detalleLargo}. Mostrar información del clima.`);
         const estadoCielo = escaparHTML(dia.estado_cielo || 'Clima no disponible');
         const probabilidadLluvia = lluvia !== null ? `${Math.round(lluvia)}%` : 'Sin dato';
         const icono = iconoClima(dia.estado_cielo);
@@ -248,8 +252,8 @@ function pintarDias(dias, resumen) {
             <span class="day-max">${tmax !== null ? Math.round(tmax) : '--'}°</span>
             <div class="day-detail-overlay" aria-hidden="true">
                 <div class="day-overlay-date">
-                    <span>${nombre}</span>
-                    <small>${detalle}</small>
+                    <span>${nombreLargo}</span>
+                    <small>${detalleLargo}</small>
                 </div>
                 <div class="day-overlay-weather">
                     <img class="day-overlay-icon" src="${icono}" alt="" />
@@ -270,7 +274,7 @@ function pintarDias(dias, resumen) {
             fila.setAttribute('aria-expanded', String(expandida));
             fila.setAttribute(
                 'aria-label',
-                `${nombre}, ${detalle}. ${expandida ? 'Ocultar' : 'Mostrar'} información del clima.`
+                `${nombreLargo}, ${detalleLargo}. ${expandida ? 'Ocultar' : 'Mostrar'} información del clima.`
             );
             fila.querySelector('.day-detail-overlay').setAttribute('aria-hidden', String(!expandida));
         };
