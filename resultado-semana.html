@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronóstico de la Semana - CIMHA</title>
+
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="css/resultado-semana.css" />
+</head>
+<body>
+    <main class="page">
+
+        <!-- Encabezado azul -->
+        <header class="hero">
+            <div class="hero-top">
+                <div>
+                    <div class="hero-place">
+                        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path>
+                        </svg>
+                        <h1 id="ubicacion">Cargando ubicación...</h1>
+                    </div>
+                    <p id="fecha" class="hero-date">--</p>
+                </div>
+                <span id="dias-pill" class="hero-badge">-- días</span>
+            </div>
+
+            <p class="hero-label">Temperatura Pronosticada</p>
+            <p id="temp-rango" class="hero-temp">--°</p>
+            <p id="estado-cielo" class="hero-sky">Cargando información...</p>
+            <p id="estado-detalle" class="hero-detail"></p>
+        </header>
+
+        <!-- Resumen de la semana -->
+        <section class="stats-card">
+
+            <!-- Día más cálido -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-dia-calido.svg" alt="Día más cálido" />
+                </div>
+                <span id="dia-calido-valor" class="stat-value">--°</span>
+                <span class="stat-label">Día Más<br />Cálido</span>
+                <span id="dia-calido-dia" class="stat-day">--</span>
+            </div>
+
+            <!-- Día más lluvioso -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-probailidad-lluvia.png" alt="Día más lluvioso" />
+                </div>
+                <span id="dia-lluvioso-valor" class="stat-value">--%</span>
+                <span class="stat-label">Día Más<br />Lluvioso</span>
+                <span id="dia-lluvioso-dia" class="stat-day">--</span>
+            </div>
+
+            <!-- Viento promedio -->
+            <div class="stat">
+                <div class="stat-icon">
+                    <img src="assets/icon-viento.png" alt="Viento promedio" />
+                </div>
+                <span class="stat-value"><span id="viento-promedio">--</span><small>km/h</small></span>
+                <span class="stat-label">Viento<br />Promedio</span>
+                <span class="stat-day">Semana</span>
+            </div>
+        </section>
+
+        <!-- Día por día -->
+        <section class="days">
+            <h2>Día por día</h2>
+            <p class="section-sub">Temperatura y probabilidad de lluvia</p>
+
+            <!-- Contenedor dinámico de días -->
+            <div id="lista-dias" class="days-card">
+                <p class="empty-state">Cargando pronóstico...</p>
+            </div>
+        </section>
+
+        <!-- Interpretación de la semana -->
+        <section class="interpretation-card">
+            <div class="interpretation-header">
+                <img src="assets/icon-comentario.png" alt="Interpretación" />
+                <h2>Interpretación de la Semana</h2>
+            </div>
+            <p id="interpretacion">Cargando interpretación...</p>
+        </section>
+
+        <!-- Estaciones del río Sinú -->
+        <section class="stations">
+            <div class="stations-head">
+                <div>
+                    <h2>Estaciones del río Sinú</h2>
+                    <p>Estado actual y predicción a 12 horas</p>
+                </div>
+                <span class="next-pill">Próx. 12 h</span>
+            </div>
+
+            <!-- Contenedor dinámico de estaciones -->
+            <div id="contenedor-estaciones" class="stations-card">
+                <p class="empty-state">Cargando estaciones...</p>
+            </div>
+        </section>
+
+        <!-- Nota de fuentes -->
+        <p class="source-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <rect x="3" y="13" width="18" height="7" rx="2" stroke-width="1.8"></rect>
+                <path d="M7 7.5h.01M7 16.5h.01" stroke-width="2.4" stroke-linecap="round"></path>
+            </svg>
+            Los datos numéricos fueron extraídos de las fuentes oficiales.
+        </p>
+
+        <!-- Botón salir -->
+        <button type="button" id="salir-pronostico" class="exit-btn">Salir del pronóstico</button>
+
+    </main>
+
+    <script src="js/resultado-semana.js"></script>
+</body>
+</html>

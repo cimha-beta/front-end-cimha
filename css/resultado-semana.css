@@ -1,0 +1,496 @@
+/* ============================================ */
+/* RESULTADO-SEMANA.CSS                         */
+/* ============================================ */
+
+/* Variables globales */
+:root {
+    --bg: #f7f9fb;
+    --text: #131b2e;
+    --text-soft: #64748b;
+    --line: #eef1f5;
+    --blue: #2563eb;
+    --red: #dc2626;
+    --green: #16a34a;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: var(--bg);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+}
+
+body.loaded {
+    opacity: 1;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+img {
+    display: block;
+}
+
+.page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 32px;
+}
+
+.empty-state {
+    padding: 20px;
+    font-size: 14px;
+    color: var(--text-soft);
+}
+
+/* Encabezado azul */
+.hero {
+    padding: 20px 20px 72px;
+    background-color: var(--blue);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 0 0 32px 32px;
+}
+
+.hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 26px;
+    text-align: left;
+}
+
+.hero-place {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-place svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.hero-place h1 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.hero-date {
+    margin: 2px 0 0 30px;
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+.hero-badge {
+    flex-shrink: 0;
+    padding: 8px 18px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.hero-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #dbe7ff;
+}
+
+.hero-temp {
+    margin-top: 8px;
+    font-size: 68px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.hero-sky {
+    margin-top: 14px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.hero-detail {
+    margin-top: 4px;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* Resumen de la semana */
+.stats-card {
+    position: relative;
+    margin: -36px 16px 0;
+    padding: 18px 8px 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 6px;
+    text-align: center;
+}
+
+.stat + .stat {
+    border-left: 1px solid var(--line);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    background-color: #eaf3ff;
+    border-radius: 50%;
+}
+
+.stat-icon img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.stat-value small {
+    margin-left: 3px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.stat-label {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.3;
+    color: var(--text-soft);
+}
+
+.stat-day {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+/* Día por día */
+.days,
+.stations {
+    margin: 28px 16px 0;
+}
+
+.days h2,
+.stations-head h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.section-sub,
+.stations-head p {
+    margin-top: 2px;
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.days-card,
+.stations-card {
+    margin-top: 14px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+}
+
+.day-row {
+    display: grid;
+    grid-template-columns: 52px 78px 34px 1fr 34px;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+}
+
+.day-row + .day-row {
+    border-top: 1px solid var(--line);
+}
+
+.day-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.day-name.today {
+    color: var(--blue);
+}
+
+.day-date {
+    display: block;
+    margin-top: 1px;
+    font-size: 12px;
+    color: var(--text-soft);
+}
+
+.day-sky {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.day-sky img {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.day-rain {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.day-rain svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.day-rain.wet {
+    font-weight: 700;
+    color: var(--blue);
+}
+
+.day-min {
+    font-size: 14px;
+    color: #475569;
+    text-align: right;
+}
+
+.day-max {
+    font-size: 15px;
+    font-weight: 800;
+    text-align: right;
+}
+
+/* Barra de temperatura */
+.temp-track {
+    position: relative;
+    height: 6px;
+    background-color: var(--line);
+    border-radius: 999px;
+}
+
+.temp-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #6aa5e8, #e8884f);
+    border-radius: 999px;
+}
+
+/* Tarjeta de interpretación */
+.interpretation-card {
+    margin: 24px 16px 0;
+    padding: 18px;
+    background-color: #eef4fe;
+    border: 1px solid #d6e4fb;
+    border-radius: 20px;
+}
+
+.interpretation-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.interpretation-header img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.interpretation-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.interpretation-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #475569;
+}
+
+/* Estaciones del río */
+.stations-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.next-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.station-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+}
+
+.station-item + .station-item {
+    border-top: 1px solid var(--line);
+}
+
+.station-name {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.station-sub {
+    margin-top: 2px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #9ca3af;
+}
+
+.station-level {
+    display: block;
+    margin: 2px 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.station-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.station-trend svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.station-level.aumento { color: var(--green); }
+.station-level.descenso { color: var(--red); }
+.station-level.estable { color: var(--text); }
+
+.station-trend.aumento { background-color: #e8f8ee; color: var(--green); }
+.station-trend.descenso { background-color: #fdecec; color: var(--red); }
+.station-trend.estable { background-color: #eef1f5; color: #475569; }
+
+.station-forecast {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    text-align: right;
+}
+
+.forecast-label {
+    font-size: 13px;
+    color: var(--text-soft);
+}
+
+.forecast-value {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Nota y botón salir */
+.source-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 20px 20px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-soft);
+}
+
+.source-note svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    color: #475569;
+}
+
+.exit-btn {
+    display: block;
+    width: calc(100% - 32px);
+    height: 52px;
+    margin: 0 16px;
+    background-color: #ffffff;
+    color: var(--text);
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.exit-btn:hover {
+    border-color: var(--blue);
+}
+
+.exit-btn:active {
+    transform: scale(0.98);
+}
