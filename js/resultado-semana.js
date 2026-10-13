@@ -188,6 +188,18 @@ function pintarDias(dias, resumen) {
     if (!contenedor) return;
     contenedor.innerHTML = '';
 
+    const encabezado = document.createElement('div');
+    encabezado.className = 'day-header';
+    encabezado.setAttribute('role', 'row');
+    encabezado.innerHTML = `
+        <span role="columnheader">Día</span>
+        <span role="columnheader">Clima</span>
+        <span role="columnheader">Mín</span>
+        <span role="columnheader">Rango</span>
+        <span role="columnheader">Máx</span>
+    `;
+    contenedor.appendChild(encabezado);
+
     const base = resumen.tempMin;
     const rango = (resumen.tempMax - resumen.tempMin) || 1;
 
@@ -213,18 +225,19 @@ function pintarDias(dias, resumen) {
 
         const fila = document.createElement('article');
         fila.className = 'day-row';
+        fila.setAttribute('role', 'row');
         fila.innerHTML = `
-            <div>
+            <div role="cell">
                 <span class="day-name${hoy ? ' today' : ''}">${nombre}</span>
                 <span class="day-date">${detalle}</span>
             </div>
-            <div class="day-sky">
+            <div class="day-sky" role="cell">
                 <img src="${iconoClima(dia.estado_cielo)}" alt="${escaparHTML(dia.estado_cielo || '')}" />
                 <span class="day-rain${lluvioso ? ' wet' : ''}">${GOTA}${lluvia !== null ? Math.round(lluvia) : '--'}%</span>
             </div>
-            <span class="day-min">${tmin !== null ? Math.round(tmin) : '--'}°</span>
-            <div class="temp-track"><span class="temp-fill" style="left:${izquierda.toFixed(1)}%;width:${ancho.toFixed(1)}%"></span></div>
-            <span class="day-max">${tmax !== null ? Math.round(tmax) : '--'}°</span>
+            <span class="day-min" role="cell">${tmin !== null ? Math.round(tmin) : '--'}°</span>
+            <div class="temp-track" role="cell"><span class="temp-fill" style="left:${izquierda.toFixed(1)}%;width:${ancho.toFixed(1)}%"></span></div>
+            <span class="day-max" role="cell">${tmax !== null ? Math.round(tmax) : '--'}°</span>
         `;
         contenedor.appendChild(fila);
     });

@@ -229,12 +229,32 @@ img {
     overflow: hidden;
 }
 
+.day-header,
 .day-row {
     display: grid;
-    grid-template-columns: 52px 78px 34px 1fr 34px;
+    grid-template-columns: 52px 78px 34px minmax(0, 1fr) 34px;
     align-items: center;
     gap: 10px;
     padding: 14px 18px;
+}
+
+.day-header {
+    padding-bottom: 8px;
+    color: var(--text-soft);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.day-header span {
+    white-space: nowrap;
+}
+
+.day-header span:nth-child(n + 3) {
+    text-align: right;
+}
+
+.day-header + .day-row {
+    border-top: 1px solid var(--line);
 }
 
 .day-row + .day-row {
