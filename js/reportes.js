@@ -39,6 +39,7 @@ const emailInput = document.getElementById('email-input');
 const subjectInput = document.getElementById('subject-input');
 const descInput = document.getElementById('desc-input');
 const backButton = document.getElementById('back-button');
+const privacyCheck = document.getElementById('privacy-check');
 
 const deptTrigger = document.getElementById('dept-trigger');
 const deptText = document.getElementById('dept-selected-text');
@@ -218,13 +219,17 @@ function validateForm() {
     const isDeptValid = !!selectedDept;
     const isMuniValid = !!selectedMuni;
     const isTypeValid = !!selectedReportType;
+    const isPrivacyValid = privacyCheck.checked;
 
-    submitBtn.disabled = !(isEmailValid && isSubjectValid && isDescValid && isDeptValid && isMuniValid && isTypeValid);
+    submitBtn.disabled = !(isEmailValid && isSubjectValid && isDescValid && isDeptValid && isMuniValid && isTypeValid && isPrivacyValid);
 }
 
 [emailInput, subjectInput, descInput].forEach(el => {
     el.addEventListener('input', validateForm);
 });
+
+// Política de privacidad aceptada
+privacyCheck.addEventListener('change', validateForm);
 
 // ============================================ //
 // 8. ENVÍO DEL FORMULARIO                      //
@@ -232,7 +237,7 @@ function validateForm() {
 
 submitBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    if (submitBtn.disabled) return;
+    if (submitBtn.disabled || !privacyCheck.checked) return;
 
     // Evitar doble clic
     submitBtn.disabled = true;

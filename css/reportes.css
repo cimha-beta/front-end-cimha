@@ -88,7 +88,7 @@ main.fade-out-back {
 .hero {
     display: flex;
     align-items: center;
-    justify-content: flex-start
+    justify-content: flex-start;
     gap: 5px;
     margin-bottom: 24px;
 }
@@ -354,6 +354,63 @@ form {
 
 .submit:not(:disabled):active {
     transform: scale(0.98);
+}
+
+/* Política y botón enviar */
+.submit-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.submit-row .submit {
+    width: 140px;
+    flex-shrink: 0;
+}
+
+.consent {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.consent input {
+    -webkit-appearance: none;
+    appearance: none;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    background-color: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.consent input:focus {
+    box-shadow: none;
+}
+
+.consent input:checked {
+    background-color: var(--blue);
+    border-color: var(--blue);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-6.5'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+}
+
+.consent a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 /* Nota de seguridad */

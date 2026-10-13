@@ -103,8 +103,14 @@
                 <textarea class="input" id="desc-input" rows="4" placeholder="Cuéntanos con más detalle qué sucedió, en qué parte del sistema ocurre y qué estabas haciendo."></textarea>
             </div>
 
-            <!-- Botón enviar -->
-            <button class="submit" disabled id="submit-button" type="submit">Enviar</button>
+            <!-- Política y botón enviar -->
+            <div class="submit-row">
+                <label class="consent" for="privacy-check">
+                    <input id="privacy-check" type="checkbox" />
+                    <span>Acepto la <a href="politica-de-privacidad.html" target="_blank" rel="noopener">política de privacidad</a></span>
+                </label>
+                <button class="submit" disabled id="submit-button" type="submit">Enviar</button>
+            </div>
 
             <!-- Nota de seguridad -->
             <p class="secure">
