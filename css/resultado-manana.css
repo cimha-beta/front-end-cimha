@@ -189,6 +189,7 @@ img {
     grid-column: 2;
     grid-row: 1;
     display: block;
+    white-space: nowrap;
     font-size: 14px;
     color: var(--text-soft);
 }
@@ -198,8 +199,8 @@ img {
     grid-row: 2;
     display: block;
     margin-top: 2px;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 1.25;
 }
 
