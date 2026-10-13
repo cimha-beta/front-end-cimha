@@ -261,6 +261,21 @@ function finalizarUltimoPaso() {
 // 8. CICLO DE CARGA                            //
 // ============================================ //
 
+function normalizarTipoPronostico(valor) {
+    if (!valor) return 'hoy';
+
+    const texto = String(valor)
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    if (texto === 'hoy') return 'hoy';
+    if (texto === 'manana') return 'mañana';
+    if (texto === 'semana') return 'semana';
+    return 'hoy';
+}
+
 async function iniciarCarga() {
     if (isCancelled) return;
 
@@ -290,8 +305,9 @@ async function iniciarCarga() {
                     finalizarUltimoPaso();
                     setTimeout(() => {
                         if (!isCancelled) {
-                            const tipoPronostico = sessionStorage.getItem('tipoPronostico');
+                            const tipoPronostico = normalizarTipoPronostico(sessionStorage.getItem('tipoPronostico'));
                             const pantallasResultado = {
+                                hoy: 'resultado-del-dia.html',
                                 mañana: 'resultado-manana.html',
                                 semana: 'resultado-semana.html'
                             };
@@ -335,7 +351,7 @@ async function consultarBackendYGuardar() {
         console.log('✅ DATOS RECIBIDOS DEL BACKEND:', data);
 
         sessionStorage.setItem('datosPronostico', JSON.stringify(data.reporte || data));
-        sessionStorage.setItem('tipoPronostico', payload.consulta || 'hoy');
+        sessionStorage.setItem('tipoPronostico', normalizarTipoPronostico(payload.consulta || 'hoy'));
         return data;
     } catch (err) {
         console.error('❌ Error de red o CORS al conectar con el backend:', err);

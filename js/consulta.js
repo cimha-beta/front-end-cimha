@@ -97,18 +97,37 @@ function volver() {
  * Combina la ubicación guardada con el tipo de pronóstico elegido
  * y envía todo junto al webhook
  */
+function normalizarTipoPronostico(valor) {
+    if (!valor) return 'hoy';
+
+    const texto = String(valor)
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    if (texto === 'hoy') return 'hoy';
+    if (texto === 'manana') return 'mañana';
+    if (texto === 'semana') return 'semana';
+    return 'hoy';
+}
+
 function enviarConsulta(tipoPronostico) {
     // Leer lo que guardó consulta-geografica.html
     const ubicacion = JSON.parse(localStorage.getItem('selected_location') || '{}');
+    const tipoNormalizado = normalizarTipoPronostico(tipoPronostico);
 
     const payload = {
         departamento: ubicacion.dept || null,
         municipio: ubicacion.muni || null,
-        consulta: tipoPronostico,
+        consulta: tipoNormalizado,
         fecha: new Date().toISOString()
     };
 
     console.log('🗒 Consulta preparada:', payload);
+
+    // Guardamos el tipo antes de navegar para que la redirección final no dependa del backend.
+    sessionStorage.setItem('tipoPronostico', tipoNormalizado);
 
     // Deja el payload listo en sessionStorage para que carga-pronostico.html
     // realice el POST al backend (esto es lo que permite redirigir al instante).
