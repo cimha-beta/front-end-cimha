@@ -291,9 +291,12 @@ async function iniciarCarga() {
                     setTimeout(() => {
                         if (!isCancelled) {
                             const tipoPronostico = sessionStorage.getItem('tipoPronostico');
-                            const pantallaResultado = tipoPronostico === 'mañana'
-                                ? 'resultado-manana.html'
-                                : 'resultado-del-dia.html';
+                            const pantallasResultado = {
+                                mañana: 'resultado-manana.html',
+                                semana: 'resultado-semana.html'
+                            };
+                            const pantallaResultado = pantallasResultado[tipoPronostico]
+                                || 'resultado-del-dia.html';
                             navegarConTransicion(pantallaResultado);
                         }
                     }, 700);
