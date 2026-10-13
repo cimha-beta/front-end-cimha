@@ -38,37 +38,58 @@
 
         <!-- Tarjeta de estadísticas -->
         <section class="stats-card">
+            <div class="stats-row">
 
-            <!-- Sensación térmica -->
-            <div class="stat">
-                <div class="stat-icon">
-                    <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica" />
+                <!-- Temperatura máxima -->
+                <div class="stat">
+                    <div class="stat-icon bg-red">
+                        <img src="assets/icon-temp-max.png" alt="Temperatura Máxima" />
+                    </div>
+                    <span class="stat-label">Temperatura<br />Máxima</span>
+                    <span id="temp-max" class="stat-value">--°</span>
                 </div>
-                <div class="stat-text">
-                    <span class="stat-label">Sensación Térmica</span>
+
+                <!-- Temperatura mínima -->
+                <div class="stat">
+                    <div class="stat-icon bg-green">
+                        <img src="assets/icon-temp-min.png" alt="Temperatura Mínima" />
+                    </div>
+                    <span class="stat-label">Temperatura<br />Mínima</span>
+                    <span id="temp-min" class="stat-value">--°</span>
+                </div>
+
+                <!-- Sensación térmica -->
+                <div class="stat">
+                    <div class="stat-icon bg-orange">
+                        <img src="assets/icon-sensacion-termica.png" alt="Sensación Térmica" />
+                    </div>
+                    <span class="stat-label">Sensación<br />Térmica</span>
                     <span id="sensacion-termica" class="stat-value">--°</span>
                 </div>
             </div>
 
-            <!-- Probabilidad de lluvia -->
-            <div class="stat">
-                <div class="stat-icon">
-                    <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia" />
-                </div>
-                <div class="stat-text">
-                    <span class="stat-label">Probabilidad de lluvia</span>
-                    <span id="prob-lluvia" class="stat-value">--%</span>
-                </div>
-            </div>
+            <div class="detail-row">
 
-            <!-- Velocidad del viento -->
-            <div class="stat">
-                <div class="stat-icon">
-                    <img src="assets/icon-viento.png" alt="Viento" />
+                <!-- Probabilidad de lluvia -->
+                <div class="detail">
+                    <div class="detail-icon">
+                        <img src="assets/icon-probailidad-lluvia.png" alt="Probabilidad de Lluvia" />
+                    </div>
+                    <div>
+                        <span class="detail-label">Prob. de lluvia</span>
+                        <span id="prob-lluvia" class="detail-value">--%</span>
+                    </div>
                 </div>
-                <div class="stat-text">
-                    <span class="stat-label">Velocidad del Viento</span>
-                    <span class="stat-value"><span id="velocidad-viento">--</span><small>km/h</small></span>
+
+                <!-- Viento -->
+                <div class="detail">
+                    <div class="detail-icon">
+                        <img src="assets/icon-viento.png" alt="Viento" />
+                    </div>
+                    <div>
+                        <span class="detail-label">Viento</span>
+                        <span class="detail-value"><span id="velocidad-viento">--</span><small>km/h</small></span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -77,7 +98,7 @@
         <section class="interpretation-card">
             <div class="interpretation-header">
                 <img src="assets/icon-comentario.png" alt="Interpretación" />
-                <h3>Interpretación del Clima</h3>
+                <h3>Interpretación del clima</h3>
             </div>
             <p id="interpretacion">Cargando interpretación...</p>
         </section>
@@ -86,7 +107,7 @@
         <section class="panel">
             <div class="panel-header">
                 <div>
-                    <h2>Estaciones del Río Sinú</h2>
+                    <h2>Estaciones del río Sinú</h2>
                     <p>Nivel y precipitación por estación</p>
                 </div>
                 <span class="live-badge">En vivo</span>
@@ -101,7 +122,7 @@
             <section class="interpretation-card">
                 <div class="interpretation-header">
                     <img src="assets/icon-comentario.png" alt="Interpretación" />
-                    <h3>Interpretación de Estaciones</h3>
+                    <h3>Interpretación de estaciones</h3>
                 </div>
                 <p id="interpretacion-estaciones">Cargando interpretación...</p>
             </section>
