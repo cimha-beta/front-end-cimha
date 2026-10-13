@@ -231,6 +231,9 @@ function pintarDias(dias, resumen) {
         fila.setAttribute('aria-label', `${nombre}, ${detalle}. Mostrar información del clima.`);
         const estadoCielo = escaparHTML(dia.estado_cielo || 'Clima no disponible');
         const probabilidadLluvia = lluvia !== null ? `${Math.round(lluvia)}%` : 'Sin dato';
+        const icono = iconoClima(dia.estado_cielo);
+        const temperaturaMaxima = tmax !== null ? `${Math.round(tmax)}°` : '--';
+        const temperaturaMinima = tmin !== null ? `${Math.round(tmin)}°` : '--';
         fila.innerHTML = `
             <div>
                 <span class="day-name${hoy ? ' today' : ''}">${nombre}</span>
@@ -249,8 +252,15 @@ function pintarDias(dias, resumen) {
                     <small>${detalle}</small>
                 </div>
                 <div class="day-overlay-weather">
-                    <span>${estadoCielo}</span>
-                    <span>Lluvia <strong>${probabilidadLluvia}</strong></span>
+                    <img class="day-overlay-icon" src="${icono}" alt="" />
+                    <div>
+                        <span>${estadoCielo}</span>
+                        <span>Lluvia <strong>${probabilidadLluvia}</strong></span>
+                    </div>
+                </div>
+                <div class="day-overlay-temperatures">
+                    <div><span>Temp. máx.</span><strong>${temperaturaMaxima}</strong></div>
+                    <div><span>Temp. mín.</span><strong>${temperaturaMinima}</strong></div>
                 </div>
             </div>
         `;

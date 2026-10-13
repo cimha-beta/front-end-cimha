@@ -281,10 +281,10 @@ img {
     z-index: 1;
     inset: 4px 8px;
     display: grid;
-    grid-template-columns: minmax(70px, 0.65fr) minmax(0, 1.35fr);
+    grid-template-columns: minmax(58px, 0.55fr) minmax(0, 1fr) minmax(88px, 0.8fr);
     align-items: center;
-    gap: 12px;
-    padding: 8px 14px;
+    gap: 8px;
+    padding: 8px 12px;
     border: 1px solid #cbd5e1;
     border-radius: 14px;
     background-color: #ffffff;
@@ -304,11 +304,11 @@ img {
 .day-overlay-date,
 .day-overlay-weather {
     display: flex;
-    flex-direction: column;
     gap: 2px;
 }
 
 .day-overlay-date {
+    flex-direction: column;
     color: var(--blue);
     font-size: 15px;
     font-weight: 700;
@@ -321,9 +321,24 @@ img {
 }
 
 .day-overlay-weather {
+    align-items: center;
     min-width: 0;
     color: #475569;
     font-size: 13px;
+}
+
+.day-overlay-icon {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    object-fit: contain;
+}
+
+.day-overlay-weather > div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 2px;
 }
 
 .day-overlay-weather span {
@@ -335,6 +350,27 @@ img {
 .day-overlay-weather strong {
     margin-left: 8px;
     color: var(--text);
+}
+
+.day-overlay-temperatures {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #475569;
+    font-size: 10px;
+}
+
+.day-overlay-temperatures div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.day-overlay-temperatures strong {
+    color: var(--text);
+    font-size: 12px;
 }
 
 .day-name {
