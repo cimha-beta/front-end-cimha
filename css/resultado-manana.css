@@ -153,9 +153,12 @@ img {
 }
 
 .stat {
-    display: flex;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: auto auto;
     align-items: center;
-    gap: 16px;
+    column-gap: 16px;
+    row-gap: 2px;
     padding: 12px 16px;
     border: 1px solid #e5e7eb;
     border-radius: 16px;
@@ -164,6 +167,8 @@ img {
 .stat-icon {
     width: 48px;
     height: 48px;
+    grid-column: 1;
+    grid-row: 1 / span 2;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -181,12 +186,16 @@ img {
 }
 
 .stat-label {
+    grid-column: 2;
+    grid-row: 1;
     display: block;
     font-size: 14px;
     color: var(--text-soft);
 }
 
 .stat-value {
+    grid-column: 2;
+    grid-row: 2;
     display: block;
     margin-top: 2px;
     font-size: 20px;
@@ -199,6 +208,7 @@ img {
     font-size: inherit;
     font-weight: inherit;
 }
+
 
 /* Tarjeta de interpretación */
 .interpretation-card {
