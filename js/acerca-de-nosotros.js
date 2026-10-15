@@ -37,7 +37,7 @@ backButton.addEventListener('click', (e) => {
 supportBtn.addEventListener('click', () => navegarConTransicion('reportes.html'));
 
 // Política de privacidad
-privacyBtn.addEventListener('click', () => navegarConTransicion('politica-privacidad.html'));
+privacyBtn.addEventListener('click', () => navegarConTransicion('politica-de-privacidad.html'));
 
 // ============================================ //
 // 4. INICIALIZACIÓN                            //
