@@ -2,10 +2,7 @@
 // IR-A-CONSULTA.JS - JAVASCRIPT                //
 // ============================================ //
 
-/**
- * CIMHA - Ir a Consulta
- * Selección de tipo de pronóstico
- */
+// Selección del tipo de pronóstico.
 
 // ============================================ //
 // 1. ESPERAR A QUE EL DOM ESTÉ LISTO          //
@@ -69,9 +66,7 @@ function initEntranceTransition() {
 // 4. FUNCIONES DE REDIRECCIÓN                  //
 // ============================================ //
 
-/**
- * Redirige a la pantalla de consulta
- */
+// Navega a la pantalla de carga del pronóstico.
 function irAConsulta() {
     document.querySelector('main').classList.remove('loaded');
     document.querySelector('main').classList.add('fade-out-back');
@@ -81,9 +76,7 @@ function irAConsulta() {
     }, 400);
 }
 
-/**
- * Redirige a la pantalla anterior
- */
+// Vuelve a la pantalla principal.
 function volver() {
     document.querySelector('main').classList.remove('loaded');
     document.querySelector('main').classList.add('fade-out-back');
@@ -93,10 +86,7 @@ function volver() {
     }, 400);
 }
 
-/**
- * Combina la ubicación guardada con el tipo de pronóstico elegido
- * y envía todo junto al webhook
- */
+// Normaliza el tipo de pronóstico al formato que espera el backend.
 function normalizarTipoPronostico(valor) {
     if (!valor) return 'hoy';
 
@@ -153,12 +143,10 @@ function enviarConsulta(tipoPronostico) {
     // Guardamos el tipo antes de navegar para que la redirección final no dependa del backend.
     sessionStorage.setItem('tipoPronostico', tipoNormalizado);
 
-    // Deja el payload listo en sessionStorage para que carga-pronostico.html
-    // realice el POST al backend (esto es lo que permite redirigir al instante).
+    // Guarda el payload para que la pantalla de carga envíe el POST al backend.
     sessionStorage.setItem('consultaPendiente', JSON.stringify(payload));
 
-    // ✅ Redirige a la pantalla de carga INMEDIATAMENTE, sin esperar al servidor.
-    // El backend lo consulta carga-pronostico.js al cargar, en paralelo con la animación.
+    // Inicia la carga sin esperar la respuesta del servidor.
     window.location.href = 'carga-pronostico.html';
 }
 
@@ -166,9 +154,7 @@ function enviarConsulta(tipoPronostico) {
 // 5. FUNCIONES DE UTILIDAD                     //
 // ============================================ //
 
-/**
- * Función para registrar clicks en tarjetas
- */
+// Registra en consola la tarjeta seleccionada.
 function registrarClick(tarjeta) {
     console.log('📱 Tarjeta seleccionada:', tarjeta);
 }

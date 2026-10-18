@@ -2,10 +2,7 @@
 // PRINCIPAL.JS - JAVASCRIPT                    //
 // ============================================ //
 
-/**
- * CIMHA - Pantalla Principal
- * Interacciones y funcionalidades
- */
+// Interacciones de la pantalla principal de CIMHA.
 
 // ============================================ //
 // 1. ESPERAR A QUE EL DOM ESTÉ LISTO          //

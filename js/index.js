@@ -2,10 +2,7 @@
 // INDEX.JS - JAVASCRIPT PRINCIPAL              //
 // ============================================ //
 
-/**
- * CIMHA - Sistema de Precisión Hidrológica
- * Pantalla de bienvenida con logo
- */
+// Pantalla de bienvenida de CIMHA.
 
 // ============================================ //
 // 1. ESPERAR A QUE EL DOM ESTÉ LISTO          //
@@ -62,16 +59,12 @@ function iniciarBienvenida() {
 // 3. FUNCIONES DE UTILIDAD (opcionales)       //
 // ============================================ //
 
-/**
- * Función para redirigir manualmente (si se necesita)
- */
+// Permite redirigir manualmente a otra pantalla.
 function redirigirA(destino) {
     window.location.href = destino;
 }
 
-/**
- * Función para obtener el tiempo restante (debug)
- */
+// Calcula el tiempo restante para una utilidad de depuración.
 function obtenerTiempoRestante(tiempoInicio, duracion) {
     const tiempoActual = Date.now();
     const tiempoTranscurrido = (tiempoActual - tiempoInicio) / 1000;

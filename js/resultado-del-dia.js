@@ -72,8 +72,7 @@ async function cargarDatos() {
 
 async function cargarDatosBackend() {
     try {
-        // La pantalla de consulta-geografica.js guarda la selección en
-        // localStorage bajo la clave 'selected_location' con { dept, muni }
+        // Lee la ubicación guardada en localStorage.
         const ubicacionGuardada = localStorage.getItem('selected_location');
 
         if (!ubicacionGuardada) {
@@ -96,8 +95,7 @@ async function cargarDatosBackend() {
 
         const rawData = await response.json();
 
-        // ⚠️ Tu backend responde { ok: true, reporte: {...} },
-        // no un array ni el objeto de datos directo.
+        // El backend responde { ok: true, reporte: {...} }.
         if (!rawData.ok) {
             throw new Error(rawData.mensaje || 'El backend respondió con un error.');
         }
@@ -247,11 +245,7 @@ function renderizarEstaciones(estacionesData) {
 // MODAL DE TEMPERATURA ALTA                    //
 // ============================================ //
 
-/**
- * Muestra el modal de "Temperaturas Altas" al cargar la pantalla.
- * Se muestra únicamente si la temperatura actual es >= 30°C.
- * El botón "Cancelar" elimina el modal de la pantalla.
- */
+// Muestra el modal de temperatura alta cuando la temperatura alcanza el umbral.
 function mostrarModalTemperaturaAlta(tempActual) {
     const modal = document.getElementById('modal-temp-alta');
     if (!modal) return;
@@ -283,9 +277,7 @@ function initModalTemperatura() {
     }
 }
 
-// ============================================ */
-// VIDEO DEL ESTADO DEL CIELO                   */
-// ============================================ */
+// VIDEO DEL ESTADO DEL CIELO
 
 function actualizarVideoClima(estadoCielo) {
     const videoContainer = document.getElementById('video-estado-cielo');
@@ -317,9 +309,7 @@ function actualizarVideoClima(estadoCielo) {
         'Lluvia intensa'
     ];
 
-    // Normaliza un texto: minúsculas, sin tildes y con espacios simples.
-    // Permite que coincidan variantes del backend (ej. "Parcialmente soleado")
-    // con los nombres exactos de los archivos.
+    // Normaliza tildes y espacios para asociar variantes del estado del cielo.
     function normalizar(texto) {
         return String(texto)
             .toLowerCase()

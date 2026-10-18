@@ -29,12 +29,15 @@ El recorrido normal de un usuario pasa por estas pantallas, en este orden:
    - Arma el payload `{ departamento, municipio, consulta, fecha }`.
    - Lo guarda en `sessionStorage` bajo la clave `consultaPendiente`.
    - Redirige **inmediatamente** a `carga-pronostico.html` (sin esperar respuesta del backend).
+   - `normalizarTipoPronostico()` convierte variantes del tipo elegido a los valores que espera el backend.
 5. **`carga-pronostico.html`** (`js/carga-pronostico.js`) — Pantalla de carga con animación de progreso. Aquí ocurre la petición real:
    - Lee `consultaPendiente` de `sessionStorage`.
    - Hace `POST` al backend (`BACKEND_URL`, ver sección 2).
    - Si la respuesta es exitosa, guarda el resultado en `sessionStorage` bajo la clave `datosPronostico`.
    - Al terminar la animación (y la petición, lo que tarde más), redirige a `resultado-del-dia.html`.
 6. **`resultado-del-dia.html`** (`js/resultado-del-dia.js`) — Lee `datosPronostico` de `sessionStorage` y renderiza el reporte (clima, estaciones del río, Urrá). **No vuelve a llamar al backend** — solo consume lo que ya dejó `carga-pronostico.js`.
+   - Muestra el modal de temperatura alta si la temperatura actual alcanza los 30 °C; el botón «Cancelar» lo cierra.
+   - El video del estado del cielo se muestra para estados conocidos; la comparación normaliza tildes y espacios para admitir variantes del backend.
 
 Otras páginas independientes de este flujo: `acerca-de-nosotros.html`, `fuentes-de-datos.html`, `reportes.html` (formulario de PQRS ciudadano, que sí llama a un endpoint distinto del backend: `/webhook/correo-reportes`).
 

@@ -2,10 +2,7 @@
 // FUENTES-DE-DATOS.JS - JAVASCRIPT             //
 // ============================================ //
 
-/**
- * CIMHA - Fuentes de datos
- * Información sobre fuentes climáticas e hidrológicas
- */
+// Interacciones de la página de fuentes climáticas e hidrológicas.
 
 // ============================================ //
 // 1. ESPERAR A QUE EL DOM ESTÉ LISTO          //
