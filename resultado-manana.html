@@ -74,13 +74,17 @@
             </div>
         </section>
 
-        <!-- Interpretación del pronóstico -->
-        <section class="interpretation-card">
+        <!-- Interpretación del clima -->
+        <section id="interpretacion-estaciones-card" class="interpretation-card">
             <div class="interpretation-header">
                 <img src="assets/icon-comentario.png" alt="Interpretación" />
-                <h2>Interpretación del Pronóstico</h2>
+                <h3>Interpretación del clima</h3>
             </div>
             <p id="interpretacion">Cargando interpretación...</p>
+            <div id="recomendaciones-bloque" class="recomendaciones" hidden>
+                <h4>Recomendaciones</h4>
+                <ul id="recomendaciones-lista"></ul>
+            </div>
         </section>
 
         <!-- Estaciones del río Sinú -->
@@ -97,6 +101,14 @@
             <div id="contenedor-estaciones" class="stations-card">
                 <p class="empty-state">Cargando estaciones...</p>
             </div>
+
+            <section class="interpretation-card">
+                <div class="interpretation-header">
+                    <img src="assets/icon-comentario.png" alt="Interpretación" />
+                    <h3>Interpretación de estaciones</h3>
+                </div>
+                <p id="interpretacion-estaciones">Cargando interpretación...</p>
+            </section>
         </section>
 
         <!-- Nota de fuentes -->

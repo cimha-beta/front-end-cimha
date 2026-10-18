@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function cargarDatosManana() {
+    mostrarMensaje('Cargando interpretación...');
     const datosGuardados = sessionStorage.getItem('datosPronostico');
     if (!datosGuardados) {
         mostrarMensaje('No hay datos de mañana disponibles. Realiza una nueva consulta.');
@@ -43,8 +44,30 @@ function pintarReporte(reporte) {
         establecerTexto('velocidad-viento', reporte.clima.velocidad_viento);
     }
 
-    establecerTexto('interpretacion', reporte.interpretacion || 'Sin información.');
+    establecerTexto(
+        'interpretacion',
+        reporte.clima?.interpretacion ?? reporte.interpretacion ?? 'Sin información.'
+    );
+    const interpretacionEstaciones = reporte.estaciones?.interpretacion;
+    establecerTexto('interpretacion-estaciones', interpretacionEstaciones || 'Sin información.');
+    const tarjetaEstaciones = document.getElementById('interpretacion-estaciones-card');
+    if (tarjetaEstaciones) tarjetaEstaciones.hidden = !interpretacionEstaciones;
+    renderizarRecomendaciones(reporte.clima?.recomendaciones);
     renderizarEstaciones(reporte.estaciones);
+}
+
+function renderizarRecomendaciones(listaRecomendaciones) {
+    const bloque = document.getElementById('recomendaciones-bloque');
+    const lista = document.getElementById('recomendaciones-lista');
+    if (!bloque || !lista) return;
+
+    const elementos = Array.isArray(listaRecomendaciones) ? listaRecomendaciones : [];
+    lista.replaceChildren(...elementos.map(recomendacion => {
+        const elemento = document.createElement('li');
+        elemento.textContent = recomendacion ?? '';
+        return elemento;
+    }));
+    bloque.hidden = elementos.length === 0;
 }
 
 function renderizarEstaciones(estaciones) {
@@ -54,7 +77,7 @@ function renderizarEstaciones(estaciones) {
     contenedor.innerHTML = '';
     const cantidad = Number(estaciones?.cantidad || 0);
     if (!cantidad) {
-        mostrarMensaje('No hay estaciones disponibles para mañana.');
+        contenedor.innerHTML = '<p class="empty-state">No hay estaciones disponibles para mañana.</p>';
         return;
     }
 
@@ -142,6 +165,11 @@ function establecerTextoConUnidad(id, valor, unidad) {
 function mostrarMensaje(mensaje) {
     const contenedor = document.getElementById('contenedor-estaciones');
     if (contenedor) contenedor.innerHTML = `<p class="empty-state">${escaparHTML(mensaje)}</p>`;
+    establecerTexto('interpretacion', mensaje);
+    establecerTexto('interpretacion-estaciones', mensaje);
+    const tarjetaEstaciones = document.getElementById('interpretacion-estaciones-card');
+    if (tarjetaEstaciones) tarjetaEstaciones.hidden = true;
+    renderizarRecomendaciones([]);
 }
 
 function escaparHTML(valor) {

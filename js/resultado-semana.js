@@ -113,6 +113,24 @@ function mostrarMensaje(texto) {
     if (lista) lista.innerHTML = `<p class="empty-state">${escaparHTML(texto)}</p>`;
     if (estaciones) estaciones.innerHTML = '';
     establecerTexto('interpretacion', texto);
+    establecerTexto('interpretacion-estaciones', texto);
+    const tarjetaEstaciones = document.getElementById('interpretacion-estaciones-card');
+    if (tarjetaEstaciones) tarjetaEstaciones.hidden = true;
+    renderizarRecomendaciones([]);
+}
+
+function renderizarRecomendaciones(listaRecomendaciones) {
+    const bloque = document.getElementById('recomendaciones-bloque');
+    const lista = document.getElementById('recomendaciones-lista');
+    if (!bloque || !lista) return;
+
+    const elementos = Array.isArray(listaRecomendaciones) ? listaRecomendaciones : [];
+    lista.replaceChildren(...elementos.map(recomendacion => {
+        const elemento = document.createElement('li');
+        elemento.textContent = recomendacion ?? '';
+        return elemento;
+    }));
+    bloque.hidden = elementos.length === 0;
 }
 
 // Ícono según el estado del cielo
@@ -383,6 +401,7 @@ function renderizarEstaciones(estaciones) {
 // ============================================ //
 
 function pintarReporte(reporte) {
+    renderizarRecomendaciones(reporte.recomendaciones);
     const dias = Array.isArray(reporte.clima) ? reporte.clima : [];
     if (!dias.length) {
         mostrarMensaje('No hay pronóstico disponible para esta semana.');
@@ -393,11 +412,19 @@ function pintarReporte(reporte) {
     pintarEncabezado(reporte, dias, resumen);
     pintarResumen(resumen);
     pintarDias(dias, resumen);
-    establecerTexto('interpretacion', reporte.interpretacion || 'Sin información suficiente');
+    establecerTexto(
+        'interpretacion',
+        reporte.interpretacion_clima ?? reporte.interpretacion ?? 'Sin información suficiente'
+    );
+    const interpretacionEstaciones = reporte.estaciones?.interpretacion;
+    establecerTexto('interpretacion-estaciones', interpretacionEstaciones || 'Sin información.');
+    const tarjetaEstaciones = document.getElementById('interpretacion-estaciones-card');
+    if (tarjetaEstaciones) tarjetaEstaciones.hidden = !interpretacionEstaciones;
     renderizarEstaciones(reporte.estaciones);
 }
 
 function cargarReporte() {
+    mostrarMensaje('Cargando interpretación...');
     const crudo = sessionStorage.getItem('datosPronostico');
     if (!crudo) {
         mostrarMensaje('No hay datos para mostrar. Vuelve a realizar la consulta.');
