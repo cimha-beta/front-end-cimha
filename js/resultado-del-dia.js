@@ -136,6 +136,7 @@ function poblarInterfaz(resultado) {
         document.getElementById('velocidad-viento').textContent = resultado.clima.velocidad_viento ?? '--';
         document.getElementById('interpretacion').textContent =
             resultado.interpretacion ?? resultado.clima.interpretacion ?? 'Sin información.';
+        renderizarRecomendaciones(resultado.clima.recomendaciones);
 
         // Modal de temperatura alta: se muestra SOLO si temp actual >= 30°C
         if (!isNaN(tempActual) && tempActual >= 30) {
@@ -158,6 +159,25 @@ function poblarInterfaz(resultado) {
         document.getElementById('urra-rebosadero').textContent = resultado.urra.caudal_rebosadero ?? '--';
         document.getElementById('urra-interpretacion').textContent = resultado.urra.interpretacion ?? 'Sin información.';
     }
+}
+
+function renderizarRecomendaciones(recomendaciones) {
+    const bloque = document.getElementById('recomendaciones-bloque');
+    const lista = document.getElementById('recomendaciones-lista');
+    if (!bloque || !lista) return;
+
+    lista.replaceChildren();
+    if (!Array.isArray(recomendaciones) || recomendaciones.length === 0) {
+        bloque.hidden = true;
+        return;
+    }
+
+    recomendaciones.forEach(recomendacion => {
+        const elemento = document.createElement('li');
+        elemento.textContent = recomendacion;
+        lista.appendChild(elemento);
+    });
+    bloque.hidden = false;
 }
 
 // Generador dinámico para `estacion_n_...`
